@@ -7,15 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F1B2EFFC2D91B863E9323D52 /* libPods-Triper_IOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 805FA23E8F8C7F4C33D18610 /* libPods-Triper_IOS.a */; };
 		FDBFA4F51D1C23020074D92D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4F41D1C23020074D92D /* main.m */; };
 		FDBFA4F81D1C23020074D92D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4F71D1C23020074D92D /* AppDelegate.m */; };
-		FDBFA4FB1D1C23020074D92D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4FA1D1C23020074D92D /* ViewController.m */; };
+		FDBFA4FB1D1C23020074D92D /* TSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4FA1D1C23020074D92D /* TSLoginViewController.m */; };
 		FDBFA4FE1D1C23020074D92D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDBFA4FC1D1C23020074D92D /* Main.storyboard */; };
 		FDBFA5011D1C23020074D92D /* Triper_IOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4FF1D1C23020074D92D /* Triper_IOS.xcdatamodeld */; };
 		FDBFA5031D1C23020074D92D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDBFA5021D1C23020074D92D /* Assets.xcassets */; };
 		FDBFA5061D1C23020074D92D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDBFA5041D1C23020074D92D /* LaunchScreen.storyboard */; };
 		FDBFA5111D1C23030074D92D /* Triper_IOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA5101D1C23030074D92D /* Triper_IOSTests.m */; };
 		FDBFA51C1D1C23030074D92D /* Triper_IOSUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA51B1D1C23030074D92D /* Triper_IOSUITests.m */; };
+		FDF38CBB1D1C7AED005D081F /* TSServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FDF38CBA1D1C7AED005D081F /* TSServerManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,12 +38,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		805FA23E8F8C7F4C33D18610 /* libPods-Triper_IOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Triper_IOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		906A3ACFD747A10A9AA94296 /* Pods-Triper_IOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Triper_IOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Triper_IOS/Pods-Triper_IOS.debug.xcconfig"; sourceTree = "<group>"; };
+		E46800479BB6420A412BEB96 /* Pods-Triper_IOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Triper_IOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-Triper_IOS/Pods-Triper_IOS.release.xcconfig"; sourceTree = "<group>"; };
 		FDBFA4F01D1C23010074D92D /* Triper_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Triper_IOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDBFA4F41D1C23020074D92D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FDBFA4F61D1C23020074D92D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FDBFA4F71D1C23020074D92D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		FDBFA4F91D1C23020074D92D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		FDBFA4FA1D1C23020074D92D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		FDBFA4F91D1C23020074D92D /* TSLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TSLoginViewController.h; sourceTree = "<group>"; };
+		FDBFA4FA1D1C23020074D92D /* TSLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TSLoginViewController.m; sourceTree = "<group>"; };
 		FDBFA4FD1D1C23020074D92D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FDBFA5001D1C23020074D92D /* Triper_IOS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Triper_IOS.xcdatamodel; sourceTree = "<group>"; };
 		FDBFA5021D1C23020074D92D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -53,6 +58,8 @@
 		FDBFA5171D1C23030074D92D /* Triper_IOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Triper_IOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDBFA51B1D1C23030074D92D /* Triper_IOSUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Triper_IOSUITests.m; sourceTree = "<group>"; };
 		FDBFA51D1D1C23030074D92D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FDF38CB91D1C7AED005D081F /* TSServerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSServerManager.h; sourceTree = "<group>"; };
+		FDF38CBA1D1C7AED005D081F /* TSServerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSServerManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1B2EFFC2D91B863E9323D52 /* libPods-Triper_IOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +88,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		35E7B8FE43D2DD46C4B36EFB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				805FA23E8F8C7F4C33D18610 /* libPods-Triper_IOS.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CA4E60AC96CFCA5CA55B02DA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				906A3ACFD747A10A9AA94296 /* Pods-Triper_IOS.debug.xcconfig */,
+				E46800479BB6420A412BEB96 /* Pods-Triper_IOS.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		FDBFA4E71D1C23010074D92D = {
 			isa = PBXGroup;
 			children = (
@@ -87,6 +112,8 @@
 				FDBFA50F1D1C23030074D92D /* Triper_IOSTests */,
 				FDBFA51A1D1C23030074D92D /* Triper_IOSUITests */,
 				FDBFA4F11D1C23010074D92D /* Products */,
+				CA4E60AC96CFCA5CA55B02DA /* Pods */,
+				35E7B8FE43D2DD46C4B36EFB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,10 +130,9 @@
 		FDBFA4F21D1C23020074D92D /* Triper_IOS */ = {
 			isa = PBXGroup;
 			children = (
-				FDBFA4F61D1C23020074D92D /* AppDelegate.h */,
-				FDBFA4F71D1C23020074D92D /* AppDelegate.m */,
-				FDBFA4F91D1C23020074D92D /* ViewController.h */,
-				FDBFA4FA1D1C23020074D92D /* ViewController.m */,
+				FDF38CB71D1C797B005D081F /* App */,
+				FDF38CBC1D1C7AF8005D081F /* ServerManager */,
+				FDF38CB61D1C7954005D081F /* Controllers */,
 				FDBFA4FC1D1C23020074D92D /* Main.storyboard */,
 				FDBFA5021D1C23020074D92D /* Assets.xcassets */,
 				FDBFA5041D1C23020074D92D /* LaunchScreen.storyboard */,
@@ -143,6 +169,33 @@
 			path = Triper_IOSUITests;
 			sourceTree = "<group>";
 		};
+		FDF38CB61D1C7954005D081F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FDBFA4F91D1C23020074D92D /* TSLoginViewController.h */,
+				FDBFA4FA1D1C23020074D92D /* TSLoginViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		FDF38CB71D1C797B005D081F /* App */ = {
+			isa = PBXGroup;
+			children = (
+				FDBFA4F61D1C23020074D92D /* AppDelegate.h */,
+				FDBFA4F71D1C23020074D92D /* AppDelegate.m */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
+		FDF38CBC1D1C7AF8005D081F /* ServerManager */ = {
+			isa = PBXGroup;
+			children = (
+				FDF38CB91D1C7AED005D081F /* TSServerManager.h */,
+				FDF38CBA1D1C7AED005D081F /* TSServerManager.m */,
+			);
+			name = ServerManager;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -150,9 +203,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FDBFA5201D1C23030074D92D /* Build configuration list for PBXNativeTarget "Triper_IOS" */;
 			buildPhases = (
+				5E42C6634347DFBCF11553D2 /* [CP] Check Pods Manifest.lock */,
 				FDBFA4EC1D1C23010074D92D /* Sources */,
 				FDBFA4ED1D1C23010074D92D /* Frameworks */,
 				FDBFA4EE1D1C23010074D92D /* Resources */,
+				6063DA26A43BC565983E563F /* [CP] Embed Pods Frameworks */,
+				B46484AB64F54CADE2676D17 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -205,6 +261,7 @@
 		FDBFA4E81D1C23010074D92D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = TS;
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Tsvigun Alexandr";
 				TargetAttributes = {
@@ -271,13 +328,62 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5E42C6634347DFBCF11553D2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6063DA26A43BC565983E563F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Triper_IOS/Pods-Triper_IOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B46484AB64F54CADE2676D17 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Triper_IOS/Pods-Triper_IOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		FDBFA4EC1D1C23010074D92D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FDBFA4FB1D1C23020074D92D /* ViewController.m in Sources */,
+				FDBFA4FB1D1C23020074D92D /* TSLoginViewController.m in Sources */,
 				FDBFA4F81D1C23020074D92D /* AppDelegate.m in Sources */,
+				FDF38CBB1D1C7AED005D081F /* TSServerManager.m in Sources */,
 				FDBFA4F51D1C23020074D92D /* main.m in Sources */,
 				FDBFA5011D1C23020074D92D /* Triper_IOS.xcdatamodeld in Sources */,
 			);
@@ -420,6 +526,7 @@
 		};
 		FDBFA5211D1C23030074D92D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 906A3ACFD747A10A9AA94296 /* Pods-Triper_IOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Triper_IOS/Info.plist;
@@ -431,6 +538,7 @@
 		};
 		FDBFA5221D1C23030074D92D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E46800479BB6420A412BEB96 /* Pods-Triper_IOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Triper_IOS/Info.plist;
@@ -505,6 +613,7 @@
 				FDBFA5221D1C23030074D92D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FDBFA5231D1C23030074D92D /* Build configuration list for PBXNativeTarget "Triper_IOSTests" */ = {
 			isa = XCConfigurationList;
@@ -513,6 +622,7 @@
 				FDBFA5251D1C23030074D92D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FDBFA5261D1C23030074D92D /* Build configuration list for PBXNativeTarget "Triper_IOSUITests" */ = {
 			isa = XCConfigurationList;
@@ -521,6 +631,7 @@
 				FDBFA5281D1C23030074D92D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
