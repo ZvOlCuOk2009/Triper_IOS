@@ -1,0 +1,541 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FDBFA4F51D1C23020074D92D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4F41D1C23020074D92D /* main.m */; };
+		FDBFA4F81D1C23020074D92D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4F71D1C23020074D92D /* AppDelegate.m */; };
+		FDBFA4FB1D1C23020074D92D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4FA1D1C23020074D92D /* ViewController.m */; };
+		FDBFA4FE1D1C23020074D92D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDBFA4FC1D1C23020074D92D /* Main.storyboard */; };
+		FDBFA5011D1C23020074D92D /* Triper_IOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4FF1D1C23020074D92D /* Triper_IOS.xcdatamodeld */; };
+		FDBFA5031D1C23020074D92D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDBFA5021D1C23020074D92D /* Assets.xcassets */; };
+		FDBFA5061D1C23020074D92D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDBFA5041D1C23020074D92D /* LaunchScreen.storyboard */; };
+		FDBFA5111D1C23030074D92D /* Triper_IOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA5101D1C23030074D92D /* Triper_IOSTests.m */; };
+		FDBFA51C1D1C23030074D92D /* Triper_IOSUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA51B1D1C23030074D92D /* Triper_IOSUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FDBFA50D1D1C23030074D92D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FDBFA4E81D1C23010074D92D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FDBFA4EF1D1C23010074D92D;
+			remoteInfo = Triper_IOS;
+		};
+		FDBFA5181D1C23030074D92D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FDBFA4E81D1C23010074D92D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FDBFA4EF1D1C23010074D92D;
+			remoteInfo = Triper_IOS;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		FDBFA4F01D1C23010074D92D /* Triper_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Triper_IOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FDBFA4F41D1C23020074D92D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		FDBFA4F61D1C23020074D92D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		FDBFA4F71D1C23020074D92D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		FDBFA4F91D1C23020074D92D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		FDBFA4FA1D1C23020074D92D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		FDBFA4FD1D1C23020074D92D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FDBFA5001D1C23020074D92D /* Triper_IOS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Triper_IOS.xcdatamodel; sourceTree = "<group>"; };
+		FDBFA5021D1C23020074D92D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FDBFA5051D1C23020074D92D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FDBFA5071D1C23020074D92D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FDBFA50C1D1C23030074D92D /* Triper_IOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Triper_IOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FDBFA5101D1C23030074D92D /* Triper_IOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Triper_IOSTests.m; sourceTree = "<group>"; };
+		FDBFA5121D1C23030074D92D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FDBFA5171D1C23030074D92D /* Triper_IOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Triper_IOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FDBFA51B1D1C23030074D92D /* Triper_IOSUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Triper_IOSUITests.m; sourceTree = "<group>"; };
+		FDBFA51D1D1C23030074D92D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FDBFA4ED1D1C23010074D92D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDBFA5091D1C23020074D92D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDBFA5141D1C23030074D92D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FDBFA4E71D1C23010074D92D = {
+			isa = PBXGroup;
+			children = (
+				FDBFA4F21D1C23020074D92D /* Triper_IOS */,
+				FDBFA50F1D1C23030074D92D /* Triper_IOSTests */,
+				FDBFA51A1D1C23030074D92D /* Triper_IOSUITests */,
+				FDBFA4F11D1C23010074D92D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FDBFA4F11D1C23010074D92D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FDBFA4F01D1C23010074D92D /* Triper_IOS.app */,
+				FDBFA50C1D1C23030074D92D /* Triper_IOSTests.xctest */,
+				FDBFA5171D1C23030074D92D /* Triper_IOSUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FDBFA4F21D1C23020074D92D /* Triper_IOS */ = {
+			isa = PBXGroup;
+			children = (
+				FDBFA4F61D1C23020074D92D /* AppDelegate.h */,
+				FDBFA4F71D1C23020074D92D /* AppDelegate.m */,
+				FDBFA4F91D1C23020074D92D /* ViewController.h */,
+				FDBFA4FA1D1C23020074D92D /* ViewController.m */,
+				FDBFA4FC1D1C23020074D92D /* Main.storyboard */,
+				FDBFA5021D1C23020074D92D /* Assets.xcassets */,
+				FDBFA5041D1C23020074D92D /* LaunchScreen.storyboard */,
+				FDBFA5071D1C23020074D92D /* Info.plist */,
+				FDBFA4FF1D1C23020074D92D /* Triper_IOS.xcdatamodeld */,
+				FDBFA4F31D1C23020074D92D /* Supporting Files */,
+			);
+			path = Triper_IOS;
+			sourceTree = "<group>";
+		};
+		FDBFA4F31D1C23020074D92D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FDBFA4F41D1C23020074D92D /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FDBFA50F1D1C23030074D92D /* Triper_IOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				FDBFA5101D1C23030074D92D /* Triper_IOSTests.m */,
+				FDBFA5121D1C23030074D92D /* Info.plist */,
+			);
+			path = Triper_IOSTests;
+			sourceTree = "<group>";
+		};
+		FDBFA51A1D1C23030074D92D /* Triper_IOSUITests */ = {
+			isa = PBXGroup;
+			children = (
+				FDBFA51B1D1C23030074D92D /* Triper_IOSUITests.m */,
+				FDBFA51D1D1C23030074D92D /* Info.plist */,
+			);
+			path = Triper_IOSUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FDBFA4EF1D1C23010074D92D /* Triper_IOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FDBFA5201D1C23030074D92D /* Build configuration list for PBXNativeTarget "Triper_IOS" */;
+			buildPhases = (
+				FDBFA4EC1D1C23010074D92D /* Sources */,
+				FDBFA4ED1D1C23010074D92D /* Frameworks */,
+				FDBFA4EE1D1C23010074D92D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Triper_IOS;
+			productName = Triper_IOS;
+			productReference = FDBFA4F01D1C23010074D92D /* Triper_IOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FDBFA50B1D1C23020074D92D /* Triper_IOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FDBFA5231D1C23030074D92D /* Build configuration list for PBXNativeTarget "Triper_IOSTests" */;
+			buildPhases = (
+				FDBFA5081D1C23020074D92D /* Sources */,
+				FDBFA5091D1C23020074D92D /* Frameworks */,
+				FDBFA50A1D1C23020074D92D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FDBFA50E1D1C23030074D92D /* PBXTargetDependency */,
+			);
+			name = Triper_IOSTests;
+			productName = Triper_IOSTests;
+			productReference = FDBFA50C1D1C23030074D92D /* Triper_IOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		FDBFA5161D1C23030074D92D /* Triper_IOSUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FDBFA5261D1C23030074D92D /* Build configuration list for PBXNativeTarget "Triper_IOSUITests" */;
+			buildPhases = (
+				FDBFA5131D1C23030074D92D /* Sources */,
+				FDBFA5141D1C23030074D92D /* Frameworks */,
+				FDBFA5151D1C23030074D92D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FDBFA5191D1C23030074D92D /* PBXTargetDependency */,
+			);
+			name = Triper_IOSUITests;
+			productName = Triper_IOSUITests;
+			productReference = FDBFA5171D1C23030074D92D /* Triper_IOSUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FDBFA4E81D1C23010074D92D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Tsvigun Alexandr";
+				TargetAttributes = {
+					FDBFA4EF1D1C23010074D92D = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 5D7GRV784H;
+					};
+					FDBFA50B1D1C23020074D92D = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 5D7GRV784H;
+						TestTargetID = FDBFA4EF1D1C23010074D92D;
+					};
+					FDBFA5161D1C23030074D92D = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 5D7GRV784H;
+						TestTargetID = FDBFA4EF1D1C23010074D92D;
+					};
+				};
+			};
+			buildConfigurationList = FDBFA4EB1D1C23010074D92D /* Build configuration list for PBXProject "Triper_IOS" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FDBFA4E71D1C23010074D92D;
+			productRefGroup = FDBFA4F11D1C23010074D92D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FDBFA4EF1D1C23010074D92D /* Triper_IOS */,
+				FDBFA50B1D1C23020074D92D /* Triper_IOSTests */,
+				FDBFA5161D1C23030074D92D /* Triper_IOSUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FDBFA4EE1D1C23010074D92D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDBFA5061D1C23020074D92D /* LaunchScreen.storyboard in Resources */,
+				FDBFA5031D1C23020074D92D /* Assets.xcassets in Resources */,
+				FDBFA4FE1D1C23020074D92D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDBFA50A1D1C23020074D92D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDBFA5151D1C23030074D92D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FDBFA4EC1D1C23010074D92D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDBFA4FB1D1C23020074D92D /* ViewController.m in Sources */,
+				FDBFA4F81D1C23020074D92D /* AppDelegate.m in Sources */,
+				FDBFA4F51D1C23020074D92D /* main.m in Sources */,
+				FDBFA5011D1C23020074D92D /* Triper_IOS.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDBFA5081D1C23020074D92D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDBFA5111D1C23030074D92D /* Triper_IOSTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDBFA5131D1C23030074D92D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDBFA51C1D1C23030074D92D /* Triper_IOSUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FDBFA50E1D1C23030074D92D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FDBFA4EF1D1C23010074D92D /* Triper_IOS */;
+			targetProxy = FDBFA50D1D1C23030074D92D /* PBXContainerItemProxy */;
+		};
+		FDBFA5191D1C23030074D92D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FDBFA4EF1D1C23010074D92D /* Triper_IOS */;
+			targetProxy = FDBFA5181D1C23030074D92D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		FDBFA4FC1D1C23020074D92D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FDBFA4FD1D1C23020074D92D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		FDBFA5041D1C23020074D92D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FDBFA5051D1C23020074D92D /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FDBFA51E1D1C23030074D92D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FDBFA51F1D1C23030074D92D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FDBFA5211D1C23030074D92D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Triper_IOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tsvigunalexandr.Triper-IOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		FDBFA5221D1C23030074D92D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Triper_IOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tsvigunalexandr.Triper-IOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		FDBFA5241D1C23030074D92D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = Triper_IOSTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tsvigunalexandr.Triper-IOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Triper_IOS.app/Triper_IOS";
+			};
+			name = Debug;
+		};
+		FDBFA5251D1C23030074D92D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = Triper_IOSTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tsvigunalexandr.Triper-IOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Triper_IOS.app/Triper_IOS";
+			};
+			name = Release;
+		};
+		FDBFA5271D1C23030074D92D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = Triper_IOSUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tsvigunalexandr.Triper-IOSUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Triper_IOS;
+			};
+			name = Debug;
+		};
+		FDBFA5281D1C23030074D92D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = Triper_IOSUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tsvigunalexandr.Triper-IOSUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Triper_IOS;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FDBFA4EB1D1C23010074D92D /* Build configuration list for PBXProject "Triper_IOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FDBFA51E1D1C23030074D92D /* Debug */,
+				FDBFA51F1D1C23030074D92D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FDBFA5201D1C23030074D92D /* Build configuration list for PBXNativeTarget "Triper_IOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FDBFA5211D1C23030074D92D /* Debug */,
+				FDBFA5221D1C23030074D92D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		FDBFA5231D1C23030074D92D /* Build configuration list for PBXNativeTarget "Triper_IOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FDBFA5241D1C23030074D92D /* Debug */,
+				FDBFA5251D1C23030074D92D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		FDBFA5261D1C23030074D92D /* Build configuration list for PBXNativeTarget "Triper_IOSUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FDBFA5271D1C23030074D92D /* Debug */,
+				FDBFA5281D1C23030074D92D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		FDBFA4FF1D1C23020074D92D /* Triper_IOS.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FDBFA5001D1C23020074D92D /* Triper_IOS.xcdatamodel */,
+			);
+			currentVersion = FDBFA5001D1C23020074D92D /* Triper_IOS.xcdatamodel */;
+			path = Triper_IOS.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = FDBFA4E81D1C23010074D92D /* Project object */;
+}
