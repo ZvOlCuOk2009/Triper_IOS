@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		F1B2EFFC2D91B863E9323D52 /* libPods-Triper_IOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 805FA23E8F8C7F4C33D18610 /* libPods-Triper_IOS.a */; };
+		FD2B81FA1D1E8E840041FBA0 /* TSCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD2B81F91D1E8E840041FBA0 /* TSCardViewController.m */; };
+		FD8F24D11D1D3FAB00B4E132 /* TSAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8F24D01D1D3FAB00B4E132 /* TSAccountViewController.m */; };
 		FDBFA4F51D1C23020074D92D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4F41D1C23020074D92D /* main.m */; };
 		FDBFA4F81D1C23020074D92D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4F71D1C23020074D92D /* AppDelegate.m */; };
 		FDBFA4FB1D1C23020074D92D /* TSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4FA1D1C23020074D92D /* TSLoginViewController.m */; };
@@ -41,6 +43,10 @@
 		805FA23E8F8C7F4C33D18610 /* libPods-Triper_IOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Triper_IOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		906A3ACFD747A10A9AA94296 /* Pods-Triper_IOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Triper_IOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Triper_IOS/Pods-Triper_IOS.debug.xcconfig"; sourceTree = "<group>"; };
 		E46800479BB6420A412BEB96 /* Pods-Triper_IOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Triper_IOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-Triper_IOS/Pods-Triper_IOS.release.xcconfig"; sourceTree = "<group>"; };
+		FD2B81F81D1E8E840041FBA0 /* TSCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCardViewController.h; sourceTree = "<group>"; };
+		FD2B81F91D1E8E840041FBA0 /* TSCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCardViewController.m; sourceTree = "<group>"; };
+		FD8F24CF1D1D3FAB00B4E132 /* TSAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSAccountViewController.h; sourceTree = "<group>"; };
+		FD8F24D01D1D3FAB00B4E132 /* TSAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSAccountViewController.m; sourceTree = "<group>"; };
 		FDBFA4F01D1C23010074D92D /* Triper_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Triper_IOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDBFA4F41D1C23020074D92D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FDBFA4F61D1C23020074D92D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -174,6 +180,10 @@
 			children = (
 				FDBFA4F91D1C23020074D92D /* TSLoginViewController.h */,
 				FDBFA4FA1D1C23020074D92D /* TSLoginViewController.m */,
+				FD8F24CF1D1D3FAB00B4E132 /* TSAccountViewController.h */,
+				FD8F24D01D1D3FAB00B4E132 /* TSAccountViewController.m */,
+				FD2B81F81D1E8E840041FBA0 /* TSCardViewController.h */,
+				FD2B81F91D1E8E840041FBA0 /* TSCardViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -384,8 +394,10 @@
 				FDBFA4FB1D1C23020074D92D /* TSLoginViewController.m in Sources */,
 				FDBFA4F81D1C23020074D92D /* AppDelegate.m in Sources */,
 				FDF38CBB1D1C7AED005D081F /* TSServerManager.m in Sources */,
+				FD2B81FA1D1E8E840041FBA0 /* TSCardViewController.m in Sources */,
 				FDBFA4F51D1C23020074D92D /* main.m in Sources */,
 				FDBFA5011D1C23020074D92D /* Triper_IOS.xcdatamodeld in Sources */,
+				FD8F24D11D1D3FAB00B4E132 /* TSAccountViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

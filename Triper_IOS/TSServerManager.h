@@ -11,6 +11,8 @@
 @interface TSServerManager : NSObject
 
 + (TSServerManager *)sharedManager;
-- (void)authorizationOfNewUser:(NSString *)userID userLogin:(NSString *)userLogin;
+- (void)authorizationOfNewUser:(NSString *)userID
+                     userLogin:(NSString *)userLogin
+                     onSuccess:(void(^)(NSArray *token)) success;
 
 @end

@@ -31,22 +31,27 @@
 {
     self = [super init];
     if (self) {
-        NSURL *url = [NSURL URLWithString:@"http://www.golinkder.com/process.php/MyApi/login"];
-        self.sessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:url];
+        //NSURL *url = [NSURL URLWithString:@"http://www.golinkder.com/process.php/MyApi/login"];
+        self.sessionManager = [[AFHTTPSessionManager alloc] init];
     }
     return self;
 }
 
-- (void)authorizationOfNewUser:(NSString *)userID userLogin:(NSString *)userLogin
+- (void)authorizationOfNewUser:(NSString *)userID
+                     userLogin:(NSString *)userLogin
+                     onSuccess:(void(^)(NSArray *token)) success
 {
     NSDictionary *parameters = @{@"id":userID,
                                  @"name":userLogin};
     
-    [self.sessionManager POST:@"Content-Type: application/x-www-form-urlencoded"
+    [self.sessionManager POST:@"http://www.golinkder.com/process.php/MyApi/login"
                    parameters:parameters
                      progress:nil
                       success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                          
+                          NSMutableArray *objectArray = [NSMutableArray array];
+                          if (success) {
+                              success(objectArray);
+                          }
                       }
                       failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                           
