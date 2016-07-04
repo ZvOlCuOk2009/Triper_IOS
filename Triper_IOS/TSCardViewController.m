@@ -7,10 +7,12 @@
 //
 
 #import "TSCardViewController.h"
+#import "SWRevealViewController.h"
 
 @interface TSCardViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *personalDataView;
+@property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 
 @end
 

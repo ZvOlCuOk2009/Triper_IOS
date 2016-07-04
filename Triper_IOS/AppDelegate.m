@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#import "TSLoginViewController.h"
+#import "TSHomeViewController.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @interface AppDelegate ()
 
@@ -14,13 +17,32 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
     
+    [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
+    
+//    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+//    if([[NSUserDefaults standardUserDefaults] valueForKey:@"AlreadyLogin"])
+//    {
+//        TSHomeViewController *homeViewController = [storyBoard instantiateViewControllerWithIdentifier:@"TSHomeViewController"];
+//        self.window.rootViewController = homeViewController;
+//    }
+//    else
+//    {
+//        TSLoginViewController  *loginViewController = [storyBoard instantiateViewControllerWithIdentifier:@"TSLoginViewController"];
+//        self.window.rootViewController = loginViewController;
+//    }
+    
     return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    
+    return [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url
+                                                sourceApplication:sourceApplication annotation:annotation];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

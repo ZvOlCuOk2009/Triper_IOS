@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 @interface TSLoginViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
+@property (weak, nonatomic) IBOutlet FBSDKLoginButton *loginButton;
+
 - (IBAction)signInButtonAction:(UIButton *)sender;
 
 @end

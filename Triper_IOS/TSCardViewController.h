@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TSHomeViewController.h"
 
-@interface TSCardViewController : UIViewController
+@interface TSCardViewController : TSHomeViewController
 
 @end

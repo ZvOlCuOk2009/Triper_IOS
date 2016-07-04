@@ -3,4 +3,6 @@
 
 target 'Triper_IOS' do
 pod 'AFNetworking'
+pod 'FBSDKCoreKit' 
+pod 'FBSDKLoginKit'
 end

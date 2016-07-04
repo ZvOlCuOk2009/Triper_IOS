@@ -7,7 +7,13 @@
 //
 
 #import "TSAccountViewController.h"
+#import "SWRevealViewController.h"
 
 @implementation TSAccountViewController
+
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+}
 
 @end

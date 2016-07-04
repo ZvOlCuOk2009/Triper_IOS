@@ -8,7 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		F1B2EFFC2D91B863E9323D52 /* libPods-Triper_IOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 805FA23E8F8C7F4C33D18610 /* libPods-Triper_IOS.a */; };
+		FD05E8C81D2727F000C74141 /* TSCustomImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = FD05E8C71D2727F000C74141 /* TSCustomImageView.m */; };
+		FD1334A11D27FFAC0074F5E9 /* TSHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD1334A01D27FFAC0074F5E9 /* TSHomeViewController.m */; };
+		FD1334A71D2809CD0074F5E9 /* TSHomeNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD1334A61D2809CD0074F5E9 /* TSHomeNavigationController.m */; };
+		FD1334AB1D2811E70074F5E9 /* TSUser.m in Sources */ = {isa = PBXBuildFile; fileRef = FD1334AA1D2811E70074F5E9 /* TSUser.m */; };
 		FD2B81FA1D1E8E840041FBA0 /* TSCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD2B81F91D1E8E840041FBA0 /* TSCardViewController.m */; };
+		FD4CB1FD1D26C3FF007C579E /* TSProfilViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4CB1FC1D26C3FF007C579E /* TSProfilViewController.m */; };
+		FD530D601D265E3500E0651A /* TSSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD530D5F1D265E3500E0651A /* TSSettingsViewController.m */; };
+		FD672A091D291A40000E46EE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD672A081D291A40000E46EE /* ViewController.m */; };
+		FD672A101D292282000E46EE /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD672A0F1D292282000E46EE /* SWRevealViewController.m */; };
+		FD672A131D292894000E46EE /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD672A121D292894000E46EE /* NavigationViewController.m */; };
+		FD672A661D2A8DB9000E46EE /* TSButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FD672A651D2A8DB9000E46EE /* TSButton.m */; };
+		FD672A681D2AE2AB000E46EE /* Card.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD672A671D2AE2AB000E46EE /* Card.storyboard */; };
+		FD672A6C1D2AE48C000E46EE /* TSCardNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD672A6B1D2AE48C000E46EE /* TSCardNavigationController.m */; };
+		FD8F15C11D256726004F953B /* TSMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8F15C01D256725004F953B /* TSMenuViewController.m */; };
+		FD8F15C51D25A1F6004F953B /* TSMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8F15C41D25A1F6004F953B /* TSMenuTableViewCell.m */; };
 		FD8F24D11D1D3FAB00B4E132 /* TSAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8F24D01D1D3FAB00B4E132 /* TSAccountViewController.m */; };
 		FDBFA4F51D1C23020074D92D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4F41D1C23020074D92D /* main.m */; };
 		FDBFA4F81D1C23020074D92D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4F71D1C23020074D92D /* AppDelegate.m */; };
@@ -43,8 +57,35 @@
 		805FA23E8F8C7F4C33D18610 /* libPods-Triper_IOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Triper_IOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		906A3ACFD747A10A9AA94296 /* Pods-Triper_IOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Triper_IOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Triper_IOS/Pods-Triper_IOS.debug.xcconfig"; sourceTree = "<group>"; };
 		E46800479BB6420A412BEB96 /* Pods-Triper_IOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Triper_IOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-Triper_IOS/Pods-Triper_IOS.release.xcconfig"; sourceTree = "<group>"; };
+		FD05E8C61D2727F000C74141 /* TSCustomImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCustomImageView.h; sourceTree = "<group>"; };
+		FD05E8C71D2727F000C74141 /* TSCustomImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCustomImageView.m; sourceTree = "<group>"; };
+		FD13349F1D27FFAB0074F5E9 /* TSHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSHomeViewController.h; sourceTree = "<group>"; };
+		FD1334A01D27FFAC0074F5E9 /* TSHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSHomeViewController.m; sourceTree = "<group>"; };
+		FD1334A51D2809CD0074F5E9 /* TSHomeNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSHomeNavigationController.h; sourceTree = "<group>"; };
+		FD1334A61D2809CD0074F5E9 /* TSHomeNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSHomeNavigationController.m; sourceTree = "<group>"; };
+		FD1334A91D2811E70074F5E9 /* TSUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSUser.h; sourceTree = "<group>"; };
+		FD1334AA1D2811E70074F5E9 /* TSUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSUser.m; sourceTree = "<group>"; };
 		FD2B81F81D1E8E840041FBA0 /* TSCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCardViewController.h; sourceTree = "<group>"; };
 		FD2B81F91D1E8E840041FBA0 /* TSCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCardViewController.m; sourceTree = "<group>"; };
+		FD4CB1FB1D26C3FF007C579E /* TSProfilViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSProfilViewController.h; sourceTree = "<group>"; };
+		FD4CB1FC1D26C3FF007C579E /* TSProfilViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSProfilViewController.m; sourceTree = "<group>"; };
+		FD530D5E1D265E3500E0651A /* TSSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSSettingsViewController.h; sourceTree = "<group>"; };
+		FD530D5F1D265E3500E0651A /* TSSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSSettingsViewController.m; sourceTree = "<group>"; };
+		FD672A071D291A40000E46EE /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		FD672A081D291A40000E46EE /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		FD672A0E1D292282000E46EE /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		FD672A0F1D292282000E46EE /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		FD672A111D292894000E46EE /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
+		FD672A121D292894000E46EE /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
+		FD672A641D2A8DB9000E46EE /* TSButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSButton.h; sourceTree = "<group>"; };
+		FD672A651D2A8DB9000E46EE /* TSButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSButton.m; sourceTree = "<group>"; };
+		FD672A671D2AE2AB000E46EE /* Card.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Card.storyboard; sourceTree = "<group>"; };
+		FD672A6A1D2AE48C000E46EE /* TSCardNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCardNavigationController.h; sourceTree = "<group>"; };
+		FD672A6B1D2AE48C000E46EE /* TSCardNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCardNavigationController.m; sourceTree = "<group>"; };
+		FD8F15BF1D256725004F953B /* TSMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSMenuViewController.h; sourceTree = "<group>"; };
+		FD8F15C01D256725004F953B /* TSMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSMenuViewController.m; sourceTree = "<group>"; };
+		FD8F15C31D25A1F6004F953B /* TSMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSMenuTableViewCell.h; sourceTree = "<group>"; };
+		FD8F15C41D25A1F6004F953B /* TSMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSMenuTableViewCell.m; sourceTree = "<group>"; };
 		FD8F24CF1D1D3FAB00B4E132 /* TSAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSAccountViewController.h; sourceTree = "<group>"; };
 		FD8F24D01D1D3FAB00B4E132 /* TSAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSAccountViewController.m; sourceTree = "<group>"; };
 		FDBFA4F01D1C23010074D92D /* Triper_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Triper_IOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +152,74 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		FD05E8C51D27279F00C74141 /* Custom Image View */ = {
+			isa = PBXGroup;
+			children = (
+				FD05E8C61D2727F000C74141 /* TSCustomImageView.h */,
+				FD05E8C71D2727F000C74141 /* TSCustomImageView.m */,
+			);
+			name = "Custom Image View";
+			sourceTree = "<group>";
+		};
+		FD1334A81D2811AC0074F5E9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FD1334A91D2811E70074F5E9 /* TSUser.h */,
+				FD1334AA1D2811E70074F5E9 /* TSUser.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		FD672A061D291A1F000E46EE /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				FD672A071D291A40000E46EE /* ViewController.h */,
+				FD672A081D291A40000E46EE /* ViewController.m */,
+				FD672A111D292894000E46EE /* NavigationViewController.h */,
+				FD672A121D292894000E46EE /* NavigationViewController.m */,
+			);
+			name = Test;
+			sourceTree = "<group>";
+		};
+		FD672A0A1D292211000E46EE /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				FD672A0E1D292282000E46EE /* SWRevealViewController.h */,
+				FD672A0F1D292282000E46EE /* SWRevealViewController.m */,
+			);
+			name = SWRevealViewController;
+			sourceTree = "<group>";
+		};
+		FD672A631D2A8D79000E46EE /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				FD672A641D2A8DB9000E46EE /* TSButton.h */,
+				FD672A651D2A8DB9000E46EE /* TSButton.m */,
+			);
+			name = Button;
+			sourceTree = "<group>";
+		};
+		FD672A691D2AE458000E46EE /* Navigation Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FD1334A51D2809CD0074F5E9 /* TSHomeNavigationController.h */,
+				FD1334A61D2809CD0074F5E9 /* TSHomeNavigationController.m */,
+				FD672A6A1D2AE48C000E46EE /* TSCardNavigationController.h */,
+				FD672A6B1D2AE48C000E46EE /* TSCardNavigationController.m */,
+			);
+			name = "Navigation Controllers";
+			sourceTree = "<group>";
+		};
+		FD8F15C21D25A166004F953B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				FD8F15C31D25A1F6004F953B /* TSMenuTableViewCell.h */,
+				FD8F15C41D25A1F6004F953B /* TSMenuTableViewCell.m */,
+			);
+			name = Cell;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		FDBFA4E71D1C23010074D92D = {
 			isa = PBXGroup;
 			children = (
@@ -136,10 +245,16 @@
 		FDBFA4F21D1C23020074D92D /* Triper_IOS */ = {
 			isa = PBXGroup;
 			children = (
+				FD672A061D291A1F000E46EE /* Test */,
 				FDF38CB71D1C797B005D081F /* App */,
+				FD05E8C51D27279F00C74141 /* Custom Image View */,
+				FD1334A81D2811AC0074F5E9 /* Models */,
 				FDF38CBC1D1C7AF8005D081F /* ServerManager */,
+				FD672A631D2A8D79000E46EE /* Button */,
+				FD8F15C21D25A166004F953B /* Cell */,
 				FDF38CB61D1C7954005D081F /* Controllers */,
 				FDBFA4FC1D1C23020074D92D /* Main.storyboard */,
+				FD672A671D2AE2AB000E46EE /* Card.storyboard */,
 				FDBFA5021D1C23020074D92D /* Assets.xcassets */,
 				FDBFA5041D1C23020074D92D /* LaunchScreen.storyboard */,
 				FDBFA5071D1C23020074D92D /* Info.plist */,
@@ -152,6 +267,7 @@
 		FDBFA4F31D1C23020074D92D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				FD672A0A1D292211000E46EE /* SWRevealViewController */,
 				FDBFA4F41D1C23020074D92D /* main.m */,
 			);
 			name = "Supporting Files";
@@ -184,6 +300,15 @@
 				FD8F24D01D1D3FAB00B4E132 /* TSAccountViewController.m */,
 				FD2B81F81D1E8E840041FBA0 /* TSCardViewController.h */,
 				FD2B81F91D1E8E840041FBA0 /* TSCardViewController.m */,
+				FD8F15BF1D256725004F953B /* TSMenuViewController.h */,
+				FD8F15C01D256725004F953B /* TSMenuViewController.m */,
+				FD530D5E1D265E3500E0651A /* TSSettingsViewController.h */,
+				FD530D5F1D265E3500E0651A /* TSSettingsViewController.m */,
+				FD4CB1FB1D26C3FF007C579E /* TSProfilViewController.h */,
+				FD4CB1FC1D26C3FF007C579E /* TSProfilViewController.m */,
+				FD13349F1D27FFAB0074F5E9 /* TSHomeViewController.h */,
+				FD1334A01D27FFAC0074F5E9 /* TSHomeViewController.m */,
+				FD672A691D2AE458000E46EE /* Navigation Controllers */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -316,6 +441,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD672A681D2AE2AB000E46EE /* Card.storyboard in Resources */,
 				FDBFA5061D1C23020074D92D /* LaunchScreen.storyboard in Resources */,
 				FDBFA5031D1C23020074D92D /* Assets.xcassets in Resources */,
 				FDBFA4FE1D1C23020074D92D /* Main.storyboard in Resources */,
@@ -394,10 +520,23 @@
 				FDBFA4FB1D1C23020074D92D /* TSLoginViewController.m in Sources */,
 				FDBFA4F81D1C23020074D92D /* AppDelegate.m in Sources */,
 				FDF38CBB1D1C7AED005D081F /* TSServerManager.m in Sources */,
+				FD672A661D2A8DB9000E46EE /* TSButton.m in Sources */,
+				FD4CB1FD1D26C3FF007C579E /* TSProfilViewController.m in Sources */,
+				FD1334AB1D2811E70074F5E9 /* TSUser.m in Sources */,
 				FD2B81FA1D1E8E840041FBA0 /* TSCardViewController.m in Sources */,
+				FD8F15C51D25A1F6004F953B /* TSMenuTableViewCell.m in Sources */,
+				FD672A6C1D2AE48C000E46EE /* TSCardNavigationController.m in Sources */,
+				FD05E8C81D2727F000C74141 /* TSCustomImageView.m in Sources */,
+				FD672A131D292894000E46EE /* NavigationViewController.m in Sources */,
+				FD8F15C11D256726004F953B /* TSMenuViewController.m in Sources */,
+				FD1334A11D27FFAC0074F5E9 /* TSHomeViewController.m in Sources */,
+				FD672A091D291A40000E46EE /* ViewController.m in Sources */,
+				FD672A101D292282000E46EE /* SWRevealViewController.m in Sources */,
+				FD530D601D265E3500E0651A /* TSSettingsViewController.m in Sources */,
 				FDBFA4F51D1C23020074D92D /* main.m in Sources */,
 				FDBFA5011D1C23020074D92D /* Triper_IOS.xcdatamodeld in Sources */,
 				FD8F24D11D1D3FAB00B4E132 /* TSAccountViewController.m in Sources */,
+				FD1334A71D2809CD0074F5E9 /* TSHomeNavigationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -545,6 +684,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tsvigunalexandr.Triper-IOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -557,6 +697,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tsvigunalexandr.Triper-IOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

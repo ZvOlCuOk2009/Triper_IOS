@@ -44,7 +44,7 @@
     NSDictionary *parameters = @{@"id":userID,
                                  @"name":userLogin};
     
-    [self.sessionManager POST:@"http://www.golinkder.com/process.php/MyApi/login"
+    [self.sessionManager POST:@"http://www.golinkder.com/process.php/MyApi/login&id=519465bf-da1f-e682-70a7-052722f7da5a&name=Sasha-Tsvigun&"
                    parameters:parameters
                      progress:nil
                       success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
