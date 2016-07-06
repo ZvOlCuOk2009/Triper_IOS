@@ -11,6 +11,4 @@
 
 @interface TSMenuViewController : UIViewController
 
-- (void)receiveUserData:(TSUser *)user;
-
 @end

@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *icon;
+@property (assign, nonatomic) BOOL isOpen;
 
 - (instancetype)initWithFrame:(CGRect)frame title:(NSString *)title icon:(NSString *)icon;
 

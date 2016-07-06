@@ -10,8 +10,11 @@
 
 @interface TSUser : NSObject
 
+@property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *firstName;
 @property (strong, nonatomic) NSString *lastName;
+@property (strong, nonatomic) NSString *location;
+@property (strong, nonatomic) NSString *bio;
 @property (strong, nonatomic) NSURL *avatar;
 
 - (id)initWithDictionary:(NSDictionary *)responseValue;

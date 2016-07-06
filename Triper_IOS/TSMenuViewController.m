@@ -1,4 +1,4 @@
-//
+  //
 //  TSMenuViewController.m
 //  Triper_IOS
 //
@@ -9,22 +9,22 @@
 #import "TSMenuViewController.h"
 #import "TSMenuTableViewCell.h"
 #import "TSHomeViewController.h"
-#import "TSHomeNavigationController.h"
 #import "SWRevealViewController.h"
-#import "TSCardNavigationController.h"
 #import "TSCardViewController.h"
+#import "TSHomeViewController.h"
+#import "TSServerManager.h"
 #import "TSButton.h"
+
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @interface TSMenuViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
-@property (strong, nonatomic) NSArray *insertIndexPaths;
-@property (assign, nonatomic) BOOL isPressed;
-@property (strong, nonatomic) TSUser *currentUser;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (strong, nonatomic) NSArray *sections;
+@property (strong, nonatomic) TSUser *currentUser;
 
 @end
 
@@ -34,25 +34,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    NSLog(@"SELF CURRENTUSER = %@", self.currentUser);
-    
-    self.isPressed = YES;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    self.nameLabel.text = [NSString stringWithFormat:@"Hi, %@ %@", self.currentUser.firstName, self.currentUser.lastName];
-    NSData *imageData = [NSData dataWithContentsOfURL:self.currentUser.avatar];
-    self.avatarImageView.image = [UIImage imageWithData:imageData];
-    
     NSArray *home = @[];
     NSArray *explore = @[@"Settings", @"Map", @"Find friends"];
     NSArray *myTriper = @[@"Profile", @"Card", @"Account"];
     NSArray *tools = @[@"Contact", @"Board", @"Calendar"];
     
-
     NSMutableDictionary *homeSection = [NSMutableDictionary dictionary];
     [homeSection setObject:home forKey:@"items"];
     [homeSection setObject:@"Home" forKey:@"title"];
@@ -74,12 +60,30 @@
     [toolsSection setObject:@"tools" forKey:@"image"];
     
     self.sections = @[homeSection, exploreSection, myTriperSection, toolsSection];
-    
 }
 
-- (void)receiveUserData:(TSUser *)user
+- (void)viewWillAppear:(BOOL)animated
 {
-    self.currentUser = user;
+    [super viewWillAppear:animated];
+    
+    FBSDKProfilePictureView *avatar = [[TSServerManager sharedManager]
+                                       requestUserImageFromTheServerFacebook:self.avatarImageView];
+    avatar.layer.cornerRadius = avatar.frame.size.width / 2;
+    avatar.clipsToBounds = YES;
+    [self.view addSubview:avatar];
+    
+    [[TSServerManager sharedManager] requestUserDataFromTheServerFacebook:^(TSUser *user) {
+        if (user) {
+            self.nameLabel.text = [NSString stringWithFormat:@"Hi, %@", user.name];
+        } else {
+            
+        }
+    }];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
 }
 
 #pragma mark - UITableViewDataSource
@@ -97,20 +101,11 @@
         return items.count;
     }
     return 0;
-    //return self.testStudents.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    NSString *ident = [self.homeCell objectAtIndex:indexPath.row];
-//    
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ident forIndexPath:indexPath];
-//    
-//    return  cell;
-    
-    //static NSString *sectionIdentifier = @"Cell";
     static NSString *cellIdentifier = @"detail";
-    
     
     TSMenuTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
@@ -119,21 +114,15 @@
     }
     
     NSDictionary *currentSection = [self.sections objectAtIndex:indexPath.section];
-    //NSDictionary *currentCell = [self.sections objectAtIndex:indexPath.row];
 
     NSArray *items = [currentSection objectForKey:@"items"];
     NSString *currentItem = [items objectAtIndex:indexPath.row];
     
-    
     cell.titleLabel.text = currentItem;
     cell.iconImageView.image = [UIImage imageNamed:@"arrow_go"];
     
-    //cell.textLabel.text = currentItem;
-    
     return cell;
 }
-
-
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -148,35 +137,22 @@
     return button;
 }
 
-
-//-(void)buttonizeButtonTap:(id)sender{
-//
-//}
-
-- (void)didSelectSection:(UIButton*)sender {
+- (void)didSelectSection:(TSButton *)sender {
     
     if (sender.tag == 0) {
         [self performSegueWithIdentifier:@"homeIdent" sender:sender];
     }
-    //Получение текущей секции
-    NSMutableDictionary *currentSection = [self.sections objectAtIndex:sender.tag];
-    NSLog(@"SENDER = %ld", sender.tag);
-    //Получение элементов секции
-    NSArray *items = [currentSection objectForKey:@"items"];
     
-    //Создание массива индексов
+    NSMutableDictionary *currentSection = [self.sections objectAtIndex:sender.tag];
+    NSArray *items = [currentSection objectForKey:@"items"];
     NSMutableArray *indexPaths = [NSMutableArray array];
     for (int i = 0; i < items.count; i++) {
         [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:sender.tag]];
     }
     
-    //Получение состояния секции
     BOOL isOpen = [[currentSection objectForKey:@"isOpen"] boolValue];
-    
-    //Установка нового состояния
     [currentSection setObject:[NSNumber numberWithBool:!isOpen] forKey:@"isOpen"];
     
-    //Анимированное добавление или удаление ячеек секции
     if (isOpen) {
         [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
     } else {
@@ -184,18 +160,25 @@
     }
 }
 
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 50;
-}
-
+#pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.section == 2 && indexPath.row == 0) {
+    if (indexPath.section == 1 && indexPath.row == 0) {
+        
+        [self performSegueWithIdentifier:@"settingsIdent" sender:self];
+        
+    } else if (indexPath.section == 1 && indexPath.row == 1) {
+        
+        [self performSegueWithIdentifier:@"settingsIdent" sender:self];
+        
+    } else if (indexPath.section == 1 && indexPath.row == 2) {
+        
+        [self performSegueWithIdentifier:@"findFriendsIdent" sender:self];
+        
+    } else if (indexPath.section == 2 && indexPath.row == 0) {
         
         [self performSegueWithIdentifier:@"profileIdent" sender:self];
         
@@ -207,30 +190,57 @@
         
         [self performSegueWithIdentifier:@"accountIdent" sender:self];
     }
-    
-    
-    
-    NSLog(@"INDEX PATH SECTION = %ld ROW = %ld", indexPath.section, indexPath.row);
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 50;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 50;
+}
+
+#pragma mark - Actions
+
+- (IBAction)actionLogOut:(id)sender
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Вы хотите выйти"
+                                                                             message:@"из приложения?"
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *actionYes = [UIAlertAction actionWithTitle:@"Да"
+                                                        style:UIAlertActionStyleDestructive
+                                                      handler:^(UIAlertAction * _Nonnull action) {
+                                                          [[TSServerManager sharedManager] logOutFacebook];
+                                                          [self performSegueWithIdentifier:@"logOutFacebookIdent" sender:self];
+                                                      }];
+    
+    UIAlertAction *actionNo = [UIAlertAction actionWithTitle:@"Нет"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * _Nonnull action) { }];
+    
+    [alertController addAction:actionYes];
+    [alertController addAction:actionNo];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+/*
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue isKindOfClass:[SWRevealViewControllerSegue class]]) {
-        
+
         SWRevealViewControllerSegue *swSegue = (SWRevealViewControllerSegue*) segue;
         swSegue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc,UIViewController* dvc){
-            
+
             UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
             [navController setViewControllers:@[dvc] animated:NO];
             [self.revealViewController setFrontViewPosition:FrontViewPositionLeft animated:YES];
         };
     }
 }
-
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 55;
-}
+ */
 
 @end

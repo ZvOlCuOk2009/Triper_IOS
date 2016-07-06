@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "TSLoginViewController.h"
-#import "TSHomeViewController.h"
+#import "SWRevealViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @interface AppDelegate ()
@@ -21,20 +21,19 @@
     // Override point for customization after application launch.
     
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
-    
     [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     
-//    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-//    if([[NSUserDefaults standardUserDefaults] valueForKey:@"AlreadyLogin"])
-//    {
-//        TSHomeViewController *homeViewController = [storyBoard instantiateViewControllerWithIdentifier:@"TSHomeViewController"];
-//        self.window.rootViewController = homeViewController;
-//    }
-//    else
-//    {
-//        TSLoginViewController  *loginViewController = [storyBoard instantiateViewControllerWithIdentifier:@"TSLoginViewController"];
-//        self.window.rootViewController = loginViewController;
-//    }
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    if([[NSUserDefaults standardUserDefaults] valueForKey:@"token"])
+    {
+        SWRevealViewController *homeViewController = [storyBoard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+        self.window.rootViewController = homeViewController;
+    }
+    else
+    {
+        TSLoginViewController  *loginViewController = [storyBoard instantiateViewControllerWithIdentifier:@"TSLoginViewController"];
+        self.window.rootViewController = loginViewController;
+    }
     
     return YES;
 }

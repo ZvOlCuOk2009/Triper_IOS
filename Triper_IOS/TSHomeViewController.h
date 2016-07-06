@@ -13,6 +13,4 @@
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *barButton;
 
-- (void)receiveUserData:(TSUser *)user;
-
 @end

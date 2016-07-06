@@ -11,13 +11,14 @@
 #import "TSMenuViewController.h"
 #import "TSUser.h"
 #import "TSHomeViewController.h"
-#import "TSHomeNavigationController.h"
 #import "SWRevealViewController.h"
+
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @interface TSLoginViewController ()
 
 @property (strong, nonatomic) NSArray *token;
+@property (weak, nonatomic) IBOutlet FBSDKLoginButton *fbButton;
 
 @end
 
@@ -38,30 +39,26 @@
 {
     if ([FBSDKAccessToken currentAccessToken]) {
         
-        NSLog(@"Token is available : %@", [[FBSDKAccessToken currentAccessToken]tokenString]);
+        NSString *token = [[FBSDKAccessToken currentAccessToken]tokenString];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"token"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         
         NSDictionary * parameters = @{@"fields": @"id, name, link, first_name, last_name, picture.type(large), email, birthday, bio, location, friends, hometown, friendlists"};
         
-        [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:parameters]
+        [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me"
+                                           parameters:parameters]
          startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
              if (!error)
              {
-                 NSLog(@"resultis:%@", result);
-                 SWRevealViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-                 CATransition *transition = [CATransition animation];
-                 transition.duration = 0.4;
-                 transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-                 transition.type = kCATransitionPush;
-                 transition.subtype = kCATransitionFromRight;
-                 [self.view.window.layer addAnimation:transition forKey:nil];
-                 TSUser *user = [[TSUser alloc] initWithDictionary:result];
-                 //[controller receiveUserData:user];
-                 [self presentViewController:controller animated:NO completion:nil];
+                 [self openTheMenuController];
                  
+                 NSLog(@"resultis:%@", result);
              } else {
-                 NSLog(@"Error %@",error);
+                 NSLog(@"Error %@", error);
              }
          }];
+        
     } else {
         
         FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
@@ -74,9 +71,23 @@
                                         NSLog(@"Cancelled");
                                     } else {
                                         NSLog(@"Logged in");
+                                        [self openTheMenuController];
                                     }
                                 }];
     }
+}
+
+- (void)openTheMenuController
+{
+    SWRevealViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.4;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionPush;
+    transition.subtype = kCATransitionFromRight;
+    [self.view.window.layer addAnimation:transition forKey:nil];
+    [self presentViewController:controller animated:NO completion:nil];
+
 }
 
 - (IBAction)registerButton:(id)sender

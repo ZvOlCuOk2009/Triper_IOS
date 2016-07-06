@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "TSHomeViewController.h"
 
-@interface TSCardViewController : TSHomeViewController
+@interface TSCardViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *barButton;
 
 @end

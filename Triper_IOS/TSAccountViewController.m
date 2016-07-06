@@ -7,13 +7,26 @@
 //
 
 #import "TSAccountViewController.h"
-#import "SWRevealViewController.h"
+
+@interface TSAccountViewController ()
+
+@property (weak, nonatomic) IBOutlet UISegmentedControl *showSegmentedControll;
+
+@end
 
 @implementation TSAccountViewController
 
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.title = @"Account";
+    
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:[UIColor blackColor]forKey:NSForegroundColorAttributeName];
+    [self.showSegmentedControll setTitleTextAttributes:attributes forState:UIControlStateNormal];
+    
+    NSDictionary *highlightedAttributes = [NSDictionary dictionaryWithObject:[UIColor orangeColor] forKey:NSForegroundColorAttributeName];
+    [self.showSegmentedControll setTitleTextAttributes:highlightedAttributes forState:UIControlStateSelected];
 }
 
 @end

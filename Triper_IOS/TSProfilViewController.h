@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TSHomeViewController.h"
 
-@interface TSProfilViewController : TSHomeViewController
+@interface TSProfilViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *barButton;
 
 @end

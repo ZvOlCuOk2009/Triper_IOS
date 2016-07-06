@@ -37,6 +37,53 @@
     return self;
 }
 
+- (void)requestUserDataFromTheServerFacebook:(void(^)(TSUser *user)) success
+{
+    //NSLog(@"Token is available : %@", [[FBSDKAccessToken currentAccessToken]tokenString]);
+    
+    NSDictionary * parameters = @{@"fields": @"id, name, link, first_name, last_name, picture.type(large), email, birthday, bio, location, friends, hometown, friendlists"};
+
+    [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me"
+                                       parameters:parameters]
+     startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+         if (!error)
+         {
+             TSUser *user = [[TSUser alloc] initWithDictionary:result];
+             if (success) {
+                 success(user);
+             }
+             NSLog(@"resultis:%@", result);
+         } else {
+             NSLog(@"Error %@", error);
+         }
+     }];
+}
+
+- (FBSDKProfilePictureView *)requestUserImageFromTheServerFacebook:(UIImageView *)currentImageView
+{
+    FBSDKProfilePictureView *profilePictureview = [[FBSDKProfilePictureView alloc]initWithFrame:currentImageView.frame];
+    [profilePictureview setProfileID:@"914662058663146"];
+    return profilePictureview;
+}
+
+- (void)logOutFacebook
+{
+    [[[FBSDKLoginManager alloc] init] logOut];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 - (void)authorizationOfNewUser:(NSString *)userID
                      userLogin:(NSString *)userLogin
                      onSuccess:(void(^)(NSArray *token)) success

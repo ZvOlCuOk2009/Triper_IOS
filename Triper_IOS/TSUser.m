@@ -14,8 +14,11 @@
 {
     self = [super init];
     if (self) {
+        self.name = [responseValue valueForKey:@"name"];
         self.firstName = [responseValue valueForKey:@"first_name"];
         self.lastName = [responseValue valueForKey:@"last_name"];
+        self.location = [responseValue valueForKey:@"location"];
+        self.bio = [responseValue valueForKey:@"bio"];
         NSString *urlString = [[[responseValue valueForKey:@"picture"] valueForKey:@"data"] valueForKey:@"url"];
         self.avatar = [[NSURL alloc] initWithString:urlString];
     }

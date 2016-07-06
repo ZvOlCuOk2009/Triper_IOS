@@ -7,12 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import "TSUser.h"
 
 @interface TSServerManager : NSObject
 
 + (TSServerManager *)sharedManager;
+- (void)requestUserDataFromTheServerFacebook:(void(^)(TSUser *user))success;
+- (FBSDKProfilePictureView *)requestUserImageFromTheServerFacebook:(UIImageView *)currentImageView;
+- (void)logOutFacebook;
 - (void)authorizationOfNewUser:(NSString *)userID
                      userLogin:(NSString *)userLogin
                      onSuccess:(void(^)(NSArray *token)) success;
+
 
 @end

@@ -8,7 +8,10 @@
 
 #import "TSHomeViewController.h"
 #import "TSMenuViewController.h"
+#import "TSServerManager.h"
 #import "SWRevealViewController.h"
+
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @interface TSHomeViewController ()
 
@@ -30,26 +33,12 @@
     
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
-    NSData *imageData = [NSData dataWithContentsOfURL:self.currentUser.avatar];
-    self.avatarImageView.image = [UIImage imageWithData:imageData];
-    NSLog(@"SELF CURRENTUSER VIEW = %@", self.currentUser);
-}
+    FBSDKProfilePictureView *avatar = [[TSServerManager sharedManager]
+                                       requestUserImageFromTheServerFacebook:self.avatarImageView];
+    avatar.layer.cornerRadius = avatar.frame.size.width / 2;
+    avatar.clipsToBounds = YES;
+    [self.view addSubview:avatar];
 
-- (void)receiveUserData:(TSUser *)user
-{
-    self.currentUser = user;
-}
-
-- (IBAction)actionMenuButton:(UIBarButtonItem *)sender
-{
-//    TSMenuViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TSMenuViewController"];
-//    CATransition *transition = [CATransition animation];
-//    transition.duration = 0.4;
-//    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-//    transition.type = kCATransitionPush;
-//    transition.subtype = kCATransitionFromLeft;
-//    [self.view.window.layer addAnimation:transition forKey:nil];
-//    [self presentViewController:controller animated:NO completion:nil];
 }
 
 @end
