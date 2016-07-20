@@ -8,17 +8,19 @@
 
 #import "TSLoginViewController.h"
 #import "TSServerManager.h"
-#import "TSMenuViewController.h"
+#import "TSTabBarController.h"
 #import "TSUser.h"
-#import "TSHomeViewController.h"
-#import "SWRevealViewController.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
-@interface TSLoginViewController ()
+@import Firebase;
+@import FirebaseAuth;
+
+@interface TSLoginViewController () <FBSDKLoginButtonDelegate>
 
 @property (strong, nonatomic) NSArray *token;
 @property (weak, nonatomic) IBOutlet FBSDKLoginButton *fbButton;
+@property (strong, nonatomic) IBOutlet FBSDKLoginButton *loginButton;
 
 @end
 
@@ -28,11 +30,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    UIButton *myLoginButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    myLoginButton.frame = CGRectMake(165, 457, 55, 55);
-    [myLoginButton setImage:[UIImage imageNamed:@"fb_login"] forState:UIControlStateNormal];
-    [myLoginButton addTarget:self action:@selector(loginButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:myLoginButton];
+//    UIButton *myLoginButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    myLoginButton.frame = CGRectMake(135, 45, 55, 55);
+//    [myLoginButton setImage:[UIImage imageNamed:@"fb_login"] forState:UIControlStateNormal];
+//    [myLoginButton addTarget:self action:@selector(loginButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:myLoginButton];
+    
+    self.loginButton = [[FBSDKLoginButton alloc] init];
+    // Optional: Place the button in the center of your view.
+    self.loginButton.center = self.view.center;
+    self.loginButton.readPermissions = @[@"public_profile", @"email", @"user_friends"];
+    [self.view addSubview:self.loginButton];
+    
+    _loginButton.delegate = self;
 }
 
 -(void)loginButtonClicked
@@ -51,18 +61,18 @@
          startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
              if (!error)
              {
-                 [self openTheMenuController];
+                 [self openTheTabBarController];
                  
                  NSLog(@"resultis:%@", result);
              } else {
                  NSLog(@"Error %@", error);
              }
          }];
-        
+                
     } else {
         
         FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
-        [login logInWithReadPermissions: @[@"public_profile"]
+        [login logInWithReadPermissions:@[@"public_profile"]
                      fromViewController:self
                                 handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
                                     if (error) {
@@ -71,15 +81,46 @@
                                         NSLog(@"Cancelled");
                                     } else {
                                         NSLog(@"Logged in");
-                                        [self openTheMenuController];
+                                        [self openTheTabBarController];
                                     }
                                 }];
     }
+    
+    
+    
+    FIRAuthCredential *credential = [FIRFacebookAuthProvider credentialWithAccessToken:
+                                     [FBSDKAccessToken currentAccessToken].tokenString];
+    
+    [[FIRAuth auth] signInWithCredential:credential
+                              completion:^(FIRUser *user, NSError *error) {
+                                  
+                              }];
+    NSLog(@"credential - %@", credential.description);
 }
 
-- (void)openTheMenuController
+- (void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
+              error:(NSError *)error
 {
-    SWRevealViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+    FIRAuthCredential *credential = [FIRFacebookAuthProvider
+                                     credentialWithAccessToken:[FBSDKAccessToken currentAccessToken]
+                                     .tokenString];
+    
+    [[FIRAuth auth] signInWithCredential:credential
+                              completion:^(FIRUser *user, NSError *error) {
+                                  NSLog(@"User login firebase App");
+                              }];
+    
+    NSLog(@"User log In");
+}
+
+- (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton
+{
+    NSLog(@"User log Out");
+}
+
+- (void)openTheTabBarController
+{
+    TSTabBarController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TSTabBarController"];
     CATransition *transition = [CATransition animation];
     transition.duration = 0.4;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
@@ -89,6 +130,7 @@
     [self presentViewController:controller animated:NO completion:nil];
 
 }
+
 
 - (IBAction)registerButton:(id)sender
 {

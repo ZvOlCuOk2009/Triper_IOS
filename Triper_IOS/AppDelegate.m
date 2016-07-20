@@ -8,8 +8,11 @@
 
 #import "AppDelegate.h"
 #import "TSLoginViewController.h"
-#import "SWRevealViewController.h"
+#import "TSTabBarController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+
+@import Firebase;
+@import FirebaseAuth;
 
 @interface AppDelegate ()
 
@@ -26,7 +29,7 @@
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     if([[NSUserDefaults standardUserDefaults] valueForKey:@"token"])
     {
-        SWRevealViewController *homeViewController = [storyBoard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+        TSTabBarController *homeViewController = [storyBoard instantiateViewControllerWithIdentifier:@"TSTabBarController"];
         self.window.rootViewController = homeViewController;
     }
     else
@@ -35,14 +38,20 @@
         self.window.rootViewController = loginViewController;
     }
     
+    [FIRApp configure];
+    
     return YES;
 }
+
+
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     
     return [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url
                                                 sourceApplication:sourceApplication annotation:annotation];
+    
 }
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -60,6 +69,8 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    [FBSDKAppEvents activateApp];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

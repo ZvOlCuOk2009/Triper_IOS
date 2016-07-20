@@ -31,7 +31,6 @@
 {
     self = [super init];
     if (self) {
-        //NSURL *url = [NSURL URLWithString:@"http://www.golinkder.com/process.php/MyApi/login"];
         self.sessionManager = [[AFHTTPSessionManager alloc] init];
     }
     return self;
@@ -39,7 +38,7 @@
 
 - (void)requestUserDataFromTheServerFacebook:(void(^)(TSUser *user)) success
 {
-    //NSLog(@"Token is available : %@", [[FBSDKAccessToken currentAccessToken]tokenString]);
+    NSLog(@"Token is available = %@", [[FBSDKAccessToken currentAccessToken]tokenString]);
     
     NSDictionary * parameters = @{@"fields": @"id, name, link, first_name, last_name, picture.type(large), email, birthday, bio, location, friends, hometown, friendlists"};
 
@@ -61,10 +60,36 @@
 
 - (FBSDKProfilePictureView *)requestUserImageFromTheServerFacebook:(UIImageView *)currentImageView
 {
+    NSLog(@"Token is available = %@", [[FBSDKAccessToken currentAccessToken]tokenString]);
+    
     FBSDKProfilePictureView *profilePictureview = [[FBSDKProfilePictureView alloc]initWithFrame:currentImageView.frame];
-    [profilePictureview setProfileID:@"914662058663146"];
+    [profilePictureview setProfileID:@"me"]; //914662058663146
     return profilePictureview;
 }
+
+- (void)requestUserFriendsTheServerFacebook:(void(^)(TSUser *user)) success
+{
+    FBSDKAppInviteContent *content =[[FBSDKAppInviteContent alloc] init];
+    content.appLinkURL = [NSURL URLWithString:@"https://fb.me/1745102679089901"];
+
+    content.appInvitePreviewImageURL = [NSURL URLWithString:@"https://3.bp.blogspot.com/-W__wiaHUjwI/Vt3Grd8df0I/AAAAAAAAA78/7xqUNj8ujtY/s1600/image02.png"];
+    
+
+    [FBSDKAppInviteDialog showWithContent:content delegate:self];
+    
+}
+
+#pragma mark - FBSDKAppInviteDialogDelegate
+
+- (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didCompleteWithResults:(NSDictionary *)results {
+    NSLog(@"results = %@", results);
+}
+
+- (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didFailWithError:(NSError *)error {
+    NSLog(@"error = %@", error);
+}
+
+
 
 - (void)logOutFacebook
 {
@@ -74,11 +99,7 @@
 
 
 
-
-
-
-
-
+///************************************
 
 
 

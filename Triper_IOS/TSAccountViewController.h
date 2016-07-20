@@ -7,8 +7,7 @@
 //
 
 #import "TSLoginViewController.h"
-#import "TSHomeViewController.h"
 
-@interface TSAccountViewController : TSHomeViewController
+@interface TSAccountViewController : UIViewController
 
 @end

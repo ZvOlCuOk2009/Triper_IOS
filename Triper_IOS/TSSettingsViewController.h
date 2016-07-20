@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TSHomeViewController.h"
 
-@interface TSSettingsViewController : TSHomeViewController
+@interface TSSettingsViewController : UIViewController
 
 @end
