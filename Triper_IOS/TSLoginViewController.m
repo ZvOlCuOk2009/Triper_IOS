@@ -19,7 +19,6 @@
 @interface TSLoginViewController () <FBSDKLoginButtonDelegate>
 
 @property (strong, nonatomic) NSArray *token;
-@property (weak, nonatomic) IBOutlet FBSDKLoginButton *fbButton;
 @property (strong, nonatomic) IBOutlet FBSDKLoginButton *loginButton;
 
 @end
@@ -30,15 +29,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-//    UIButton *myLoginButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    myLoginButton.frame = CGRectMake(135, 45, 55, 55);
-//    [myLoginButton setImage:[UIImage imageNamed:@"fb_login"] forState:UIControlStateNormal];
-//    [myLoginButton addTarget:self action:@selector(loginButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:myLoginButton];
+//    _loginButton = [[FBSDKLoginButton alloc] init];
+//    _loginButton.frame = CGRectMake(135, 45, 55, 55);
+//    [_loginButton setImage:[UIImage imageNamed:@"fb_login"] forState:UIControlStateNormal];
+//    [_loginButton addTarget:self action:@selector(loginButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:_loginButton];
+    //self.loginButton = (FBSDKLoginButton *)myLoginButton;
     
     self.loginButton = [[FBSDKLoginButton alloc] init];
-    // Optional: Place the button in the center of your view.
-    self.loginButton.center = self.view.center;
+    self.loginButton.frame = CGRectMake(135, 45, 55, 55);
+    [self.loginButton setImage:[UIImage imageNamed:@"fb_login"] forState:UIControlStateNormal];
     self.loginButton.readPermissions = @[@"public_profile", @"email", @"user_friends"];
     [self.view addSubview:self.loginButton];
     
@@ -85,31 +85,56 @@
                                     }
                                 }];
     }
-    
-    
-    
-    FIRAuthCredential *credential = [FIRFacebookAuthProvider credentialWithAccessToken:
-                                     [FBSDKAccessToken currentAccessToken].tokenString];
-    
-    [[FIRAuth auth] signInWithCredential:credential
-                              completion:^(FIRUser *user, NSError *error) {
-                                  
-                              }];
-    NSLog(@"credential - %@", credential.description);
 }
 
 - (void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
               error:(NSError *)error
 {
+    if ([FBSDKAccessToken currentAccessToken]) {
+        
+        NSString *token = [[FBSDKAccessToken currentAccessToken]tokenString];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"token"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        NSDictionary * parameters = @{@"fields": @"id, name, link, first_name, last_name, picture.type(large), email, birthday, bio, location, friends, hometown, friendlists"};
+        
+        [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me"
+                                           parameters:parameters]
+         startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+             if (!error)
+             {
+                 [self openTheTabBarController];
+                 NSLog(@"resultis:%@", result);
+             } else {
+                 NSLog(@"Error %@", error);
+             }
+         }];
+
+    } else {
+        
+        FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+        [login logInWithReadPermissions:@[@"public_profile"]
+                     fromViewController:self
+                                handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+                                    if (error) {
+                                        NSLog(@"Process error");
+                                    } else if (result.isCancelled) {
+                                        NSLog(@"Cancelled");
+                                    } else {
+                                        NSLog(@"Logged in");
+                                        [self openTheTabBarController];
+                                    }
+                                }];
+    }
+    
     FIRAuthCredential *credential = [FIRFacebookAuthProvider
-                                     credentialWithAccessToken:[FBSDKAccessToken currentAccessToken]
-                                     .tokenString];
+                                     credentialWithAccessToken:[FBSDKAccessToken currentAccessToken].tokenString];
     
     [[FIRAuth auth] signInWithCredential:credential
                               completion:^(FIRUser *user, NSError *error) {
                                   NSLog(@"User login firebase App");
                               }];
-    
     NSLog(@"User log In");
 }
 
@@ -121,27 +146,16 @@
 - (void)openTheTabBarController
 {
     TSTabBarController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TSTabBarController"];
-    CATransition *transition = [CATransition animation];
-    transition.duration = 0.4;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.type = kCATransitionPush;
-    transition.subtype = kCATransitionFromRight;
-    [self.view.window.layer addAnimation:transition forKey:nil];
-    [self presentViewController:controller animated:NO completion:nil];
-
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 
 - (IBAction)registerButton:(id)sender
 {
-    // For more complex open graph stories, use `FBSDKShareAPI`
-    // with `FBSDKShareOpenGraphContent`
-    /* make the API call */
     
-    /*
     NSDictionary *params = @{@"fields":@"id, first_name, last_name, cover"};
     
-    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"https://www.facebook.com/sasha.tsvigun"
+    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me"
                                                                    parameters:params
                                                                    HTTPMethod:@"GET"];
     [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection,
@@ -163,7 +177,6 @@
              NSLog(@"permission error = %@", [error localizedDescription]);
          }
      }];
-      */
 }
 
 - (void)didReceiveMemoryWarning {

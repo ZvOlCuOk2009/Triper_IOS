@@ -9,18 +9,17 @@
 /* Begin PBXBuildFile section */
 		F1B2EFFC2D91B863E9323D52 /* libPods-Triper_IOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 805FA23E8F8C7F4C33D18610 /* libPods-Triper_IOS.a */; };
 		FD05E8C81D2727F000C74141 /* TSCustomImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = FD05E8C71D2727F000C74141 /* TSCustomImageView.m */; };
-		FD0635C31D2FCC1D005D39EE /* TSProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD0635C21D2FCC1D005D39EE /* TSProfileViewController.m */; };
 		FD0635C61D2FCCE9005D39EE /* TSHomyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD0635C51D2FCCE9005D39EE /* TSHomyViewController.m */; };
 		FD0635C91D2FE78F005D39EE /* TSTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD0635C81D2FE78F005D39EE /* TSTabBarController.m */; };
 		FD0635CB1D2FEE5F005D39EE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD0635CA1D2FEE5E005D39EE /* MapKit.framework */; };
 		FD0635CE1D2FF009005D39EE /* TSMapKitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD0635CD1D2FF009005D39EE /* TSMapKitViewController.m */; };
 		FD1334AB1D2811E70074F5E9 /* TSUser.m in Sources */ = {isa = PBXBuildFile; fileRef = FD1334AA1D2811E70074F5E9 /* TSUser.m */; };
+		FD4BF6DC1D43719300504327 /* TSMatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4BF6DB1D43719300504327 /* TSMatchViewController.m */; };
+		FD4BF6DF1D43794E00504327 /* TSUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4BF6DE1D43794E00504327 /* TSUserViewController.m */; };
 		FD4C964B1D2DB4FD00D965F4 /* TSTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4C964A1D2DB4FC00D965F4 /* TSTextField.m */; };
 		FD530D601D265E3500E0651A /* TSSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD530D5F1D265E3500E0651A /* TSSettingsViewController.m */; };
-		FD672A101D292282000E46EE /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD672A0F1D292282000E46EE /* SWRevealViewController.m */; };
 		FD672A661D2A8DB9000E46EE /* TSButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FD672A651D2A8DB9000E46EE /* TSButton.m */; };
 		FD8F15C51D25A1F6004F953B /* TSMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8F15C41D25A1F6004F953B /* TSMenuTableViewCell.m */; };
-		FD8F24D11D1D3FAB00B4E132 /* TSAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8F24D01D1D3FAB00B4E132 /* TSAccountViewController.m */; };
 		FD9E79A41D36D7B5003E402A /* TSProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = FD9E79A31D36D7B5003E402A /* TSProfileView.m */; };
 		FDBFA4F51D1C23020074D92D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4F41D1C23020074D92D /* main.m */; };
 		FDBFA4F81D1C23020074D92D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4F71D1C23020074D92D /* AppDelegate.m */; };
@@ -66,8 +65,7 @@
 		E46800479BB6420A412BEB96 /* Pods-Triper_IOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Triper_IOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-Triper_IOS/Pods-Triper_IOS.release.xcconfig"; sourceTree = "<group>"; };
 		FD05E8C61D2727F000C74141 /* TSCustomImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCustomImageView.h; sourceTree = "<group>"; };
 		FD05E8C71D2727F000C74141 /* TSCustomImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCustomImageView.m; sourceTree = "<group>"; };
-		FD0635C11D2FCC1D005D39EE /* TSProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSProfileViewController.h; sourceTree = "<group>"; };
-		FD0635C21D2FCC1D005D39EE /* TSProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSProfileViewController.m; sourceTree = "<group>"; };
+		FD0635C11D2FCC1D005D39EE /* TSMatchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSMatchViewController.h; sourceTree = "<group>"; };
 		FD0635C41D2FCCE9005D39EE /* TSHomyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSHomyViewController.h; sourceTree = "<group>"; };
 		FD0635C51D2FCCE9005D39EE /* TSHomyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSHomyViewController.m; sourceTree = "<group>"; };
 		FD0635C71D2FE78F005D39EE /* TSTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTabBarController.h; sourceTree = "<group>"; };
@@ -77,18 +75,17 @@
 		FD0635CD1D2FF009005D39EE /* TSMapKitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSMapKitViewController.m; sourceTree = "<group>"; };
 		FD1334A91D2811E70074F5E9 /* TSUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSUser.h; sourceTree = "<group>"; };
 		FD1334AA1D2811E70074F5E9 /* TSUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSUser.m; sourceTree = "<group>"; };
+		FD4BF6DB1D43719300504327 /* TSMatchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSMatchViewController.m; sourceTree = "<group>"; };
+		FD4BF6DD1D43794E00504327 /* TSUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSUserViewController.h; sourceTree = "<group>"; };
+		FD4BF6DE1D43794E00504327 /* TSUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSUserViewController.m; sourceTree = "<group>"; };
 		FD4C96491D2DB4FC00D965F4 /* TSTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTextField.h; sourceTree = "<group>"; };
 		FD4C964A1D2DB4FC00D965F4 /* TSTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSTextField.m; sourceTree = "<group>"; };
 		FD530D5E1D265E3500E0651A /* TSSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSSettingsViewController.h; sourceTree = "<group>"; };
 		FD530D5F1D265E3500E0651A /* TSSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSSettingsViewController.m; sourceTree = "<group>"; };
-		FD672A0E1D292282000E46EE /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
-		FD672A0F1D292282000E46EE /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		FD672A641D2A8DB9000E46EE /* TSButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSButton.h; sourceTree = "<group>"; };
 		FD672A651D2A8DB9000E46EE /* TSButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSButton.m; sourceTree = "<group>"; };
 		FD8F15C31D25A1F6004F953B /* TSMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSMenuTableViewCell.h; sourceTree = "<group>"; };
 		FD8F15C41D25A1F6004F953B /* TSMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSMenuTableViewCell.m; sourceTree = "<group>"; };
-		FD8F24CF1D1D3FAB00B4E132 /* TSAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSAccountViewController.h; sourceTree = "<group>"; };
-		FD8F24D01D1D3FAB00B4E132 /* TSAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSAccountViewController.m; sourceTree = "<group>"; };
 		FD9E79A21D36D7B5003E402A /* TSProfileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSProfileView.h; sourceTree = "<group>"; };
 		FD9E79A31D36D7B5003E402A /* TSProfileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSProfileView.m; sourceTree = "<group>"; };
 		FDBFA4F01D1C23010074D92D /* Triper_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Triper_IOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -194,15 +191,6 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
-		FD672A0A1D292211000E46EE /* SWRevealViewController */ = {
-			isa = PBXGroup;
-			children = (
-				FD672A0E1D292282000E46EE /* SWRevealViewController.h */,
-				FD672A0F1D292282000E46EE /* SWRevealViewController.m */,
-			);
-			name = SWRevealViewController;
-			sourceTree = "<group>";
-		};
 		FD672A631D2A8D79000E46EE /* Button */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,10 +213,10 @@
 		FD9E79A11D36D767003E402A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				FDF247F31D3D93EA0035FBDF /* Handler */,
 				FD9E79A21D36D7B5003E402A /* TSProfileView.h */,
 				FD9E79A31D36D7B5003E402A /* TSProfileView.m */,
 				FDF83A091D391CC200FA5955 /* TSProfileView.xib */,
+				FDF247F31D3D93EA0035FBDF /* Handler */,
 				FDDC4FD21D3D031A00B11286 /* TSRandomFriendsTest.h */,
 				FDDC4FD31D3D031A00B11286 /* TSRandomFriendsTest.m */,
 			);
@@ -284,7 +272,6 @@
 			isa = PBXGroup;
 			children = (
 				FDF185331D305D0B00EE3391 /* PrefixHeader.pch */,
-				FD672A0A1D292211000E46EE /* SWRevealViewController */,
 				FDBFA4F41D1C23020074D92D /* main.m */,
 			);
 			name = "Supporting Files";
@@ -337,14 +324,14 @@
 				FDBFA4FA1D1C23020074D92D /* TSLoginViewController.m */,
 				FDF185301D30380C00EE3391 /* TSChatViewController.h */,
 				FDF185311D30380C00EE3391 /* TSChatViewController.m */,
-				FD8F24CF1D1D3FAB00B4E132 /* TSAccountViewController.h */,
-				FD8F24D01D1D3FAB00B4E132 /* TSAccountViewController.m */,
 				FD530D5E1D265E3500E0651A /* TSSettingsViewController.h */,
 				FD530D5F1D265E3500E0651A /* TSSettingsViewController.m */,
-				FD0635C11D2FCC1D005D39EE /* TSProfileViewController.h */,
-				FD0635C21D2FCC1D005D39EE /* TSProfileViewController.m */,
+				FD0635C11D2FCC1D005D39EE /* TSMatchViewController.h */,
+				FD4BF6DB1D43719300504327 /* TSMatchViewController.m */,
 				FD0635C41D2FCCE9005D39EE /* TSHomyViewController.h */,
 				FD0635C51D2FCCE9005D39EE /* TSHomyViewController.m */,
+				FD4BF6DD1D43794E00504327 /* TSUserViewController.h */,
+				FD4BF6DE1D43794E00504327 /* TSUserViewController.m */,
 				FD0635C71D2FE78F005D39EE /* TSTabBarController.h */,
 				FD0635C81D2FE78F005D39EE /* TSTabBarController.m */,
 				FD0635CC1D2FF009005D39EE /* TSMapKitViewController.h */,
@@ -565,22 +552,21 @@
 				FDF38CBB1D1C7AED005D081F /* TSServerManager.m in Sources */,
 				FD672A661D2A8DB9000E46EE /* TSButton.m in Sources */,
 				FD1334AB1D2811E70074F5E9 /* TSUser.m in Sources */,
-				FD0635C31D2FCC1D005D39EE /* TSProfileViewController.m in Sources */,
 				FD8F15C51D25A1F6004F953B /* TSMenuTableViewCell.m in Sources */,
 				FD05E8C81D2727F000C74141 /* TSCustomImageView.m in Sources */,
 				FD0635CE1D2FF009005D39EE /* TSMapKitViewController.m in Sources */,
 				FD0635C61D2FCCE9005D39EE /* TSHomyViewController.m in Sources */,
 				FDF185321D30380C00EE3391 /* TSChatViewController.m in Sources */,
 				FDF247F61D3D94380035FBDF /* TSHandler.m in Sources */,
-				FD672A101D292282000E46EE /* SWRevealViewController.m in Sources */,
+				FD4BF6DF1D43794E00504327 /* TSUserViewController.m in Sources */,
 				FD9E79A41D36D7B5003E402A /* TSProfileView.m in Sources */,
 				FD4C964B1D2DB4FD00D965F4 /* TSTextField.m in Sources */,
 				FDF247F91D3D9CAE0035FBDF /* TSDisplayContent.m in Sources */,
 				FD0635C91D2FE78F005D39EE /* TSTabBarController.m in Sources */,
 				FD530D601D265E3500E0651A /* TSSettingsViewController.m in Sources */,
 				FDBFA4F51D1C23020074D92D /* main.m in Sources */,
+				FD4BF6DC1D43719300504327 /* TSMatchViewController.m in Sources */,
 				FDBFA5011D1C23020074D92D /* Triper_IOS.xcdatamodeld in Sources */,
-				FD8F24D11D1D3FAB00B4E132 /* TSAccountViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

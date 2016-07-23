@@ -12,7 +12,7 @@
 #import "TSLoginViewController.h"
 #import "TSProfileView.h"
 #import "TSRandomFriendsTest.h"
-#import "TSProfileViewController.h"
+#import "TSMatchViewController.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Quickblox/Quickblox.h>
@@ -30,13 +30,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-//    FBSDKProfilePictureView *avatar = [[TSServerManager sharedManager]
-//                                       requestUserImageFromTheServerFacebook:self.avatarImageView];
-//    avatar.layer.cornerRadius = avatar.frame.size.width / 2;
-//    avatar.layer.borderWidth = 4;
-//    avatar.layer.borderColor = [[UIColor whiteColor] CGColor];
-//    avatar.clipsToBounds = YES;
-//    [self.view addSubview:avatar];
     
     TSProfileView *profileView = [TSProfileView profileView];
     [self.view addSubview:profileView];
@@ -48,21 +41,15 @@
     
     
 }
-- (IBAction)actionInviteFriends:(id)sender
-{
-    [[TSServerManager sharedManager] requestUserFriendsTheServerFacebook:^(TSUser *user) {
-        self.user = user;
-        NSLog(@"User = %@", user.description);
-    }];
-}
+
 
 - (IBAction)actionLogOut:(id)sender
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Вы хотите выйти"
-                                                                             message:@"из приложения?"
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Do you want to exit"
+                                                                             message:@"the application?"
                                                                       preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *actionYes = [UIAlertAction actionWithTitle:@"Да"
+    UIAlertAction *actionYes = [UIAlertAction actionWithTitle:@"Yes"
                                                         style:UIAlertActionStyleDestructive
                                                       handler:^(UIAlertAction * _Nonnull action) {
                                                           [[TSServerManager sharedManager] logOutFacebook];
@@ -70,7 +57,7 @@
                                                           [self presentViewController:controller animated:YES completion:nil];
                                                       }];
     
-    UIAlertAction *actionNo = [UIAlertAction actionWithTitle:@"Нет"
+    UIAlertAction *actionNo = [UIAlertAction actionWithTitle:@"No"
                                                        style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction * _Nonnull action) { }];
     
@@ -79,16 +66,5 @@
     
     [self presentViewController:alertController animated:YES completion:nil];
 }
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

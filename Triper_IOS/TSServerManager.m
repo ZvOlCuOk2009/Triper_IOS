@@ -63,7 +63,7 @@
     NSLog(@"Token is available = %@", [[FBSDKAccessToken currentAccessToken]tokenString]);
     
     FBSDKProfilePictureView *profilePictureview = [[FBSDKProfilePictureView alloc]initWithFrame:currentImageView.frame];
-    [profilePictureview setProfileID:@"me"]; //914662058663146
+    [profilePictureview setProfileID:@"me"];
     return profilePictureview;
 }
 
@@ -74,8 +74,10 @@
 
     content.appInvitePreviewImageURL = [NSURL URLWithString:@"https://3.bp.blogspot.com/-W__wiaHUjwI/Vt3Grd8df0I/AAAAAAAAA78/7xqUNj8ujtY/s1600/image02.png"];
     
-
     [FBSDKAppInviteDialog showWithContent:content delegate:self];
+    
+//    UIViewController *controller = [[UIViewController alloc] init];
+//    [FBSDKAppInviteDialog showFromViewController:controller withContent:content delegate:self];
     
 }
 
@@ -97,11 +99,7 @@
 }
 
 
-
-
 ///************************************
-
-
 
 
 

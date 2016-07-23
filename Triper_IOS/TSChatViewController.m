@@ -7,7 +7,7 @@
 //
 
 #import "TSChatViewController.h"
-#import "TSTabBarController.h"
+#import "TSUserViewController.h"
 
 @import Firebase;
 
@@ -28,9 +28,10 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 - (IBAction)actionProfileButton:(UIButton *)sender
 {
-    TSTabBarController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TSTabBarController"];
+    TSUserViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TSUserViewController"];
     [self presentViewController:controller animated:YES completion:nil];
 }
 

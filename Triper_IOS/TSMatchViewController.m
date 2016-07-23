@@ -6,11 +6,11 @@
 //  Copyright © 2016 Tsvigun Alexandr. All rights reserved.
 //
 
-#import "TSProfileViewController.h"
+#import "TSMatchViewController.h"
 #import "TSProfileView.h"
 #import "ZLSwipeableView.h"
 
-@interface TSProfileViewController () <ZLSwipeableViewDataSource, ZLSwipeableViewDelegate>
+@interface TSMatchViewController () <ZLSwipeableViewDataSource, ZLSwipeableViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray *views;
 
@@ -20,7 +20,7 @@
 
 @end
 
-@implementation TSProfileViewController
+@implementation TSMatchViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

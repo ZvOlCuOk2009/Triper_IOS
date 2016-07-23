@@ -32,7 +32,7 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void) mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+-(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
     MKPointAnnotation*    annotation = [[MKPointAnnotation alloc] init];
     CLLocationCoordinate2D myCoordinate;
