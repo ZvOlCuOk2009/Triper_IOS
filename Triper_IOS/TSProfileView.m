@@ -53,18 +53,6 @@
 - (void)_init
 {
     NSLog(@"init");
-    
-//    [[TSServerManager sharedManager] requestUserDataFromTheServerFacebook:^(TSUser *user) {
-//        if (user) {
-//            self.nameLabel.text = user.name;
-//            self.miniNameLabel.text = user.name;
-//            self.avatarImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:user.avatar]];
-//        } else {
-//            NSLog(@"Error");
-//        }
-//    }];
-    
-    
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder

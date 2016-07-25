@@ -9,6 +9,8 @@
 #import "TSServerManager.h"
 #import "AFNetworking.h"
 
+#import "TSUserViewController.h"
+
 @interface TSServerManager ()
 
 @property (strong, nonatomic) AFHTTPSessionManager *sessionManager;
@@ -67,18 +69,14 @@
     return profilePictureview;
 }
 
-- (void)requestUserFriendsTheServerFacebook:(void(^)(TSUser *user)) success
+- (void)requestUserFriendsTheServerFacebook:(void(^)(TSUser *user)) success controller:(UIViewController *)controller
 {
     FBSDKAppInviteContent *content =[[FBSDKAppInviteContent alloc] init];
     content.appLinkURL = [NSURL URLWithString:@"https://fb.me/1745102679089901"];
 
     content.appInvitePreviewImageURL = [NSURL URLWithString:@"https://3.bp.blogspot.com/-W__wiaHUjwI/Vt3Grd8df0I/AAAAAAAAA78/7xqUNj8ujtY/s1600/image02.png"];
     
-    [FBSDKAppInviteDialog showWithContent:content delegate:self];
-    
-//    UIViewController *controller = [[UIViewController alloc] init];
-//    [FBSDKAppInviteDialog showFromViewController:controller withContent:content delegate:self];
-    
+    [FBSDKAppInviteDialog showFromViewController:controller withContent:content delegate:self];
 }
 
 #pragma mark - FBSDKAppInviteDialogDelegate
@@ -90,7 +88,6 @@
 - (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didFailWithError:(NSError *)error {
     NSLog(@"error = %@", error);
 }
-
 
 
 - (void)logOutFacebook

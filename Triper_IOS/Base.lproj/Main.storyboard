@@ -222,7 +222,7 @@
                         <viewControllerLayoutGuide type="top" id="wKj-XY-M7u"/>
                         <viewControllerLayoutGuide type="bottom" id="IsS-sn-NW5"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="0dT-fu-TNJ">
+                    <view key="view" contentMode="scaleToFill" id="0dT-fu-TNJ" customClass="TSMenuTableViewCell">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -497,67 +497,74 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.25490196078431371" green="0.25490196078431371" blue="0.25490196078431371" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="98" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wz9-gH-GKU">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="67" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wz9-gH-GKU">
                                 <rect key="frame" x="0.0" y="103" width="320" height="416"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="98" id="SUL-tH-6Gx">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="98"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="detail" selectionStyle="default" indentationWidth="10" reuseIdentifier="detail" rowHeight="67" id="gET-VC-P8Z" customClass="TSMenuTableViewCell">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="67"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SUL-tH-6Gx" id="1uI-71-ewi">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="97"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gET-VC-P8Z" id="oId-L8-zFO">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="test" translatesAutoresizingMaskIntoConstraints="NO" id="X0R-GF-iec">
-                                                    <rect key="frame" x="6" y="10" width="60" height="60"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zue-go-6rb">
-                                                    <rect key="frame" x="74" y="4" width="107" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="1" green="0.43137254901960786" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yeQ-Xs-veF">
-                                                    <rect key="frame" x="80" y="24" width="32" height="13"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Company:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ws3-Oj-w1U">
-                                                    <rect key="frame" x="80" y="40" width="62" height="13"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jjh-EH-r6R">
-                                                    <rect key="frame" x="114" y="24" width="132" height="13"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Designation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zgn-73-fk1">
-                                                    <rect key="frame" x="146" y="40" width="98" height="13"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="61p-pa-OAM">
-                                                    <rect key="frame" x="80" y="56" width="132" height="13"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="tlogo" translatesAutoresizingMaskIntoConstraints="NO" id="pnh-6j-lqT">
-                                                    <rect key="frame" x="26" y="70" width="20" height="20"/>
-                                                </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rIM-mv-jKH">
-                                                    <rect key="frame" x="290" y="40" width="18" height="18"/>
-                                                    <state key="normal" image="arrow_go"/>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cxr-pF-3Bk">
+                                                    <rect key="frame" x="8" y="8" width="70" height="50"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" image="Phone 3x"/>
+                                                    <connections>
+                                                        <action selector="actionPhoneButton:" destination="gET-VC-P8Z" eventType="touchUpInside" id="6iC-Wz-W7x"/>
+                                                    </connections>
                                                 </button>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j9r-G9-gq5">
+                                                    <rect key="frame" x="80" y="10" width="1" height="45"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G9U-VQ-SuK">
+                                                    <rect key="frame" x="160" y="10" width="1" height="45"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5mG-ZW-VBn">
+                                                    <rect key="frame" x="240" y="10" width="1" height="45"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7wO-sj-Yha">
+                                                    <rect key="frame" x="86" y="8" width="70" height="50"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" image="chat_button"/>
+                                                    <connections>
+                                                        <action selector="actionChatButton:" destination="gET-VC-P8Z" eventType="touchUpInside" id="1mD-Oe-nDb"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tqe-mV-4js">
+                                                    <rect key="frame" x="166" y="8" width="70" height="50"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" image="Skype 3x"/>
+                                                    <connections>
+                                                        <action selector="actionSkypeButton:" destination="gET-VC-P8Z" eventType="touchUpInside" id="3aZ-DM-keg"/>
+                                                    </connections>
+                                                </button>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aFU-k4-Xxc">
+                                                    <rect key="frame" x="241" y="0.0" width="79" height="67"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="test" translatesAutoresizingMaskIntoConstraints="NO" id="Zar-q4-B79" customClass="TSCustomImageView">
+                                                            <rect key="frame" x="0.0" y="0.0" width="79" height="67"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="1" green="0.43137254901960786" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
+                                                </view>
                                             </subviews>
+                                            <color key="backgroundColor" red="0.25490196078431371" green="0.25490196078431371" blue="0.25490196078431371" alpha="1" colorSpace="calibratedRGB"/>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="avatarUser" destination="Zar-q4-B79" id="4mc-Hd-DLR"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="wi4-QO-XU1" id="Amc-eI-cVC"/>
+                                    <outlet property="delegate" destination="wi4-QO-XU1" id="7nM-ZE-L7Z"/>
+                                </connections>
                             </tableView>
                         </subviews>
                     </view>
@@ -565,6 +572,9 @@
                         <inset key="imageInsets" minX="0.0" minY="7" maxX="0.0" maxY="-5"/>
                     </tabBarItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="tableView" destination="wz9-gH-GKU" id="SFU-cq-JGK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SOw-DK-Kau" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -654,7 +664,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="arrow_go" width="32" height="32"/>
+        <image name="Phone 3x" width="50" height="50"/>
+        <image name="Skype 3x" width="50" height="50"/>
         <image name="background" width="750" height="1334"/>
         <image name="chat_button" width="33" height="33"/>
         <image name="chat_tab" width="44" height="44"/>
@@ -671,7 +682,6 @@
         <image name="plusfull" width="32" height="32"/>
         <image name="tab_bar" width="320" height="48"/>
         <image name="test" width="225" height="225"/>
-        <image name="tlogo" width="44" height="44"/>
         <image name="user_button" width="33" height="33"/>
         <image name="user_tab" width="44" height="44"/>
         <image name="userfield" width="180" height="34"/>

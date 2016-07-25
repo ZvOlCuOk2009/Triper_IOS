@@ -10,7 +10,10 @@
 
 @interface TSMenuTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *avatarUser;
+
+- (IBAction)actionPhoneButton:(UIButton *)sender;
+- (IBAction)actionChatButton:(UIButton *)sender;
+- (IBAction)actionSkypeButton:(UIButton *)sender;
 
 @end

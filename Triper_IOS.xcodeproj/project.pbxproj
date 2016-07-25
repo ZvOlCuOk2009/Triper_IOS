@@ -32,6 +32,8 @@
 		FDBFA51C1D1C23030074D92D /* Triper_IOSUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA51B1D1C23030074D92D /* Triper_IOSUITests.m */; };
 		FDC3C94F1D2D5A2E0036FF3D /* TSSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC3C94E1D2D5A2E0036FF3D /* TSSegmentedControl.m */; };
 		FDCBDA831D3E674200F07849 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FDCBDA821D3E674200F07849 /* GoogleService-Info.plist */; };
+		FDD4BFF51D44FBF100076803 /* TSCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FDD4BFF41D44FBF000076803 /* TSCellView.xib */; };
+		FDD4BFF81D44FC3B00076803 /* TSCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = FDD4BFF71D44FC3B00076803 /* TSCellView.m */; };
 		FDDC4FD41D3D031A00B11286 /* TSRandomFriendsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FDDC4FD31D3D031A00B11286 /* TSRandomFriendsTest.m */; };
 		FDF1852D1D302E4600EE3391 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDF1852C1D302E4600EE3391 /* Quickblox.framework */; };
 		FDF1852F1D30309300EE3391 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDF1852E1D30309300EE3391 /* CFNetwork.framework */; };
@@ -108,6 +110,9 @@
 		FDC3C94D1D2D5A2E0036FF3D /* TSSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSSegmentedControl.h; sourceTree = "<group>"; };
 		FDC3C94E1D2D5A2E0036FF3D /* TSSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSSegmentedControl.m; sourceTree = "<group>"; };
 		FDCBDA821D3E674200F07849 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FDD4BFF41D44FBF000076803 /* TSCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TSCellView.xib; sourceTree = "<group>"; };
+		FDD4BFF61D44FC3B00076803 /* TSCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCellView.h; sourceTree = "<group>"; };
+		FDD4BFF71D44FC3B00076803 /* TSCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCellView.m; sourceTree = "<group>"; };
 		FDDC4FD21D3D031A00B11286 /* TSRandomFriendsTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSRandomFriendsTest.h; sourceTree = "<group>"; };
 		FDDC4FD31D3D031A00B11286 /* TSRandomFriendsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSRandomFriendsTest.m; sourceTree = "<group>"; };
 		FDF1852C1D302E4600EE3391 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quickblox.framework; sourceTree = "<group>"; };
@@ -216,9 +221,10 @@
 				FD9E79A21D36D7B5003E402A /* TSProfileView.h */,
 				FD9E79A31D36D7B5003E402A /* TSProfileView.m */,
 				FDF83A091D391CC200FA5955 /* TSProfileView.xib */,
-				FDF247F31D3D93EA0035FBDF /* Handler */,
-				FDDC4FD21D3D031A00B11286 /* TSRandomFriendsTest.h */,
-				FDDC4FD31D3D031A00B11286 /* TSRandomFriendsTest.m */,
+				FDD4BFF61D44FC3B00076803 /* TSCellView.h */,
+				FDD4BFF71D44FC3B00076803 /* TSCellView.m */,
+				FDD4BFF41D44FBF000076803 /* TSCellView.xib */,
+				FDF247F31D3D93EA0035FBDF /* HandlerProfileView */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -249,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				FDF38CB71D1C797B005D081F /* App */,
+				FDD4BFF91D44FC9F00076803 /* TSRandomContentTest */,
 				FD05E8C51D27279F00C74141 /* Image View */,
 				FD9E79A11D36D767003E402A /* View */,
 				FD1334A81D2811AC0074F5E9 /* Models */,
@@ -306,15 +313,24 @@
 			name = SegmentedControll;
 			sourceTree = "<group>";
 		};
-		FDF247F31D3D93EA0035FBDF /* Handler */ = {
+		FDD4BFF91D44FC9F00076803 /* TSRandomContentTest */ = {
+			isa = PBXGroup;
+			children = (
+				FDDC4FD21D3D031A00B11286 /* TSRandomFriendsTest.h */,
+				FDDC4FD31D3D031A00B11286 /* TSRandomFriendsTest.m */,
+				FDF247F71D3D9CAE0035FBDF /* TSDisplayContent.h */,
+				FDF247F81D3D9CAE0035FBDF /* TSDisplayContent.m */,
+			);
+			name = TSRandomContentTest;
+			sourceTree = "<group>";
+		};
+		FDF247F31D3D93EA0035FBDF /* HandlerProfileView */ = {
 			isa = PBXGroup;
 			children = (
 				FDF247F41D3D94380035FBDF /* TSHandler.h */,
 				FDF247F51D3D94380035FBDF /* TSHandler.m */,
-				FDF247F71D3D9CAE0035FBDF /* TSDisplayContent.h */,
-				FDF247F81D3D9CAE0035FBDF /* TSDisplayContent.m */,
 			);
-			name = Handler;
+			name = HandlerProfileView;
 			sourceTree = "<group>";
 		};
 		FDF38CB61D1C7954005D081F /* Controllers */ = {
@@ -469,6 +485,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDBFA5061D1C23020074D92D /* LaunchScreen.storyboard in Resources */,
+				FDD4BFF51D44FBF100076803 /* TSCellView.xib in Resources */,
 				FDF83A0A1D391CC200FA5955 /* TSProfileView.xib in Resources */,
 				FDCBDA831D3E674200F07849 /* GoogleService-Info.plist in Resources */,
 				FDBFA5031D1C23020074D92D /* Assets.xcassets in Resources */,
@@ -565,6 +582,7 @@
 				FD0635C91D2FE78F005D39EE /* TSTabBarController.m in Sources */,
 				FD530D601D265E3500E0651A /* TSSettingsViewController.m in Sources */,
 				FDBFA4F51D1C23020074D92D /* main.m in Sources */,
+				FDD4BFF81D44FC3B00076803 /* TSCellView.m in Sources */,
 				FD4BF6DC1D43719300504327 /* TSMatchViewController.m in Sources */,
 				FDBFA5011D1C23020074D92D /* Triper_IOS.xcdatamodeld in Sources */,
 			);

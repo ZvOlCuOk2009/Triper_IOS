@@ -10,10 +10,16 @@
 
 @interface TSButton : UIButton
 
-@property (strong, nonatomic) NSString *title;
-@property (strong, nonatomic) NSString *icon;
-@property (assign, nonatomic) BOOL isOpen;
+@property (strong, nonatomic) UIImageView *avatarUser;
+@property (strong, nonatomic) NSString *nameUser;
+@property (strong, nonatomic) NSString *titleUser;
+@property (strong, nonatomic) NSString *companyUser;
+@property (strong, nonatomic) NSString *locationUser;
 
-- (instancetype)initWithFrame:(CGRect)frame title:(NSString *)title icon:(NSString *)icon;
+- (instancetype)initWithFrame:(CGRect)frame avatarUser:(UIImageView *)avatarUser
+                     nameUser:(NSString *)nameUser titleUser:(NSString *)titleUser
+                  companyUser:(NSString *)companyUser locationUser:(NSString *)locationUser;
+
+- (instancetype)initWithFrame:(CGRect)frame avatarUser:(UIImageView *)avatarUser nameUser:(NSString *)nameUser;
 
 @end

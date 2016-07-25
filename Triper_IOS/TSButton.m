@@ -14,30 +14,65 @@
 
 @implementation TSButton
 
-- (instancetype)initWithFrame:(CGRect)frame title:(NSString *)title icon:(NSString *)icon
+- (instancetype)initWithFrame:(CGRect)frame avatarUser:(UIImageView *)avatarUser
+                     nameUser:(NSString *)nameUser titleUser:(NSString *)titleUser
+                  companyUser:(NSString *)companyUser locationUser:(NSString *)locationUser
 {
     self = [super initWithFrame:frame];
     if (self) {
         
         self.backgroundColor = [UIColor whiteColor];
         
-        CGRect frameTitle = CGRectMake(65, 18, 75, 18);
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:frameTitle];
-        titleLabel.frame = frameTitle;
-        titleLabel.text = title;
-        titleLabel.textColor = MAIN_COLOR;
-        [self addSubview:titleLabel];
+        CGRect frameAvatar = CGRectMake(6, 10, 60, 60);
+        UIImageView *avatar = [[UIImageView alloc] initWithFrame:frameAvatar];
+        avatar = avatarUser;
+        [self addSubview:avatarUser];
         
-        CGRect frameIcon = CGRectMake(20, 16, 18, 18);
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:frameIcon];
-        imageView.image = [UIImage imageNamed:icon];
-        [self addSubview:imageView];
+        CGRect frameName = CGRectMake(74, 4, 107, 21);
+        UILabel *nameUserLabel = [[UILabel alloc] initWithFrame:frameName];
+        nameUserLabel.frame = frameName;
+        nameUserLabel.text = nameUser;
+        [self addSubview:nameUserLabel];
         
-        CGRect frameSeparator = CGRectMake(0, 49, 320, 1);
-        UIView *separator = [[UIView alloc] initWithFrame:frameSeparator];
-        separator.backgroundColor = SEPARATOR_COLOR;
-        [self addSubview:separator];
+        CGRect frameTitle = CGRectMake(114, 24, 132, 13);
+        UILabel *titleUserLabel = [[UILabel alloc] initWithFrame:frameTitle];
+        titleUserLabel.frame = frameTitle;
+        titleUserLabel.text = titleUser;
+        [self addSubview:titleUserLabel];
         
+        CGRect frameCompany = CGRectMake(146, 40, 98, 13);
+        UILabel *companyUserLabel = [[UILabel alloc] initWithFrame:frameCompany];
+        companyUserLabel.frame = frameCompany;
+        companyUserLabel.text = companyUser;
+        [self addSubview:companyUserLabel];
+        
+        CGRect frameLocation = CGRectMake(80, 56, 132, 13);
+        UILabel *locationUserLabel = [[UILabel alloc] initWithFrame:frameLocation];
+        locationUserLabel.frame = frameLocation;
+        locationUserLabel.text = locationUser;
+        [self addSubview:locationUserLabel];
+        
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame avatarUser:(UIImageView *)avatarUser nameUser:(NSString *)nameUser
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        
+        self.backgroundColor = [UIColor whiteColor];
+        
+        CGRect frameAvatar = CGRectMake(6, 10, 60, 60);
+        UIImageView *avatar = [[UIImageView alloc] initWithFrame:frameAvatar];
+        avatar = avatarUser;
+        [self addSubview:avatarUser];
+        
+        CGRect frameName = CGRectMake(74, 4, 107, 21);
+        UILabel *nameUserLabel = [[UILabel alloc] initWithFrame:frameName];
+        nameUserLabel.frame = frameName;
+        nameUserLabel.text = nameUser;
+        [self addSubview:nameUserLabel];
     }
     return self;
 }
