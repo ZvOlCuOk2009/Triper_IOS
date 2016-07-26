@@ -11,14 +11,17 @@
 #import "TSMenuTableViewCell.h"
 #import "TSButton.h"
 #import "TSCellView.h"
+#import "TSServerManager.h"
 
 @import Firebase;
+@import FirebaseDatabase;
 
 @interface TSChatViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *sections;
 @property (strong, nonatomic) TSCellView *cell;
+@property (strong, nonatomic) FIRDatabaseReference *ref;
 
 @end
 
@@ -30,34 +33,35 @@
     
     self.sections = [NSMutableArray array];
     
-    NSArray *girls = [NSArray arrayWithObjects:@"Amanda", nil];
-    NSArray *boys = [NSArray arrayWithObjects:@"Tom", nil];
-    NSArray *cats = [NSArray arrayWithObjects:@"Tima", nil];
-    NSArray *dogs = [NSArray arrayWithObjects:@"Clyde", nil];
+    NSArray *user1 = [NSArray arrayWithObjects:@"Amanda", nil];
+    NSArray *user2 = [NSArray arrayWithObjects:@"Tom", nil];
+    NSArray *user3 = [NSArray arrayWithObjects:@"John", nil];
+    NSArray *user4 = [NSArray arrayWithObjects:@"Tony", nil];
     
     
-    NSMutableDictionary *girlsSection = [NSMutableDictionary dictionary];
-    [girlsSection setObject:girls forKey:@"items"];
-//    [girlsSection setObject:@"Girls" forKey:@"title"];
+    NSMutableDictionary *user1Section = [NSMutableDictionary dictionary];
+    [user1Section setObject:user1 forKey:@"items"];
+//    [user1Section setObject:@"user1" forKey:@"title"];
     
-    NSMutableDictionary *boysSection = [NSMutableDictionary dictionary];
-    [boysSection setObject:boys forKey:@"items"];
-//    [boysSection setObject:@"Boys" forKey:@"title"];
+    NSMutableDictionary *user2Section = [NSMutableDictionary dictionary];
+    [user2Section setObject:user2 forKey:@"items"];
+//    [user2Section setObject:@"user2" forKey:@"title"];
     
     
-    NSMutableDictionary *catsSection = [NSMutableDictionary dictionary];
-    [catsSection setObject:cats forKey:@"items"];
-    //    [girlsSection setObject:@"Girls" forKey:@"title"];
+    NSMutableDictionary *user3Section = [NSMutableDictionary dictionary];
+    [user3Section setObject:user3 forKey:@"items"];
+    //    [user3Section setObject:@"user3" forKey:@"title"];
     
-    NSMutableDictionary *dogsSection = [NSMutableDictionary dictionary];
-    [dogsSection setObject:dogs forKey:@"items"];
-    //    [boysSection setObject:@"Boys" forKey:@"title"];
+    NSMutableDictionary *user4Section = [NSMutableDictionary dictionary];
+    [user4Section setObject:user4 forKey:@"items"];
+    //    [user4Section setObject:@"user4" forKey:@"title"];
     
-    [self.sections addObject:girlsSection];
-    [self.sections addObject:boysSection];
-    [self.sections addObject:catsSection];
-    [self.sections addObject:dogsSection];
+    [self.sections addObject:user1Section];
+    [self.sections addObject:user2Section];
+    [self.sections addObject:user3Section];
+    [self.sections addObject:user4Section];
 
+    self.ref = [[FIRDatabase database] reference];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,6 +74,30 @@
 {
     TSUserViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TSUserViewController"];
     [self presentViewController:controller animated:YES completion:nil];
+}
+
+- (IBAction)actionAddUser:(UIButton *)sender
+{
+    FIRUser *user = [FIRAuth auth].currentUser;
+    
+    NSString *name = user.displayName;
+//    NSString *email = user.email;
+//    NSURL *photoUrl = user.photoURL;
+    NSString *uid = user.uid;
+    NSString *userID = user.displayName;
+    
+    
+    NSLog(@"name = %@", name);
+    
+    
+    NSString *key = [[_ref child:@"posts"] childByAutoId].key;
+    NSDictionary *post = @{@"uid": uid,
+                           @"author": name};
+    NSDictionary *childUpdates = @{[@"/posts/" stringByAppendingString:key]: post,
+                                   [NSString stringWithFormat:@"/user-posts/%@/%@/", userID, key]: post};
+    [_ref updateChildValues:childUpdates];
+    
+    NSLog(@"key = %@", key);
 }
 
 #pragma mark - UITableViewDataSource
@@ -128,25 +156,21 @@
 
 - (void)didSelectSection:(UIButton *)sender {
     
-    NSLog(@"TAG %ld", sender.tag);
-    //Получение текущей секции
+    NSLog(@"TAG %ld", (long)sender.tag);
+
     NSMutableDictionary *currentSection = [self.sections objectAtIndex:sender.tag];
-    //Получение элементов секции
+
     NSArray *items = [currentSection objectForKey:@"items"];
     
-    //Создание массива индексов
     NSMutableArray *indexPaths = [NSMutableArray array];
     for (int i = 0; i < items.count; i++) {
         [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:sender.tag]];
     }
     
-    //Получение состояния секции
     BOOL isOpen = [[currentSection objectForKey:@"isOpen"] boolValue];
     
-    //Установка нового состояния
     [currentSection setObject:[NSNumber numberWithBool:!isOpen] forKey:@"isOpen"];
     
-    //Анимированное добавление или удаление ячеек секции
     if (isOpen) {
         [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
     } else {

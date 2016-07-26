@@ -35,7 +35,8 @@
 		FDD4BFF51D44FBF100076803 /* TSCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FDD4BFF41D44FBF000076803 /* TSCellView.xib */; };
 		FDD4BFF81D44FC3B00076803 /* TSCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = FDD4BFF71D44FC3B00076803 /* TSCellView.m */; };
 		FDDC4FD41D3D031A00B11286 /* TSRandomFriendsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FDDC4FD31D3D031A00B11286 /* TSRandomFriendsTest.m */; };
-		FDF1852D1D302E4600EE3391 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDF1852C1D302E4600EE3391 /* Quickblox.framework */; };
+		FDF0B4421D47A09C00DCD135 /* TSNewPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDF0B4411D47A09C00DCD135 /* TSNewPostViewController.m */; };
+		FDF0B4451D47B27300DCD135 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = FDF0B4441D47B27200DCD135 /* User.m */; };
 		FDF1852F1D30309300EE3391 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDF1852E1D30309300EE3391 /* CFNetwork.framework */; };
 		FDF185321D30380C00EE3391 /* TSChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDF185311D30380C00EE3391 /* TSChatViewController.m */; };
 		FDF247F61D3D94380035FBDF /* TSHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = FDF247F51D3D94380035FBDF /* TSHandler.m */; };
@@ -115,6 +116,10 @@
 		FDD4BFF71D44FC3B00076803 /* TSCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCellView.m; sourceTree = "<group>"; };
 		FDDC4FD21D3D031A00B11286 /* TSRandomFriendsTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSRandomFriendsTest.h; sourceTree = "<group>"; };
 		FDDC4FD31D3D031A00B11286 /* TSRandomFriendsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSRandomFriendsTest.m; sourceTree = "<group>"; };
+		FDF0B4401D47A09C00DCD135 /* TSNewPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNewPostViewController.h; sourceTree = "<group>"; };
+		FDF0B4411D47A09C00DCD135 /* TSNewPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSNewPostViewController.m; sourceTree = "<group>"; };
+		FDF0B4431D47B27200DCD135 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		FDF0B4441D47B27200DCD135 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		FDF1852C1D302E4600EE3391 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quickblox.framework; sourceTree = "<group>"; };
 		FDF1852E1D30309300EE3391 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		FDF185301D30380C00EE3391 /* TSChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSChatViewController.h; sourceTree = "<group>"; };
@@ -137,7 +142,6 @@
 				FDF1852F1D30309300EE3391 /* CFNetwork.framework in Frameworks */,
 				FD0635CB1D2FEE5F005D39EE /* MapKit.framework in Frameworks */,
 				F1B2EFFC2D91B863E9323D52 /* libPods-Triper_IOS.a in Frameworks */,
-				FDF1852D1D302E4600EE3391 /* Quickblox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,6 +196,8 @@
 			children = (
 				FD1334A91D2811E70074F5E9 /* TSUser.h */,
 				FD1334AA1D2811E70074F5E9 /* TSUser.m */,
+				FDF0B4431D47B27200DCD135 /* User.h */,
+				FDF0B4441D47B27200DCD135 /* User.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -352,6 +358,8 @@
 				FD0635C81D2FE78F005D39EE /* TSTabBarController.m */,
 				FD0635CC1D2FF009005D39EE /* TSMapKitViewController.h */,
 				FD0635CD1D2FF009005D39EE /* TSMapKitViewController.m */,
+				FDF0B4401D47A09C00DCD135 /* TSNewPostViewController.h */,
+				FDF0B4411D47A09C00DCD135 /* TSNewPostViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -562,8 +570,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FDF0B4451D47B27300DCD135 /* User.m in Sources */,
 				FDBFA4FB1D1C23020074D92D /* TSLoginViewController.m in Sources */,
 				FDC3C94F1D2D5A2E0036FF3D /* TSSegmentedControl.m in Sources */,
+				FDF0B4421D47A09C00DCD135 /* TSNewPostViewController.m in Sources */,
 				FDBFA4F81D1C23020074D92D /* AppDelegate.m in Sources */,
 				FDDC4FD41D3D031A00B11286 /* TSRandomFriendsTest.m in Sources */,
 				FDF38CBB1D1C7AED005D081F /* TSServerManager.m in Sources */,

@@ -72,9 +72,9 @@
 - (void)requestUserFriendsTheServerFacebook:(void(^)(TSUser *user)) success controller:(UIViewController *)controller
 {
     FBSDKAppInviteContent *content =[[FBSDKAppInviteContent alloc] init];
-    content.appLinkURL = [NSURL URLWithString:@"https://fb.me/1745102679089901"];
+    content.appLinkURL = [NSURL URLWithString:@"https://fb.me/1745102679089901"]; ///https://appsto.re/ru/aEK6cb.i  ///https://fb.me/1745102679089901
 
-    content.appInvitePreviewImageURL = [NSURL URLWithString:@"https://3.bp.blogspot.com/-W__wiaHUjwI/Vt3Grd8df0I/AAAAAAAAA78/7xqUNj8ujtY/s1600/image02.png"];
+//    content.appInvitePreviewImageURL = [NSURL URLWithString:@"https://3.bp.blogspot.com/-W__wiaHUjwI/Vt3Grd8df0I/AAAAAAAAA78/7xqUNj8ujtY/s1600/image02.png"];
     
     [FBSDKAppInviteDialog showFromViewController:controller withContent:content delegate:self];
 }

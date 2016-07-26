@@ -12,17 +12,17 @@
 
 - (IBAction)actionPhoneButton:(UIButton *)sender
 {
-    NSLog(@"Phone %ld", sender.tag);
+    NSLog(@"Phone %ld", (long)sender.tag);
 }
 
 - (IBAction)actionChatButton:(UIButton *)sender
 {
-    NSLog(@"Chat %ld", sender.tag);
+    NSLog(@"Chat %ld", (long)sender.tag);
 }
 
 - (IBAction)actionSkypeButton:(UIButton *)sender
 {
-    NSLog(@"Skype %ld", sender.tag);
+    NSLog(@"Skype %ld", (long)sender.tag);
 }
 
 @end

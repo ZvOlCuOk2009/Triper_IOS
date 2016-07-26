@@ -37,17 +37,13 @@
 
 - (IBAction)actionInviteFriends:(id)sender
 {
-//    [[TSServerManager sharedManager] requestUserFriendsTheServerFacebook:^(TSUser *user) {
-//        self.user = user;
-//        NSLog(@"User = %@", user.description);
-//    }];
-    
     [[TSServerManager sharedManager] requestUserFriendsTheServerFacebook:^(TSUser *user) {
         self.user = user;
         NSLog(@"User = %@", user.description);
     } controller:self];
     
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
