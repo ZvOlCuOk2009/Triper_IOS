@@ -32,6 +32,7 @@
 		FDBFA51C1D1C23030074D92D /* Triper_IOSUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA51B1D1C23030074D92D /* Triper_IOSUITests.m */; };
 		FDC3C94F1D2D5A2E0036FF3D /* TSSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC3C94E1D2D5A2E0036FF3D /* TSSegmentedControl.m */; };
 		FDCBDA831D3E674200F07849 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FDCBDA821D3E674200F07849 /* GoogleService-Info.plist */; };
+		FDCC29C81D494A3800EF3B38 /* TSMessagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCC29C71D494A3800EF3B38 /* TSMessagerViewController.m */; };
 		FDD4BFF51D44FBF100076803 /* TSCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FDD4BFF41D44FBF000076803 /* TSCellView.xib */; };
 		FDD4BFF81D44FC3B00076803 /* TSCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = FDD4BFF71D44FC3B00076803 /* TSCellView.m */; };
 		FDDC4FD41D3D031A00B11286 /* TSRandomFriendsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FDDC4FD31D3D031A00B11286 /* TSRandomFriendsTest.m */; };
@@ -111,6 +112,8 @@
 		FDC3C94D1D2D5A2E0036FF3D /* TSSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSSegmentedControl.h; sourceTree = "<group>"; };
 		FDC3C94E1D2D5A2E0036FF3D /* TSSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSSegmentedControl.m; sourceTree = "<group>"; };
 		FDCBDA821D3E674200F07849 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FDCC29C61D494A3800EF3B38 /* TSMessagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSMessagerViewController.h; sourceTree = "<group>"; };
+		FDCC29C71D494A3800EF3B38 /* TSMessagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSMessagerViewController.m; sourceTree = "<group>"; };
 		FDD4BFF41D44FBF000076803 /* TSCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TSCellView.xib; sourceTree = "<group>"; };
 		FDD4BFF61D44FC3B00076803 /* TSCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCellView.h; sourceTree = "<group>"; };
 		FDD4BFF71D44FC3B00076803 /* TSCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCellView.m; sourceTree = "<group>"; };
@@ -360,6 +363,8 @@
 				FD0635CD1D2FF009005D39EE /* TSMapKitViewController.m */,
 				FDF0B4401D47A09C00DCD135 /* TSNewPostViewController.h */,
 				FDF0B4411D47A09C00DCD135 /* TSNewPostViewController.m */,
+				FDCC29C61D494A3800EF3B38 /* TSMessagerViewController.h */,
+				FDCC29C71D494A3800EF3B38 /* TSMessagerViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -588,6 +593,7 @@
 				FD4BF6DF1D43794E00504327 /* TSUserViewController.m in Sources */,
 				FD9E79A41D36D7B5003E402A /* TSProfileView.m in Sources */,
 				FD4C964B1D2DB4FD00D965F4 /* TSTextField.m in Sources */,
+				FDCC29C81D494A3800EF3B38 /* TSMessagerViewController.m in Sources */,
 				FDF247F91D3D9CAE0035FBDF /* TSDisplayContent.m in Sources */,
 				FD0635C91D2FE78F005D39EE /* TSTabBarController.m in Sources */,
 				FD530D601D265E3500E0651A /* TSSettingsViewController.m in Sources */,

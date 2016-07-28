@@ -44,9 +44,9 @@
     
     [[[self.ref child:@"users"] child:userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
-        User *user = [[User alloc] initWithUsername:snapshot.value[@"username"]];
+        User *user = [[User alloc] init];//[[User alloc] initWithUsername:snapshot.value[@"username"]];
         user.username = @"Dima";
-        
+                
         NSLog(@"snapshot = %@", snapshot.value);
         NSLog(@"user = %@", user.username);
         
@@ -69,7 +69,7 @@
 
 - (void)writeNewPost:(NSString *)userID username:(NSString *)username title:(NSString *)title body:(NSString *)body
 {
-    NSString *key = [[self.ref child:@"posts"] childByAutoId].key;
+    NSString *key = [[[self.ref child:@"posts"] childByAutoId] key];
     NSDictionary *post = @{@"uid":userID,
                            @"author":username,
                            @"title":title,

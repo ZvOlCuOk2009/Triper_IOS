@@ -12,6 +12,7 @@
 #import "TSButton.h"
 #import "TSCellView.h"
 #import "TSServerManager.h"
+#import "TSMessagerViewController.h"
 
 @import Firebase;
 @import FirebaseDatabase;
@@ -22,6 +23,7 @@
 @property (strong, nonatomic) NSMutableArray *sections;
 @property (strong, nonatomic) TSCellView *cell;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
+@property (weak, nonatomic) IBOutlet UILabel *chatLabel;
 
 @end
 
@@ -62,6 +64,7 @@
     [self.sections addObject:user4Section];
 
     self.ref = [[FIRDatabase database] reference];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -99,6 +102,45 @@
     
     NSLog(@"key = %@", key);
 }
+- (IBAction)actionMessage:(UIButton *)sender  //FIRDataEventTypeValue
+{
+    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        //FIRDataSnapshot *muterData = [snapshot childSnapshotForPath:@"user-posts/v7rDRmPZrgQKh2NOLNp9s2X0cov1"];
+        FIRDataSnapshot *muterDataPost = [snapshot childSnapshotForPath:@"user-posts/v7rDRmPZrgQKh2NOLNp9s2X0cov1/-KNgPaRndUDfP4yuiRRY"];
+//        NSLog(@"Shapshot childSnapshotForPath count = %@", muterDataPost);
+//        NSLog(@"Shapshot children = %@", [muterData children]);
+        
+        //NSString *key = [[[self.ref child:@"posts"] childByAutoId] key];
+        
+//        NSLog(@"%@", muterDataPost.value[@"title"]);
+//        NSLog(@"%@", muterDataPost.value[@"body"]);
+        
+//        NSString *post = [NSString stringWithFormat:@"%@", muterDataPost];
+//        NSScanner *scanPost = [NSScanner scannerWithString:post];
+//        NSString *updatePost;
+//        while (![scanPost isAtEnd]) {
+//            [scanPost scanString:@"(body)" intoString:nil];
+//            [scanPost scanUpToString:@"(body)" intoString:&updatePost];
+//        }
+//        NSLog(@"updatePost %@", updatePost);
+//        self.chatLabel.text = updatePost;
+    }];
+    //[self scanerStrting];
+}
+
+
+- (void)scanerStrting
+{
+    NSString *htmlData = @"This is some stuff before <body> this is the body </body> with some more stuff";
+    NSScanner* newScanner = [NSScanner scannerWithString:htmlData];
+    NSString *bodyText;
+    while (![newScanner isAtEnd]) {
+        [newScanner scanUpToString:@"<body>" intoString:NULL];
+        [newScanner scanString:@"<body>" intoString:NULL];
+        [newScanner scanUpToString:@"</body>" intoString:&bodyText];
+    }
+    NSLog(@"%@",bodyText); 
+}
 
 #pragma mark - UITableViewDataSource
 
@@ -126,10 +168,6 @@
     if (cell == nil) {
         cell = [[TSMenuTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    
-//    NSDictionary *currentSection = [self.sections objectAtIndex:indexPath.section];
-//    NSArray *items = [currentSection objectForKey:@"items"];
-//    NSString *currentItem = [items objectAtIndex:indexPath.row];
     
     self.cell = [TSCellView cellView];
     

@@ -29,6 +29,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>JSQMessagesViewController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>JSQSystemSoundPlayer.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Triper_IOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -43,11 +53,6 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>0C1F8E331232C34F034FD26C684AFA0A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>43FEB8547AAD9894761F6D1E174BBE8B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -67,12 +72,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B0F8CFB38608F89169297FB7086B9E91</key>
+		<key>9308FBFAB7AA4B2E1F7E89900FD73EF0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B102F209C1FA58D0EB9EA7852A3527E3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>C43DEF8E5BFEC36D943258BA3F21834D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C681E922E3028FFF01772361B6FFDDFC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DAB4BEBEAEB18B2A8EB63EEFF0A1484D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

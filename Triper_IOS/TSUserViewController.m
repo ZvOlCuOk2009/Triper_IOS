@@ -41,7 +41,6 @@
         self.user = user;
         NSLog(@"User = %@", user.description);
     } controller:self];
-    
 }
 
 
