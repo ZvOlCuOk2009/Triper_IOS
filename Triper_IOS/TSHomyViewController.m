@@ -10,12 +10,11 @@
 #import "TSServerManager.h"
 #import "TSUser.h"
 #import "TSLoginViewController.h"
-#import "TSProfileView.h"
-#import "TSRandomFriendsTest.h"
-#import "TSMatchViewController.h"
+//#import "TSRandomFriendsTest.h"
+//#import "TSMatchViewController.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <Quickblox/Quickblox.h>
+//#import <Quickblox/Quickblox.h>
 
 @interface TSHomyViewController ()
 
@@ -30,9 +29,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    FBSDKProfilePictureView *avatar = [[TSServerManager sharedManager]
+                                       requestUserImageFromTheServerFacebook:self.avatarImageView];
+    avatar.layer.cornerRadius = avatar.frame.size.width / 2;
+    //    avatar.layer.borderWidth = 4;
+    //    avatar.layer.borderColor = [[UIColor whiteColor] CGColor];
+    avatar.clipsToBounds = YES;
+    [self.view addSubview:avatar];
     
-    TSProfileView *profileView = [TSProfileView profileView];
-    [self.view addSubview:profileView];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,6 +47,14 @@
     
 }
 
+
+- (IBAction)actionInviteFriends:(id)sender
+{
+    [[TSServerManager sharedManager] requestUserFriendsTheServerFacebook:^(TSUser *user) {
+        self.user = user;
+        NSLog(@"User = %@", user.description);
+    } controller:self];
+}
 
 - (IBAction)actionLogOut:(id)sender
 {

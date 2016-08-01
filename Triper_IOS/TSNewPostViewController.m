@@ -7,7 +7,7 @@
 //
 
 #import "TSNewPostViewController.h"
-#import "User.h"
+//#import "User.h"
 
 @import Firebase;
 @import FirebaseAuth;
@@ -44,13 +44,13 @@
     
     [[[self.ref child:@"users"] child:userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
-        User *user = [[User alloc] init];//[[User alloc] initWithUsername:snapshot.value[@"username"]];
-        user.username = @"Dima";
+        //User *user = [[User alloc] init];//[[User alloc] initWithUsername:snapshot.value[@"username"]];
+        NSString *username = @"Dima";
                 
         NSLog(@"snapshot = %@", snapshot.value);
-        NSLog(@"user = %@", user.username);
+        //NSLog(@"user = %@", user.username);
         
-        [self writeNewPost:userID username:user.username title:self.titleTextField.text body:self.bodyTextView.text];
+        [self writeNewPost:userID username:username title:self.titleTextField.text body:self.bodyTextView.text];
                 
         if (![self.titleTextField.text isEqualToString:@""] && ![self.bodyTextView.text isEqualToString:@""]) {
             UIButton *button = nil;

@@ -9,6 +9,8 @@
 #import "TSUserViewController.h"
 #import "TSServerManager.h"
 #import "TSUser.h"
+#import "TSLoginViewController.h"
+#import "TSProfileView.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
@@ -25,22 +27,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    FBSDKProfilePictureView *avatar = [[TSServerManager sharedManager]
-                                       requestUserImageFromTheServerFacebook:self.avatarImageView];
-    avatar.layer.cornerRadius = avatar.frame.size.width / 2;
-//    avatar.layer.borderWidth = 4;
-//    avatar.layer.borderColor = [[UIColor whiteColor] CGColor];
-    avatar.clipsToBounds = YES;
-    [self.view addSubview:avatar];
-
-}
-
-- (IBAction)actionInviteFriends:(id)sender
-{
-    [[TSServerManager sharedManager] requestUserFriendsTheServerFacebook:^(TSUser *user) {
-        self.user = user;
-        NSLog(@"User = %@", user.description);
-    } controller:self];
+    TSProfileView *profileView = [TSProfileView profileView];
+    [self.view addSubview:profileView];
+    
 }
 
 

@@ -35,6 +35,7 @@
 		FDCC29C81D494A3800EF3B38 /* TSMessagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCC29C71D494A3800EF3B38 /* TSMessagerViewController.m */; };
 		FDD4BFF51D44FBF100076803 /* TSCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FDD4BFF41D44FBF000076803 /* TSCellView.xib */; };
 		FDD4BFF81D44FC3B00076803 /* TSCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = FDD4BFF71D44FC3B00076803 /* TSCellView.m */; };
+		FDDC3FD31D4BD51C008559AC /* TSContainerChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDDC3FD21D4BD51C008559AC /* TSContainerChatViewController.m */; };
 		FDDC4FD41D3D031A00B11286 /* TSRandomFriendsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FDDC4FD31D3D031A00B11286 /* TSRandomFriendsTest.m */; };
 		FDF0B4421D47A09C00DCD135 /* TSNewPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDF0B4411D47A09C00DCD135 /* TSNewPostViewController.m */; };
 		FDF0B4451D47B27300DCD135 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = FDF0B4441D47B27200DCD135 /* User.m */; };
@@ -117,6 +118,8 @@
 		FDD4BFF41D44FBF000076803 /* TSCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TSCellView.xib; sourceTree = "<group>"; };
 		FDD4BFF61D44FC3B00076803 /* TSCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCellView.h; sourceTree = "<group>"; };
 		FDD4BFF71D44FC3B00076803 /* TSCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCellView.m; sourceTree = "<group>"; };
+		FDDC3FD11D4BD51C008559AC /* TSContainerChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSContainerChatViewController.h; sourceTree = "<group>"; };
+		FDDC3FD21D4BD51C008559AC /* TSContainerChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSContainerChatViewController.m; sourceTree = "<group>"; };
 		FDDC4FD21D3D031A00B11286 /* TSRandomFriendsTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSRandomFriendsTest.h; sourceTree = "<group>"; };
 		FDDC4FD31D3D031A00B11286 /* TSRandomFriendsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSRandomFriendsTest.m; sourceTree = "<group>"; };
 		FDF0B4401D47A09C00DCD135 /* TSNewPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNewPostViewController.h; sourceTree = "<group>"; };
@@ -365,6 +368,8 @@
 				FDF0B4411D47A09C00DCD135 /* TSNewPostViewController.m */,
 				FDCC29C61D494A3800EF3B38 /* TSMessagerViewController.h */,
 				FDCC29C71D494A3800EF3B38 /* TSMessagerViewController.m */,
+				FDDC3FD11D4BD51C008559AC /* TSContainerChatViewController.h */,
+				FDDC3FD21D4BD51C008559AC /* TSContainerChatViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -592,6 +597,7 @@
 				FDF247F61D3D94380035FBDF /* TSHandler.m in Sources */,
 				FD4BF6DF1D43794E00504327 /* TSUserViewController.m in Sources */,
 				FD9E79A41D36D7B5003E402A /* TSProfileView.m in Sources */,
+				FDDC3FD31D4BD51C008559AC /* TSContainerChatViewController.m in Sources */,
 				FD4C964B1D2DB4FD00D965F4 /* TSTextField.m in Sources */,
 				FDCC29C81D494A3800EF3B38 /* TSMessagerViewController.m in Sources */,
 				FDF247F91D3D9CAE0035FBDF /* TSDisplayContent.m in Sources */,

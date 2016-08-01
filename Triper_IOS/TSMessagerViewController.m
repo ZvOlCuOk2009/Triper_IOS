@@ -14,11 +14,12 @@
 @import Firebase;
 @import FirebaseDatabase;
 
-@interface TSMessagerViewController () <JSQMessagesCollectionViewDataSource>
+@interface TSMessagerViewController () <JSQMessagesCollectionViewDataSource, UITextFieldDelegate>
 
 @property (strong, nonatomic) FIRUser *user;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 @property (strong, nonatomic) FIRDatabaseReference *userIsTypingRef;
+@property (strong, nonatomic) FIRDatabaseQuery *usersTypingQuery;
 
 @property (strong, nonatomic) NSMutableArray <JSQMessage *> *messages;
 @property (strong, nonatomic) JSQMessagesBubbleImage *outgoingBubbleImageView;
@@ -26,6 +27,8 @@
 
 @property (assign, nonatomic) BOOL localTyping;
 @property (assign, nonatomic) BOOL isTyping;
+
+@property (strong, nonatomic) NSString *outID;
 
 @end
 
@@ -39,8 +42,10 @@
     self.messages = [NSMutableArray array];
     self.user = [FIRAuth auth].currentUser;
     
+    self.usersTypingQuery = [self.ref queryOrderedByKey];
+    
     self.senderId = self.user.uid;
-    self.senderDisplayName = @"";
+    self.senderDisplayName = self.user.displayName;
     
     [self setupBubbles];
     
@@ -48,6 +53,7 @@
     self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
     
     self.localTyping = NO;
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -79,6 +85,20 @@
     }
 }
 
+- (UICollectionViewCell *)collectionView:(JSQMessagesCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    JSQMessagesCollectionViewCell *cell = (JSQMessagesCollectionViewCell *)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
+    
+    JSQMessage *message = self.messages[indexPath.item];
+    
+    if ([message.senderId isEqualToString:self.senderId]) {
+        cell.textView.textColor = [UIColor whiteColor];
+    } else {
+        cell.textView.textColor = [UIColor blackColor];
+    }
+    return cell;
+}
+
 - (id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     return [JSQMessagesAvatarImageFactory avatarImageWithUserInitials:@"av4"
@@ -100,7 +120,7 @@
 
 - (void)addMessage:(NSString *)idString text:(NSString *)text
 {
-    JSQMessage * message = [JSQMessage messageWithSenderId:self.senderId displayName:@"" text:text];
+    JSQMessage * message = [JSQMessage messageWithSenderId:idString displayName:self.senderDisplayName text:text];
     
     [self.messages addObject:message];
 }
@@ -115,7 +135,7 @@
     [JSQSystemSoundPlayer jsq_playMessageSentSound];
     
     [self.ref observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        NSLog(@"snapshot = %@", snapshot.value);
+        //NSLog(@"snapshot = %@", snapshot.value);
     }];
     self.isTyping = NO;
 }
@@ -125,10 +145,10 @@
     FIRDatabaseQuery *messagesQuery = [self.ref queryLimitedToLast:20];
     [messagesQuery observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
-        NSString *ID = snapshot.value[@"senderId"];
+        self.outID = snapshot.value[@"senderId"];
         NSString *text = snapshot.value[@"text"];
 
-        [self addMessage:ID text:text];
+        [self addMessage:self.outID text:text];
         [self finishReceivingMessage];
     }];
 }
@@ -136,7 +156,7 @@
 - (void)textViewDidChange:(UITextView *)textView
 {
     [super textViewDidChange:textView];
-    NSLog(@"textView %@", textView);
+    //NSLog(@"textView %@", textView);
     
     if (self.isTyping) {
         NSLog(@"ПЕЧТАЕТ!!!");
@@ -148,7 +168,10 @@
     FIRDatabaseReference *typingIndicatorRef = [self.ref child:@"typingIndicator"];
     self.userIsTypingRef = [typingIndicatorRef child:self.user.uid];
     [self.userIsTypingRef onDisconnectRemoveValue];
+    
+    //self.usersTypingQuery = [typingIndicatorRef.queryOrderedByValue queryEqualToValue:];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

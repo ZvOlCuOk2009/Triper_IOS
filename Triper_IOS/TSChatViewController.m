@@ -13,6 +13,7 @@
 #import "TSCellView.h"
 #import "TSServerManager.h"
 #import "TSMessagerViewController.h"
+#import "TSNewPostViewController.h"
 
 @import Firebase;
 @import FirebaseDatabase;
@@ -23,7 +24,6 @@
 @property (strong, nonatomic) NSMutableArray *sections;
 @property (strong, nonatomic) TSCellView *cell;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
-@property (weak, nonatomic) IBOutlet UILabel *chatLabel;
 
 @end
 
@@ -40,7 +40,7 @@
     NSArray *user3 = [NSArray arrayWithObjects:@"John", nil];
     NSArray *user4 = [NSArray arrayWithObjects:@"Tony", nil];
     
-    
+
     NSMutableDictionary *user1Section = [NSMutableDictionary dictionary];
     [user1Section setObject:user1 forKey:@"items"];
 //    [user1Section setObject:@"user1" forKey:@"title"];
@@ -48,7 +48,6 @@
     NSMutableDictionary *user2Section = [NSMutableDictionary dictionary];
     [user2Section setObject:user2 forKey:@"items"];
 //    [user2Section setObject:@"user2" forKey:@"title"];
-    
     
     NSMutableDictionary *user3Section = [NSMutableDictionary dictionary];
     [user3Section setObject:user3 forKey:@"items"];
@@ -71,6 +70,10 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+#pragma mark - Actions
+
 
 
 - (IBAction)actionProfileButton:(UIButton *)sender
@@ -104,17 +107,23 @@
 }
 - (IBAction)actionMessage:(UIButton *)sender  //FIRDataEventTypeValue
 {
-    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        //FIRDataSnapshot *muterData = [snapshot childSnapshotForPath:@"user-posts/v7rDRmPZrgQKh2NOLNp9s2X0cov1"];
-        FIRDataSnapshot *muterDataPost = [snapshot childSnapshotForPath:@"user-posts/v7rDRmPZrgQKh2NOLNp9s2X0cov1/-KNgPaRndUDfP4yuiRRY"];
+    TSMessagerViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TSMessagerViewController"];
+    //[self.navigationController pushViewController:controller animated:NO];
+    
+    [self presentViewController:controller animated:YES completion:nil];
+    
+    
+//    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+//        FIRDataSnapshot *muterData = [snapshot childSnapshotForPath:@"user-posts/v7rDRmPZrgQKh2NOLNp9s2X0cov1"];
+//        FIRDataSnapshot *muterDataPost = [snapshot childSnapshotForPath:@"user-posts/v7rDRmPZrgQKh2NOLNp9s2X0cov1/-KNgPaRndUDfP4yuiRRY"];
 //        NSLog(@"Shapshot childSnapshotForPath count = %@", muterDataPost);
 //        NSLog(@"Shapshot children = %@", [muterData children]);
-        
-        //NSString *key = [[[self.ref child:@"posts"] childByAutoId] key];
-        
+//
+//        NSString *key = [[[self.ref child:@"posts"] childByAutoId] key];
+//
 //        NSLog(@"%@", muterDataPost.value[@"title"]);
 //        NSLog(@"%@", muterDataPost.value[@"body"]);
-        
+//
 //        NSString *post = [NSString stringWithFormat:@"%@", muterDataPost];
 //        NSScanner *scanPost = [NSScanner scannerWithString:post];
 //        NSString *updatePost;
@@ -123,9 +132,8 @@
 //            [scanPost scanUpToString:@"(body)" intoString:&updatePost];
 //        }
 //        NSLog(@"updatePost %@", updatePost);
-//        self.chatLabel.text = updatePost;
-    }];
-    //[self scanerStrting];
+//    }];
+//    [self scanerStrting];
 }
 
 
