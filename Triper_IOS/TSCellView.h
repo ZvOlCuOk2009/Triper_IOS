@@ -17,6 +17,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 
 + (instancetype)cellView;
-- (UIImage *)avatarImage;
+//- (UIImage *)avatarImage;
 
 @end

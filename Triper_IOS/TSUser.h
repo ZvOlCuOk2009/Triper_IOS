@@ -17,6 +17,7 @@
 @property (strong, nonatomic) NSString *bio;
 @property (strong, nonatomic) NSString *friendlists;
 @property (strong, nonatomic) NSString *email;
+@property (strong, nonatomic) NSString *ID;
 @property (strong, nonatomic) NSURL *avatar;
 
 - (id)initWithDictionary:(NSDictionary *)responseValue;

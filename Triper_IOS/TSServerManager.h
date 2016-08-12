@@ -16,11 +16,11 @@
 
 + (TSServerManager *)sharedManager;
 - (void)requestUserDataFromTheServerFacebook:(void(^)(TSUser *user))success;
-- (void)requestUserFriendsTheServerFacebook:(void(^)(TSUser *user)) success controller:(UIViewController *)controller;
-- (FBSDKProfilePictureView *)requestUserImageFromTheServerFacebook:(UIImageView *)currentImageView;
+- (void)inviteUserFriendsTheServerFacebook:(UIViewController *)controller;
+- (void)requestUserFriendsTheServerFacebook:(void(^)(NSArray *friends)) success;
+- (FBSDKProfilePictureView *)requestUserImageFromTheServerFacebook:(UIImageView *)currentImageView ID:(NSString *)ID;
 - (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didCompleteWithResults:(NSDictionary *)results;
 - (void)authorizationOfNewUser:(NSString *)userID userLogin:(NSString *)userLogin onSuccess:(void(^)(NSArray *token)) success;
 - (void)logOutFacebook;
-
 
 @end

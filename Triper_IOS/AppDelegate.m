@@ -43,14 +43,25 @@
 }
 
 
-
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     
-    return [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url
-                                                sourceApplication:sourceApplication annotation:annotation];
-    
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                          openURL:url
+                                                sourceApplication:sourceApplication
+                                                       annotation:annotation];
 }
 
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    NSLog(@"url recieved: %@", url);
+    NSLog(@"query string: %@", [url query]);
+    NSLog(@"host: %@", [url host]);
+    NSLog(@"url path: %@", [url path]);
+    //NSDictionary *dict = [self parseQueryString:[url query]];
+    //NSLog(@"query dict: %@", dict);
+    return YES;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

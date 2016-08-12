@@ -22,7 +22,7 @@
     
     [self.viewControllers enumerateObjectsUsingBlock:^(UIViewController *vc, NSUInteger idx, BOOL *stop) {
         vc.title = nil;
-        //vc.tabBarItem.imageInsets = UIEdgeInsetsMake(7, 0, -5, 0);
+
     }];
 }
 

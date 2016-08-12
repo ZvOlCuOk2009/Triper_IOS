@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>APAddressBook.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Bolts.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -57,6 +62,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>4659BCBD67F8B9295DE13EAD4390821A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>6E7B2CF2F9D161E4DB2C0174D7A3D9CA</key>
 		<dict>
 			<key>primary</key>
@@ -77,6 +87,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>A3CE18E0CF3985514D8A28387DABB992</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>B102F209C1FA58D0EB9EA7852A3527E3</key>
 		<dict>
 			<key>primary</key>
@@ -87,12 +102,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C681E922E3028FFF01772361B6FFDDFC</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>DAB4BEBEAEB18B2A8EB63EEFF0A1484D</key>
+		<key>DA17884156D67867C1321919546DCA90</key>
 		<dict>
 			<key>primary</key>
 			<true/>

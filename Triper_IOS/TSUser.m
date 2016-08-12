@@ -21,6 +21,7 @@
         self.bio = [responseValue valueForKey:@"bio"];
         self.friendlists = [responseValue valueForKey:@"friendlists"];
         self.email = [responseValue valueForKey:@"email"];
+        self.ID = [responseValue valueForKey:@"id"];
         NSString *urlString = [[[responseValue valueForKey:@"picture"] valueForKey:@"data"] valueForKey:@"url"];
         self.avatar = [[NSURL alloc] initWithString:urlString];
     }

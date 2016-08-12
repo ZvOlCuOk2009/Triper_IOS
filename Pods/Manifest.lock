@@ -14,6 +14,9 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - APAddressBook (0.2.3):
+    - APAddressBook/Core (= 0.2.3)
+  - APAddressBook/Core (0.2.3)
   - Bolts (1.7.0):
     - Bolts/AppLinks (= 1.7.0)
     - Bolts/Tasks (= 1.7.0)
@@ -64,6 +67,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - APAddressBook
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
@@ -75,6 +79,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  APAddressBook: 2a91bf05999548bea210ec9d1a68073f4dc8bfce
   Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
   FBSDKCoreKit: 2807fe0da2ddb49a1469da6d6ff597f99912980f
   FBSDKLoginKit: 6d350cb6a22d6956e9d078885de6ee8a0ebc51b4
@@ -92,6 +97,6 @@ SPEC CHECKSUMS:
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   ZLSwipeableView: df385760ff4838935cdbcb62878ac5acd7355949
 
-PODFILE CHECKSUM: 4a2e32f014c852e275266f682e97efaacdc32b5a
+PODFILE CHECKSUM: 239615aafbab1b75482d0cbaf34f0472b6144572
 
 COCOAPODS: 1.0.1

@@ -19,6 +19,10 @@
 
 @implementation TSServerManager
 
+
+#pragma mark - Singleton
+
+
 + (TSServerManager *)sharedManager
 {
     static TSServerManager *manager = nil;
@@ -37,6 +41,10 @@
     }
     return self;
 }
+
+
+#pragma mark - FBSDKAccessToken
+
 
 - (void)requestUserDataFromTheServerFacebook:(void(^)(TSUser *user)) success
 {
@@ -60,24 +68,51 @@
      }];
 }
 
-- (FBSDKProfilePictureView *)requestUserImageFromTheServerFacebook:(UIImageView *)currentImageView
+
+#pragma mark - FBSDKProfilePictureView
+
+
+- (FBSDKProfilePictureView *)requestUserImageFromTheServerFacebook:(UIImageView *)currentImageView ID:(NSString *)ID
 {
-    NSLog(@"Token is available = %@", [[FBSDKAccessToken currentAccessToken]tokenString]);
+//    NSLog(@"Token is available = %@", [[FBSDKAccessToken currentAccessToken]tokenString]);
     
     FBSDKProfilePictureView *profilePictureview = [[FBSDKProfilePictureView alloc]initWithFrame:currentImageView.frame];
-    [profilePictureview setProfileID:@"me"];
+    [profilePictureview setProfileID:ID];
     return profilePictureview;
 }
 
-- (void)requestUserFriendsTheServerFacebook:(void(^)(TSUser *user)) success controller:(UIViewController *)controller
+
+#pragma mark - FBSDKGraphRequest
+// "me/friends={fieldname_of_type_Location}" локация на карте
+
+- (void)requestUserFriendsTheServerFacebook:(void(^)(NSArray *friends))success
+{
+    [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me/friends" parameters:nil]
+     startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error)
+     {
+         if (!error) {
+             NSArray * friendList = [result objectForKey:@"data"];
+             if (success) {
+                 success(friendList);
+             }
+         } else {
+             NSLog(@"Error %@", [error localizedDescription]);
+         }
+     }];
+}
+
+
+#pragma mark - FBSDKAppInviteDialogDelegate
+
+
+
+- (void)inviteUserFriendsTheServerFacebook:(UIViewController *)controller
 {
     FBSDKAppInviteContent *content =[[FBSDKAppInviteContent alloc] init];
     content.appLinkURL = [NSURL URLWithString:@"https://fb.me/1745102679089901"];
-    
     [FBSDKAppInviteDialog showFromViewController:controller withContent:content delegate:self];
 }
 
-#pragma mark - FBSDKAppInviteDialogDelegate
 
 - (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didCompleteWithResults:(NSDictionary *)results {
     NSLog(@"results = %@", results);
@@ -88,6 +123,9 @@
 }
 
 
+#pragma mark - logOutFacebook
+
+
 - (void)logOutFacebook
 {
     [[[FBSDKLoginManager alloc] init] logOut];
@@ -96,8 +134,7 @@
 }
 
 
-///************************************
-
+#pragma mark - AFNetworking
 
 
 - (void)authorizationOfNewUser:(NSString *)userID

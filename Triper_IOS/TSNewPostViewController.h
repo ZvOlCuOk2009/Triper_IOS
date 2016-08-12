@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TSChatViewController.h"
 
 @import FirebaseDatabase;
 
-@interface TSNewPostViewController : UIViewController
+@interface TSNewPostViewController : TSChatViewController
 
-@property(strong, nonatomic) FIRDatabaseReference *ref;
+@property (strong, nonatomic) FIRDatabaseReference *ref;
 
 @end

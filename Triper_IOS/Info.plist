@@ -2,16 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>LSApplicationCategoryType</key>
-	<string></string>
-	<key>CFBundleDisplayName</key>
-	<string></string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This application requires location services to work</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This application requires location services to work</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>zh_TW</string>
+	<key>CFBundleDisplayName</key>
+	<string></string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -29,12 +23,15 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.RamsahApp</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb1740428519557317</string>
-			</array>
+
+            </array>
 			<key>URL Name</key>
-			<string>https://developers.facebook.com/apps/1740428519557317/dashboard/</string>
+			<string></string>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
@@ -43,6 +40,8 @@
 	<string>1740428519557317</string>
 	<key>FacebookDisplayName</key>
 	<string>Triper_IOS</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbshareextension</string>
@@ -57,6 +56,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This application requires location services to work</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This application requires location services to work</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

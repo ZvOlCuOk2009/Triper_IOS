@@ -10,15 +10,14 @@
 #import "TSServerManager.h"
 #import "TSUser.h"
 #import "TSLoginViewController.h"
-//#import "TSRandomFriendsTest.h"
-//#import "TSMatchViewController.h"
+#import "TSAddressBook.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-//#import <Quickblox/Quickblox.h>
 
 @interface TSHomyViewController ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
+
 @property (strong, nonatomic) TSUser *user;
 
 @end
@@ -30,30 +29,31 @@
     // Do any additional setup after loading the view.
     
     FBSDKProfilePictureView *avatar = [[TSServerManager sharedManager]
-                                       requestUserImageFromTheServerFacebook:self.avatarImageView];
+                                       requestUserImageFromTheServerFacebook:self.avatarImageView ID:@"me"];
     avatar.layer.cornerRadius = avatar.frame.size.width / 2;
     //    avatar.layer.borderWidth = 4;
     //    avatar.layer.borderColor = [[UIColor whiteColor] CGColor];
     avatar.clipsToBounds = YES;
     [self.view addSubview:avatar];
     
-    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-    
-    
+    // Dispose of any resources that can be recreated.    
+}
+
+
+- (IBAction)addFriendsList:(id)sender
+{
+    NSArray *contacts = [[TSAddressBook sharedManager] contactsFromAddressBook];
+    NSLog(@"contacts %@", contacts.description);
 }
 
 
 - (IBAction)actionInviteFriends:(id)sender
 {
-    [[TSServerManager sharedManager] requestUserFriendsTheServerFacebook:^(TSUser *user) {
-        self.user = user;
-        NSLog(@"User = %@", user.description);
-    } controller:self];
+    [[TSServerManager sharedManager] inviteUserFriendsTheServerFacebook:self];
 }
 
 - (IBAction)actionLogOut:(id)sender

@@ -1,4 +1,4 @@
-//
+ //
 //  TSContainerChatViewController.m
 //  Triper_IOS
 //
@@ -11,13 +11,15 @@
 #define GRAY_COLOR RGB(65, 70, 80)
 
 #import "TSContainerChatViewController.h"
+#import "TSServerManager.h"
+#import "TSChatViewController.h"
 
 @interface TSContainerChatViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *messageView;
 @property (weak, nonatomic) IBOutlet UIView *profileView;
 @property (weak, nonatomic) IBOutlet UIView *contactsView;
-@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+
 @property (weak, nonatomic) IBOutlet UIButton *messageButton;
 @property (weak, nonatomic) IBOutlet UIButton *profileButton;
 @property (weak, nonatomic) IBOutlet UIButton *contactsButton;
@@ -44,20 +46,19 @@
     self.contactsButton.layer.borderWidth = 1;
     self.contactsButton.layer.borderColor = WHITE_COLOR.CGColor;
     
-    UITextField *txtSearchField = [self.searchBar valueForKey:@"_searchField"];
-    txtSearchField.backgroundColor = GRAY_COLOR;
-    txtSearchField.layer.cornerRadius = 4;
-    txtSearchField.layer.borderWidth = 1.0f;
-    txtSearchField.layer.borderColor = WHITE_COLOR.CGColor;
-    txtSearchField.textColor = WHITE_COLOR;
+    
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+
+
 #pragma mark - Actions
+
 
 - (IBAction)actionNavigationButton:(UIButton *)sender
 {
@@ -96,11 +97,6 @@
         default:
             break;
     }
-}
-
-- (void)searchBarTextDidEndEditing:(UISearchBar *)aSearchBar
-{
-    [self.searchBar resignFirstResponder];
 }
 
 

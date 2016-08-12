@@ -10,6 +10,8 @@
 #define ORANGE_COLOR RGB(255, 110, 50)
 
 #import "TSMessagerViewController.h"
+#import "TSSearchBar.h"
+#import "TSView.h"
 
 @import Firebase;
 @import FirebaseDatabase;
@@ -54,7 +56,13 @@
     
     self.localTyping = NO;
 
+    TSView *grayRect = [[TSView alloc] initWithView:self.view];
+    [self.view addSubview:grayRect];
+    
+    UISearchBar *searchBar = [[TSSearchBar alloc] initWithView:self.view];
+    [self.view addSubview:searchBar];
 }
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -63,17 +71,21 @@
     [self observeTyping];
 }
 
+
 #pragma mark - JSQMessagesCollectionViewDataSource
+
 
 - (id<JSQMessageData>)collectionView:(JSQMessagesCollectionView *)collectionView messageDataForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     return self.messages[indexPath.item];
 }
 
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return self.messages.count;
 }
+
 
 - (id<JSQMessageBubbleImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView messageBubbleImageDataForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -84,6 +96,7 @@
         return self.incomingBubbleImageView;
     }
 }
+
 
 - (UICollectionViewCell *)collectionView:(JSQMessagesCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -96,8 +109,10 @@
     } else {
         cell.textView.textColor = [UIColor blackColor];
     }
+    //[cell.avatarImageView setImage:[UIImage imageNamed:@"placeholder_message"]];
     return cell;
 }
+
 
 - (id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -107,6 +122,7 @@
                                                                  font:[UIFont systemFontOfSize:12.0]
                                                              diameter:30.0];
 }
+
 
 - (void)setupBubbles
 {
@@ -121,9 +137,21 @@
 - (void)addMessage:(NSString *)idString text:(NSString *)text
 {
     JSQMessage * message = [JSQMessage messageWithSenderId:idString displayName:self.senderDisplayName text:text];
-    
     [self.messages addObject:message];
+    
+    UIImage *placeHolderImage = [UIImage imageNamed:@"placeholder_message"];
+    JSQMessagesAvatarImage *avatarMessage = [[JSQMessagesAvatarImage alloc] initWithAvatarImage:nil
+                                                                               highlightedImage:nil
+                                                                               placeholderImage:placeHolderImage];
+    
+//    NSData *dataImage = [NSData dataWithContentsOfURL:self.user.photoURL];
+//    UIImage *imageFromData = [UIImage imageWithData:dataImage];
+//    UIImage *circularImage = [JSQMessagesAvatarImageFactory circularAvatarHighlightedImage:imageFromData withDiameter:kJSQMessagesCollectionViewAvatarSizeDefault];
+//
+//    avatarMessage.avatarImage = circularImage;
+//    avatarMessage.avatarHighlightedImage = circularImage;
 }
+
 
 - (void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId
          senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date
@@ -140,6 +168,7 @@
     self.isTyping = NO;
 }
 
+
 - (void)observeMessages
 {
     FIRDatabaseQuery *messagesQuery = [self.ref queryLimitedToLast:20];
@@ -153,6 +182,7 @@
     }];
 }
 
+
 - (void)textViewDidChange:(UITextView *)textView
 {
     [super textViewDidChange:textView];
@@ -162,6 +192,7 @@
         NSLog(@"ПЕЧТАЕТ!!!");
     }
 }
+
 
 - (void)observeTyping
 {
