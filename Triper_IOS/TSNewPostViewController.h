@@ -11,8 +11,9 @@
 
 @import FirebaseDatabase;
 
-@interface TSNewPostViewController : TSChatViewController
+@interface TSNewPostViewController : UIViewController
 
 @property (strong, nonatomic) FIRDatabaseReference *ref;
+@property (strong, nonatomic) FIRDatabaseReference *newref;
 
 @end

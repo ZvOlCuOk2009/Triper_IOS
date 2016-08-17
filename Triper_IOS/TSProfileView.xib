@@ -261,6 +261,7 @@
                 <outlet property="countMatchLabel" destination="qJd-d8-Rzh" id="xVe-yf-FIz"/>
                 <outlet property="currentArreaLabel" destination="aun-K3-co2" id="Z42-m2-Ojb"/>
                 <outlet property="launguageLabel" destination="SPl-El-rV9" id="PuS-nX-j4O"/>
+                <outlet property="likeView" destination="fjC-Jc-fzb" id="xzk-2g-qi5"/>
                 <outlet property="miniNameLabel" destination="Nzw-1x-8wL" id="M9Z-8D-nXv"/>
                 <outlet property="nameLabel" destination="B1o-f8-DXh" id="Fum-sX-QnP"/>
                 <outlet property="professionLabel" destination="TCG-0q-XiT" id="7um-vx-qDj"/>

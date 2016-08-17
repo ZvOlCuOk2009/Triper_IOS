@@ -9,10 +9,14 @@
 #import "TSMatchViewController.h"
 #import "TSProfileView.h"
 #import "ZLSwipeableView.h"
+#import "TSServerManager.h"
+#import "TSParsingManager.h"
+
+static NSInteger counter = 0;
 
 @interface TSMatchViewController () <ZLSwipeableViewDataSource, ZLSwipeableViewDelegate>
 
-@property (strong, nonatomic) NSMutableArray *views;
+@property (strong, nonatomic) NSMutableArray *friends;
 
 @property (weak, nonatomic) TSProfileView *profileView;
 
@@ -26,13 +30,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [self requestToServerFacebookListFriends];
+    
     CGRect frame = CGRectMake(0, - 20, self.view.bounds.size.width, self.view.bounds.size.height);
 
     self.swipeableView = [[ZLSwipeableView alloc] initWithFrame:self.view.frame];
     self.swipeableView.frame = frame;
     [self.view addSubview:self.swipeableView];
-    
-    
     
     self.swipeableView.dataSource = self;
     self.swipeableView.delegate = self;
@@ -42,14 +46,100 @@
     
     [self.swipeableView discardAllViews];
     [self.swipeableView loadViewsIfNeeded];
+    
+}
+
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[TSServerManager sharedManager] requestUserServerFacebook:^(NSDictionary *friends) {
+//        NSString *pagin = [[friends objectForKey:@"cursors"] objectForKey:@"after"];
+//        NSArray *dic1 = [arr objectAtIndex:0];
+//        NSDictionary *dict2 = [dic1 objectForKey:@"cursors"];
+//        NSString *pagin = [dict2 objectForKey:@"after"];
+//        NSLog(@"pagin %@", pagin);
+    }];
 
 }
 
+
+- (void)requestToServerFacebookListFriends
+{
+    [[TSServerManager sharedManager] requestUserFriendsTheServerFacebook:^(NSArray *friends)
+     {
+         self.friends = [TSParsingManager parsingFriendsFacebook:friends];
+     }];
+}
+
+
 #pragma mark - ZLSwipeableViewDataSource
-    
+
+
 - (UIView *)nextViewForSwipeableView:(ZLSwipeableView *)swipeableView
 {
-    return self.profileView = [TSProfileView profileView];
+//    if  (!self.friends.count)
+//    {
+//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Here you will see your friends..."
+//                                                                                 message:@""
+//                                                                          preferredStyle:UIAlertControllerStyleAlert];
+//        UIAlertAction *action  = [UIAlertAction actionWithTitle:@"Ok"
+//                                                          style:UIAlertActionStyleCancel
+//                                                        handler:^(UIAlertAction * _Nonnull action) { }];
+//        [alertController addAction:action];
+//        [self presentViewController:alertController animated:YES completion:nil];
+//        
+//        return nil;
+//    }
+    
+    self.profileView = [TSProfileView profileView];
+    
+    NSInteger max = [self.friends count];
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:counter inSection:0];
+    NSDictionary *indexCard = [self.friends objectAtIndex:indexPath.row];
+    NSArray *arrayID = [indexCard objectForKey:@"id"];
+    NSArray *arrayName = [indexCard objectForKey:@"items"];
+    NSString *idFriend = [arrayID objectAtIndex:0];
+    NSString *nameFriend = [arrayName objectAtIndex:0];
+    
+    self.profileView.nameLabel.text = nameFriend;
+    self.profileView.miniNameLabel.text = nameFriend;
+    FBSDKProfilePictureView *avatar = [[TSServerManager sharedManager]
+                                       requestUserImageFromTheServerFacebook:self.profileView.avatarImageView
+                                                                          ID:idFriend];
+    avatar.layer.cornerRadius = avatar.frame.size.width / 2;
+    avatar.clipsToBounds = YES;
+    [self.profileView addSubview:avatar];
+    
+    ++counter;
+    
+    if (counter == max) {
+        counter = 0;
+    }
+    
+    
+    
+//    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.mycompany.myqueue", 0);
+//    
+//    NSLog(@"Thread 1");
+//    
+//    dispatch_async(backgroundQueue, ^{
+//        
+//        NSLog(@"Thread 2");
+//        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            
+//            NSLog(@"Thread 3");
+//            
+//        });
+//    });
+    
+    
+    
+    
+    return self.profileView;
 }
 
 
@@ -58,35 +148,31 @@
 - (void)swipeableView:(ZLSwipeableView *)swipeableView didSwipeView:(UIView *)view
           inDirection:(ZLSwipeableViewDirection)direction
 {
-    NSLog(@"did swipe in direction: %zd", direction);
+//    NSLog(@"did swipe in direction: %zd", direction);
 }
 
 - (void)swipeableView:(ZLSwipeableView *)swipeableView didCancelSwipe:(UIView *)view
 {
-    NSLog(@"did cancel swipe");
+//    NSLog(@"did cancel swipe");
 }
 
 - (void)swipeableView:(ZLSwipeableView *)swipeableView didStartSwipingView:(UIView *)view atLocation:(CGPoint)location
 {
-    NSLog(@"did start swiping at location: x %f, y%f", location.x, location.y);
+//    NSLog(@"did start swiping at location: x %f, y%f", location.x, location.y);
 }
 
 - (void)swipeableView:(ZLSwipeableView *)swipeableView swipingView:(UIView *)view
            atLocation:(CGPoint)location translation:(CGPoint)translation
 {
-    NSLog(@"swiping at location: x %f, y %f, translation: x %f, y %f", location.x, location.y, translation.x, translation.y);
+//    NSLog(@"swiping at location: x %f, y %f, translation: x %f, y %f", location.x, location.y, translation.x, translation.y);
 }
 
 - (void)swipeableView:(ZLSwipeableView *)swipeableView didEndSwipingView:(UIView *)view atLocation:(CGPoint)location
 {
-    NSLog(@"did start swiping at location: x %f, y%f", location.x, location.y);
+//    NSLog(@"did start swiping at location: x %f, y%f", location.x, location.y);
 }
     
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
 
 - (void)viewDidDisappear:(BOOL)animated
 {

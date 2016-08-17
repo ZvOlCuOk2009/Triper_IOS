@@ -61,6 +61,7 @@
     
     UISearchBar *searchBar = [[TSSearchBar alloc] initWithView:self.view];
     [self.view addSubview:searchBar];
+    
 }
 
 
@@ -69,6 +70,7 @@
     [super viewWillAppear:animated];
     [self observeMessages];
     [self observeTyping];
+    self.collectionView.contentInset = UIEdgeInsetsMake(36, 0, 44, 0);
 }
 
 
@@ -144,12 +146,13 @@
                                                                                highlightedImage:nil
                                                                                placeholderImage:placeHolderImage];
     
-//    NSData *dataImage = [NSData dataWithContentsOfURL:self.user.photoURL];
-//    UIImage *imageFromData = [UIImage imageWithData:dataImage];
-//    UIImage *circularImage = [JSQMessagesAvatarImageFactory circularAvatarHighlightedImage:imageFromData withDiameter:kJSQMessagesCollectionViewAvatarSizeDefault];
-//
-//    avatarMessage.avatarImage = circularImage;
-//    avatarMessage.avatarHighlightedImage = circularImage;
+    NSData *dataImage = [NSData dataWithContentsOfURL:self.user.photoURL];
+    UIImage *imageFromData = [UIImage imageWithData:dataImage];
+    UIImage *circularImage = [JSQMessagesAvatarImageFactory circularAvatarHighlightedImage:imageFromData
+                                                                              withDiameter:kJSQMessagesCollectionViewAvatarSizeDefault];
+
+    avatarMessage.avatarImage = circularImage;
+    avatarMessage.avatarHighlightedImage = circularImage;
 }
 
 
@@ -163,7 +166,7 @@
     [JSQSystemSoundPlayer jsq_playMessageSentSound];
     
     [self.ref observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        //NSLog(@"snapshot = %@", snapshot.value);
+        NSLog(@"snapshot = %@", snapshot.value);
     }];
     self.isTyping = NO;
 }
@@ -178,8 +181,38 @@
         NSString *text = snapshot.value[@"text"];
 
         [self addMessage:self.outID text:text];
-        [self finishReceivingMessage];
+        [self finishReceivingMessageAnimated:YES];
     }];
+}
+
+
+- (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForMessageBubbleTopLabelAtIndexPath:(NSIndexPath *)indexPath
+{
+    JSQMessage *message = [self.messages objectAtIndex:indexPath.item];
+    
+    if ([message.senderId isEqualToString:self.senderId])
+    {
+        return nil;
+    }
+    
+    if (indexPath.item - 1 > 0)
+    {
+        JSQMessage *previousMessage = [self.messages objectAtIndex:indexPath.item - 1];
+        if ([[previousMessage senderId] isEqualToString:message.senderId]) {
+            return nil;
+        }
+    }
+    
+    NSLog(@"Sender Display Name:%@",[[NSAttributedString alloc] initWithString:self.senderDisplayName]);
+    
+    return [[NSAttributedString alloc] initWithString:self.senderDisplayName];
+}
+
+
+- (CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView
+                   layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 30;
 }
 
 

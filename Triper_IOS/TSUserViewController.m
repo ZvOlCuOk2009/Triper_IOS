@@ -30,7 +30,6 @@
     // Do any additional setup after loading the view.
     
     
-    
     NSArray *contacts = [self contactsFromAddressBook];
     for (TSContact *contact in contacts) {
         NSLog(@"phomne number is %@ %@", contact.phone, [NSString stringWithFormat:@"%@ %@", contact.firstName, contact.lastName]);
@@ -47,14 +46,6 @@
 }
 
 
-
-
-
-
-
-
-
-
 - (NSArray *)contactsFromAddressBook
 {
     self.contacts = [NSMutableArray array];
@@ -62,7 +53,6 @@
     CNContactStore *store = [[CNContactStore alloc] init];
     
     if ([CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts] == CNAuthorizationStatusNotDetermined) {
-        
         [store requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
             
             if (granted == YES) {
@@ -106,13 +96,6 @@
     }
     
 }
-
-
-
-
-
-
-
 
 
 - (void)didReceiveMemoryWarning {

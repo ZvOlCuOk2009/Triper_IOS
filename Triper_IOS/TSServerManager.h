@@ -23,4 +23,7 @@
 - (void)authorizationOfNewUser:(NSString *)userID userLogin:(NSString *)userLogin onSuccess:(void(^)(NSArray *token)) success;
 - (void)logOutFacebook;
 
+
+- (void)requestUserServerFacebook:(void(^)(NSDictionary *friends))success;
+
 @end

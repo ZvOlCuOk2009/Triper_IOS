@@ -11,9 +11,15 @@
 
 #import "TSUserViewController.h"
 
+@class FBGraphLocation;
+@class FBGraphPlace;
+@class FBGraphUser;
+
 @interface TSServerManager ()
 
 @property (strong, nonatomic) AFHTTPSessionManager *sessionManager;
+
+@property (strong, nonatomic) NSString * after;
 
 @end
 
@@ -83,11 +89,12 @@
 
 
 #pragma mark - FBSDKGraphRequest
-// "me/friends={fieldname_of_type_Location}" локация на карте
+
 
 - (void)requestUserFriendsTheServerFacebook:(void(^)(NSArray *friends))success
 {
-    [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me/friends" parameters:nil]
+    [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me/friends"
+                                       parameters:nil]
      startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error)
      {
          if (!error) {
@@ -99,6 +106,32 @@
              NSLog(@"Error %@", [error localizedDescription]);
          }
      }];
+}
+
+//test block
+
+- (void)requestUserServerFacebook:(void(^)(NSDictionary *friends))success
+{
+    NSDictionary * parameters = @{@"fields": @"id, name, link, first_name, last_name, picture.type(large), email, birthday, bio, location, friends, hometown, friendlists"};
+    
+    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
+                                  initWithGraphPath:@"me"
+                                  parameters:parameters
+                                  HTTPMethod:@"GET"];
+    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection,
+                                          id result,
+                                          NSError *error) {
+        if (!error) {
+            NSDictionary * friendList = [[result objectForKey:@"friends"] objectForKey:@"paging"];
+            self.after = [[friendList objectForKey:@"cursors"] objectForKey:@"after"];
+            if (success) {
+                success(friendList);
+            }
+        } else {
+            NSLog(@"Error %@", [error localizedDescription]);
+        }
+    }];
+   
 }
 
 

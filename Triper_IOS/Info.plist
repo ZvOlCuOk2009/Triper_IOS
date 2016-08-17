@@ -28,8 +28,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb1740428519557317</string>
-
-            </array>
+			</array>
 			<key>URL Name</key>
 			<string></string>
 		</dict>
@@ -57,9 +56,9 @@
 		<true/>
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This application requires location services to work</string>
+	<string>Location is required to find out where you are</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This application requires location services to work</string>
+	<string>Location is required to find out where you are</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

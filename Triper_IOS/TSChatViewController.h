@@ -10,10 +10,9 @@
 
 #import "TSContainerChatViewController.h"
 #import "TSSearchBar.h"
-#import "TSView.h"
+
 
 @interface TSChatViewController : UIViewController
 
-@property (strong, nonatomic) TSView *grayRect;
 
 @end

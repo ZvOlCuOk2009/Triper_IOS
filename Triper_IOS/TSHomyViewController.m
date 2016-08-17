@@ -10,7 +10,6 @@
 #import "TSServerManager.h"
 #import "TSUser.h"
 #import "TSLoginViewController.h"
-#import "TSAddressBook.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
@@ -19,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 
 @property (strong, nonatomic) TSUser *user;
+@property (weak, nonatomic) IBOutlet UIButton *outButton;
 
 @end
 
@@ -31,11 +31,10 @@
     FBSDKProfilePictureView *avatar = [[TSServerManager sharedManager]
                                        requestUserImageFromTheServerFacebook:self.avatarImageView ID:@"me"];
     avatar.layer.cornerRadius = avatar.frame.size.width / 2;
-    //    avatar.layer.borderWidth = 4;
-    //    avatar.layer.borderColor = [[UIColor whiteColor] CGColor];
     avatar.clipsToBounds = YES;
     [self.view addSubview:avatar];
     
+    self.outButton.layer.cornerRadius = self.outButton.frame.size.width / 2;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,8 +45,7 @@
 
 - (IBAction)addFriendsList:(id)sender
 {
-    NSArray *contacts = [[TSAddressBook sharedManager] contactsFromAddressBook];
-    NSLog(@"contacts %@", contacts.description);
+    
 }
 
 

@@ -12,6 +12,10 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatarUser;
 
+@property (weak, nonatomic) IBOutlet UIButton *phoneButton;
+@property (weak, nonatomic) IBOutlet UIButton *chatButton;
+@property (weak, nonatomic) IBOutlet UIButton *skypeButton;
+
 - (IBAction)actionPhoneButton:(UIButton *)sender;
 - (IBAction)actionChatButton:(UIButton *)sender;
 - (IBAction)actionSkypeButton:(UIButton *)sender;

@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *countMatchLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *arrowImageView;
 @property (weak, nonatomic) IBOutlet UITextView *contentTextView;
+@property (weak, nonatomic) IBOutlet UIView *likeView;
 
 - (IBAction)getEmailAction:(UIButton *)sender;
 - (IBAction)mainButtonsAction:(UIButton *)sender;

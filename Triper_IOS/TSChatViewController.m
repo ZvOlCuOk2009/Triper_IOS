@@ -16,9 +16,9 @@
 #import "TSCellView.h"
 #import "TSServerManager.h"
 #import "TSMessagerViewController.h"
-//#import "TSNewPostViewController.h"
 #import "TSContact.h"
 #import "TSSearch.h"
+#import "TSView.h"
 #import "TSParsingManager.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
@@ -46,12 +46,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    //self.friends = [NSMutableArray array];
     self.ref = [[FIRDatabase database] reference];
     [self requestToServerFacebookListFriends];
     
-    self.grayRect = [[TSView alloc] initWithView:self.view];
-    [self.view addSubview:self.grayRect];
+    TSView *grayRect = [[TSView alloc] initWithView:self.view];
+    [self.view addSubview:grayRect];
     
     UISearchBar *searchBar = [[TSSearchBar alloc] initWithView:self.view];
     [self.view addSubview:searchBar];
@@ -69,7 +68,6 @@
         [self.tableView reloadData];
         self.arrayFriends = [NSMutableArray arrayWithArray:self.friends];
     }];
-    
 }
 
 
@@ -88,10 +86,26 @@
 #pragma mark - Actions
 
 
-- (IBAction)actionProfileButton:(UIButton *)sender
+- (IBAction)actionPhoneButton:(UIButton *)sender
 {
-    TSUserViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TSUserViewController"];
-    [self presentViewController:controller animated:YES completion:nil];
+    
+}
+
+
+- (IBAction)actionChatButton:(UIButton *)sender
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:[sender tag]];
+    
+    NSDictionary *indexSection = [self.friends objectAtIndex:indexPath.section];
+    NSArray *dataIDFriend = [indexSection objectForKey:@"id"];
+    NSString *idFriend = [dataIDFriend objectAtIndex:0];
+    NSLog(@"ID friends %@", idFriend);
+}
+
+
+- (IBAction)actionMessageButton:(UIButton *)sender
+{
+    
 }
 
 
@@ -180,20 +194,20 @@
         cell = [[TSMenuTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-//    FBSDKProfilePictureView *avatar = [[TSServerManager sharedManager]
-//                                       requestUserImageFromTheServerFacebook:cell.avatarUser ID:@"me"];
-//
-//    UIImage *image = nil;
-//    
-//    for (NSObject *obj in [avatar subviews]) {
-//        if ([obj isMemberOfClass:[UIImageView class]]) {
-//            UIImageView *objImg = (UIImageView *)obj;
-//            image = objImg.image;
-//            break;
-//        }
-//    }
-//
-//    cell.avatarUser.image = image;
+    FBSDKProfilePictureView *avatar = [[TSServerManager sharedManager]
+                                       requestUserImageFromTheServerFacebook:cell.avatarUser ID:@"me"];
+
+    UIImage *image = nil;
+    
+    for (NSObject *obj in [avatar subviews]) {
+        if ([obj isMemberOfClass:[UIImageView class]]) {
+            UIImageView *objImg = (UIImageView *)obj;
+            image = objImg.image;
+            break;
+        }
+    }
+
+    cell.avatarUser.image = image;
     
     return cell;
 }
@@ -228,6 +242,7 @@
     
     [button addTarget:self action:@selector(didSelectSection:) forControlEvents:UIControlEventTouchUpInside];
     [self.cell addSubview:button];
+    
     
     return self.cell;
 }
