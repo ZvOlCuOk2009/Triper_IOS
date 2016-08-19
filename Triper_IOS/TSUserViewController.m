@@ -12,14 +12,20 @@
 #import "TSLoginViewController.h"
 #import "TSProfileView.h"
 #import "TSContact.h"
+#import "TSFireUser.h"
 
 #import <Contacts/Contacts.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+
+@import Firebase;
+@import FirebaseDatabase;
 
 @interface TSUserViewController ()
  
 @property (strong, nonatomic) TSUser *user;
 @property (strong, nonatomic) NSMutableArray *contacts;
+@property (strong, nonatomic) FIRDatabaseReference *ref;
+@property (strong, nonatomic) TSFireUser *fireUser;
 
 @end
 
@@ -29,18 +35,24 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.ref = [[FIRDatabase database] reference];
     
     NSArray *contacts = [self contactsFromAddressBook];
     for (TSContact *contact in contacts) {
         NSLog(@"phomne number is %@ %@", contact.phone, [NSString stringWithFormat:@"%@ %@", contact.firstName, contact.lastName]);
     }
     
-    
-    [[TSServerManager sharedManager] requestUserDataFromTheServerFacebook:^(TSUser *user) {
+    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        TSFireUser *fireUser = [TSFireUser initWithSnapshot:snapshot];
+        
         TSProfileView *profileView = [TSProfileView profileView];
-        profileView.nameLabel.text = user.name;
-        profileView.miniNameLabel.text = user.name;
-        profileView.avatarImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:user.avatar]];
+        
+        profileView.nameLabel.text = fireUser.displayName;
+        profileView.miniNameLabel.text = fireUser.displayName;
+        profileView.avatarImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:
+                                                                    [NSURL URLWithString:fireUser.photoURL]]];
+        
         [self.view addSubview:profileView];
     }];
 }

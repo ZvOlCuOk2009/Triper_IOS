@@ -131,7 +131,6 @@
             NSLog(@"Error %@", [error localizedDescription]);
         }
     }];
-   
 }
 
 
@@ -164,6 +163,7 @@
     [[[FBSDKLoginManager alloc] init] logOut];
     [FBSDKAccessToken setCurrentAccessToken:nil];
     [FBSDKProfile setCurrentProfile:nil];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"token"];
 }
 
 

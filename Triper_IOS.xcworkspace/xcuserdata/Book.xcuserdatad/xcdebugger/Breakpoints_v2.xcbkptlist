@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Triper_IOS/AppDelegate.m"
-            timestampString = "492015015.198174"
+            filePath = "Triper_IOS/TSChatViewController.m"
+            timestampString = "493160371.856517"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "-application:handleOpenURL:"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
+            landmarkName = "-actionMessage:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

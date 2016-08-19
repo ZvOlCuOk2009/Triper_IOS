@@ -30,8 +30,6 @@ static NSInteger counter = 0;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self requestToServerFacebookListFriends];
-    
     CGRect frame = CGRectMake(0, - 20, self.view.bounds.size.width, self.view.bounds.size.height);
 
     self.swipeableView = [[ZLSwipeableView alloc] initWithFrame:self.view.frame];
@@ -50,27 +48,17 @@ static NSInteger counter = 0;
 }
 
 
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    [[TSServerManager sharedManager] requestUserServerFacebook:^(NSDictionary *friends) {
-//        NSString *pagin = [[friends objectForKey:@"cursors"] objectForKey:@"after"];
-//        NSArray *dic1 = [arr objectAtIndex:0];
-//        NSDictionary *dict2 = [dic1 objectForKey:@"cursors"];
-//        NSString *pagin = [dict2 objectForKey:@"after"];
-//        NSLog(@"pagin %@", pagin);
-    }];
-
-}
-
-
-- (void)requestToServerFacebookListFriends
-{
     [[TSServerManager sharedManager] requestUserFriendsTheServerFacebook:^(NSArray *friends)
      {
          self.friends = [TSParsingManager parsingFriendsFacebook:friends];
      }];
+    
+    [self.view setNeedsDisplay];
+    
 }
 
 
@@ -118,26 +106,6 @@ static NSInteger counter = 0;
     if (counter == max) {
         counter = 0;
     }
-    
-    
-    
-//    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.mycompany.myqueue", 0);
-//    
-//    NSLog(@"Thread 1");
-//    
-//    dispatch_async(backgroundQueue, ^{
-//        
-//        NSLog(@"Thread 2");
-//        
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            
-//            NSLog(@"Thread 3");
-//            
-//        });
-//    });
-    
-    
-    
     
     return self.profileView;
 }

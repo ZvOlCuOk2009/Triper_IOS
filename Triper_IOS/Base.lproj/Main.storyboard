@@ -439,6 +439,10 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="evT-mN-AC0">
                                 <rect key="frame" x="189" y="478" width="121" height="29"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="121" id="IU4-Tr-CnY"/>
+                                    <constraint firstAttribute="height" constant="28" id="xM6-Rq-lCs"/>
+                                </constraints>
                                 <segments>
                                     <segment title="Stan"/>
                                     <segment title="Sate"/>
@@ -473,7 +477,7 @@
         <!--Container Chat View Controller-->
         <scene sceneID="Qx6-gO-av6">
             <objects>
-                <viewController id="p0f-W6-Zm7" customClass="TSContainerChatViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TSContainerChatViewController" id="p0f-W6-Zm7" customClass="TSContainerChatViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="B3h-Jg-M4i"/>
                         <viewControllerLayoutGuide type="bottom" id="xEr-Bv-nbo"/>
@@ -544,7 +548,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h2K-ff-PVp">
                                 <rect key="frame" x="0.0" y="46" width="320" height="473"/>
                                 <connections>
-                                    <segue destination="wi4-QO-XU1" kind="embed" id="rao-HG-QGt"/>
+                                    <segue destination="wi4-QO-XU1" kind="embed" identifier="chatIdent" id="rao-HG-QGt"/>
                                 </connections>
                             </containerView>
                         </subviews>

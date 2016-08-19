@@ -32,8 +32,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
-    
     self.messageButton.layer.cornerRadius = 3;
     self.messageButton.layer.borderWidth = 1;
     self.messageButton.layer.borderColor = GRAY_COLOR.CGColor;
@@ -45,7 +43,6 @@
     self.contactsButton.layer.cornerRadius = 3;
     self.contactsButton.layer.borderWidth = 1;
     self.contactsButton.layer.borderColor = WHITE_COLOR.CGColor;
-    
     
 }
 
@@ -71,7 +68,7 @@
             self.messageButton.layer.borderColor = WHITE_COLOR.CGColor;
             self.profileButton.layer.borderColor = GRAY_COLOR.CGColor;
             self.contactsButton.layer.borderColor = GRAY_COLOR.CGColor;
-         
+            
             break;
         case 1:
             self.messageView.alpha = 0;
@@ -100,14 +97,11 @@
 }
 
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)callActionButtonNavigation
+{
+//    [self performSegueWithIdentifier:@"chatIdent" sender:nil];
 }
-*/
+
+
 
 @end

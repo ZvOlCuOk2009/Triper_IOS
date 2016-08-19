@@ -20,6 +20,8 @@
 #import "TSSearch.h"
 #import "TSView.h"
 #import "TSParsingManager.h"
+#import "TSParsingUserName.h"
+#import "TSContainerChatViewController.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Contacts/Contacts.h>
@@ -68,6 +70,11 @@
         [self.tableView reloadData];
         self.arrayFriends = [NSMutableArray arrayWithArray:self.friends];
     }];
+    
+    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+//        FIRDataSnapshot *userUID = [snapshot childSnapshotForPath:@"userUID"];
+//        NSLog(@"RETRIVE userUID %@", userUID);
+    }];
 }
 
 
@@ -100,6 +107,9 @@
     NSArray *dataIDFriend = [indexSection objectForKey:@"id"];
     NSString *idFriend = [dataIDFriend objectAtIndex:0];
     NSLog(@"ID friends %@", idFriend);
+    
+    TSContainerChatViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TSContainerChatViewController"];
+    [controller callActionButtonNavigation];
 }
 
 
@@ -128,7 +138,7 @@
                         @"author": name};
     NSDictionary *childUpdates = @{[@"/posts/" stringByAppendingString:key]: post,
                                    [NSString stringWithFormat:@"/user-posts/%@/%@/", userID, key]: post};
-    [_ref updateChildValues:childUpdates];
+    [self.ref updateChildValues:childUpdates];
     
     NSLog(@"key = %@", key);
 }
@@ -194,20 +204,20 @@
         cell = [[TSMenuTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    FBSDKProfilePictureView *avatar = [[TSServerManager sharedManager]
-                                       requestUserImageFromTheServerFacebook:cell.avatarUser ID:@"me"];
+//    FBSDKProfilePictureView *avatar = [[TSServerManager sharedManager]
+//                                       requestUserImageFromTheServerFacebook:cell.avatarUser ID:@"me"];
 
-    UIImage *image = nil;
-    
-    for (NSObject *obj in [avatar subviews]) {
-        if ([obj isMemberOfClass:[UIImageView class]]) {
-            UIImageView *objImg = (UIImageView *)obj;
-            image = objImg.image;
-            break;
-        }
-    }
-
-    cell.avatarUser.image = image;
+//    UIImage *image = nil;
+//    
+//    for (NSObject *obj in [avatar subviews]) {
+//        if ([obj isMemberOfClass:[UIImageView class]]) {
+//            UIImageView *objImg = (UIImageView *)obj;
+//            image = objImg.image;
+//            break;
+//        }
+//    }
+//
+//    cell.avatarUser.image = image;
     
     return cell;
 }
@@ -257,12 +267,12 @@
     NSString *idFriend = [dataIDFriend objectAtIndex:0];
     NSLog(@"ID friends %@", idFriend);
     
-//    TSMenuTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-//    FBSDKProfilePictureView *avatar = [[TSServerManager sharedManager]
-//                                       requestUserImageFromTheServerFacebook:self.cell.avatarImageView ID:idFriend];
-//    avatar.layer.cornerRadius = avatar.frame.size.width / 2;
-//    avatar.clipsToBounds = YES;
-//    [cell addSubview:avatar];
+    TSMenuTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    FBSDKProfilePictureView *avatar = [[TSServerManager sharedManager]
+                                       requestUserImageFromTheServerFacebook:self.cell.avatarImageView ID:idFriend];
+    avatar.layer.cornerRadius = avatar.frame.size.width / 2;
+    avatar.clipsToBounds = YES;
+    [cell addSubview:avatar];
     
     NSMutableDictionary *currentSection = [self.friends objectAtIndex:sender.tag];
     NSArray *items = [currentSection objectForKey:@"items"];
@@ -299,6 +309,12 @@
 }
 
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+
 #pragma mark - UISearchBarDelegate
 
 
@@ -312,6 +328,17 @@
     }
     [self.tableView reloadData];
 }
+
+
+// метод отсутствия интернета
+
+
+//- (BOOL)connected
+//{
+//    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+//    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+//    return networkStatus != NotReachable;
+//}
 
 
 

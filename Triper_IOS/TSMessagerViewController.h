@@ -12,4 +12,6 @@
 
 @interface TSMessagerViewController : JSQMessagesViewController
 
+@property (strong, nonatomic) NSString *userID;
+
 @end

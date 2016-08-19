@@ -7,6 +7,7 @@
 //
 
 #import "TSSearch.h"
+#import "TSParsingUserName.h"
 
 @implementation TSSearch
 
@@ -14,24 +15,18 @@
                                       text:(NSString *)searchString
 {
     NSMutableArray *searhArray = [NSMutableArray array];
-    NSMutableArray *namesArray = [NSMutableArray array];
     NSMutableArray *tempArray = [NSMutableArray array];
     
     NSString *foundString = nil;
     NSString *curString = nil;
     NSInteger counter = 0;
     
-    for (int i = 0; i < [incomingArray count]; i++) {
-        NSDictionary *data = [incomingArray objectAtIndex:i];
-        NSArray *dataName = [data objectForKey:@"items"];
-        NSString *name = [dataName objectAtIndex:0];
-        [namesArray addObject:name];
-    }
+    NSMutableArray *userNames = [TSParsingUserName parsingOfTheUserName:incomingArray];
     
-    for (int i = 0; i < [namesArray count]; i++) {
+    for (int i = 0; i < [userNames count]; i++) {
         
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[cd] %@", searchString];
-        NSArray *intermediateArray = [namesArray filteredArrayUsingPredicate:predicate];
+        NSArray *intermediateArray = [userNames filteredArrayUsingPredicate:predicate];
         
         if ([intermediateArray count] > 0 && counter < [intermediateArray count]) {
             ++counter;

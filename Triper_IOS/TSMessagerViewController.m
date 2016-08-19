@@ -12,6 +12,9 @@
 #import "TSMessagerViewController.h"
 #import "TSSearchBar.h"
 #import "TSView.h"
+#import "TSServerManager.h"
+#import "TSParsingManager.h"
+#import "TSParsingUserName.h"
 
 @import Firebase;
 @import FirebaseDatabase;
@@ -31,6 +34,7 @@
 @property (assign, nonatomic) BOOL isTyping;
 
 @property (strong, nonatomic) NSString *outID;
+@property (strong, nonatomic) NSArray *friends;
 
 @end
 
@@ -40,6 +44,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [self requestToServerFacebookListFriends];
+    
     self.ref = [[FIRDatabase database] reference];
     self.messages = [NSMutableArray array];
     self.user = [FIRAuth auth].currentUser;
@@ -47,6 +53,7 @@
     self.usersTypingQuery = [self.ref queryOrderedByKey];
     
     self.senderId = self.user.uid;
+    
     self.senderDisplayName = self.user.displayName;
     
     [self setupBubbles];
@@ -54,8 +61,13 @@
     self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
     self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
     
+    [self observeMessages];
+    [self observeTyping];
+    
     self.localTyping = NO;
 
+    self.collectionView.contentInset = UIEdgeInsetsMake(36, 0, 44, 0);
+    
     TSView *grayRect = [[TSView alloc] initWithView:self.view];
     [self.view addSubview:grayRect];
     
@@ -65,12 +77,18 @@
 }
 
 
+- (void)requestToServerFacebookListFriends
+{
+    [[TSServerManager sharedManager] requestUserFriendsTheServerFacebook:^(NSArray *friends)
+     {
+         self.friends = [TSParsingManager parsingFriendsFacebook:friends];
+     }];
+}
+
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self observeMessages];
-    [self observeTyping];
-    self.collectionView.contentInset = UIEdgeInsetsMake(36, 0, 44, 0);
 }
 
 
@@ -138,7 +156,7 @@
 
 - (void)addMessage:(NSString *)idString text:(NSString *)text
 {
-    JSQMessage * message = [JSQMessage messageWithSenderId:idString displayName:self.senderDisplayName text:text];
+    JSQMessage * message = [JSQMessage messageWithSenderId:self.user.uid displayName:self.senderDisplayName text:text];
     [self.messages addObject:message];
     
     UIImage *placeHolderImage = [UIImage imageNamed:@"placeholder_message"];
@@ -161,13 +179,11 @@
 {
     FIRDatabaseReference *itemRef = [self.ref childByAutoId];
     NSDictionary *messageItem = @{@"text":text, @"senderId":senderId};
+    NSLog(@"***SENDER ID*** - %@", senderId);
     
     [itemRef setValue:messageItem];
     [JSQSystemSoundPlayer jsq_playMessageSentSound];
-    
-    [self.ref observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        NSLog(@"snapshot = %@", snapshot.value);
-    }];
+
     self.isTyping = NO;
 }
 
@@ -177,10 +193,10 @@
     FIRDatabaseQuery *messagesQuery = [self.ref queryLimitedToLast:20];
     [messagesQuery observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
-        self.outID = snapshot.value[@"senderId"];
+        NSString *ID = snapshot.value[@"senderID"];
         NSString *text = snapshot.value[@"text"];
 
-        [self addMessage:self.outID text:text];
+//        [self addMessage:ID text:text];
         [self finishReceivingMessageAnimated:YES];
     }];
 }
@@ -219,7 +235,6 @@
 - (void)textViewDidChange:(UITextView *)textView
 {
     [super textViewDidChange:textView];
-    //NSLog(@"textView %@", textView);
     
     if (self.isTyping) {
         NSLog(@"ПЕЧТАЕТ!!!");

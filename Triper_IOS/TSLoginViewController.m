@@ -10,16 +10,19 @@
 #import "TSServerManager.h"
 #import "TSTabBarController.h"
 #import "TSUser.h"
+#import "TSFireUser.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @import Firebase;
 @import FirebaseAuth;
+@import FirebaseDatabase;
 
 @interface TSLoginViewController () <FBSDKLoginButtonDelegate>
 
 @property (strong, nonatomic) NSArray *token;
 @property (strong, nonatomic) IBOutlet FBSDKLoginButton *loginButton;
+@property (strong, nonatomic) FIRDatabaseReference *ref;
 
 @end
 
@@ -43,60 +46,19 @@
     [self.view addSubview:self.loginButton];
     
     _loginButton.delegate = self;
+    
+    self.ref = [[FIRDatabase database] reference];
 }
 
--(void)loginButtonClicked
-{
-    if ([FBSDKAccessToken currentAccessToken]) {
-        
-        NSString *token = [[FBSDKAccessToken currentAccessToken]tokenString];
-        
-        [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"token"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        NSDictionary * parameters = @{@"fields": @"id, name, link, first_name, last_name, picture.type(large), email, birthday, bio, location, friends, hometown, friendlists"};
-        
-        [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me"
-                                           parameters:parameters]
-         startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-             if (!error)
-             {
-                 [self openTheTabBarController];
-                 
-                 NSLog(@"resultis:%@", result);
-             } else {
-                 NSLog(@"Error %@", error);
-             }
-         }];
-                
-    } else {
-        
-        FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
-        [login logInWithReadPermissions:@[@"public_profile"]
-                     fromViewController:self
-                                handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
-                                    if (error) {
-                                        NSLog(@"Process error");
-                                    } else if (result.isCancelled) {
-                                        NSLog(@"Cancelled");
-                                    } else {
-                                        NSLog(@"Logged in");
-                                        [self openTheTabBarController];
-                                    }
-                                }];
-    }
-}
+
+#pragma mark - Autorization Facebook
+
 
 - (void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
               error:(NSError *)error
 {
     if ([FBSDKAccessToken currentAccessToken]) {
         
-        NSString *token = [[FBSDKAccessToken currentAccessToken]tokenString];
-        
-        [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"token"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
         NSDictionary * parameters = @{@"fields": @"id, name, link, first_name, last_name, picture.type(large), email, birthday, bio, location, friends, hometown, friendlists"};
         
         [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me"
@@ -126,6 +88,7 @@
                                         [self openTheTabBarController];
                                     }
                                 }];
+        
     }
     
     FIRAuthCredential *credential = [FIRFacebookAuthProvider
@@ -133,20 +96,33 @@
     
     [[FIRAuth auth] signInWithCredential:credential
                               completion:^(FIRUser *user, NSError *error) {
-                                  NSLog(@"User login firebase App");
+                                  
+                                  NSDictionary *userData = @{@"userID":user.uid,
+                                                             @"displayName":user.displayName,
+                                                             @"email":user.email,
+                                                             @"photoURL":user.photoURL.absoluteString};
+                                  
+                                  NSString *token = [userData objectForKey:@"userID"];
+                                  
+                                  [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"token"];
+                                  [[NSUserDefaults standardUserDefaults] synchronize];
+                                  
+                                  [[[[self.ref child:@"users"] child:user.uid] child:@"username"] setValue:userData];
                               }];
     NSLog(@"User log In");
 }
 
-- (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton
-{
-    NSLog(@"User log Out");
-}
 
 - (void)openTheTabBarController
 {
     TSTabBarController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TSTabBarController"];
     [self presentViewController:controller animated:YES completion:nil];
+}
+
+
+- (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton
+{
+    NSLog(@"User log Out");
 }
 
 
@@ -221,4 +197,13 @@
     }
 }
 
+
+
+#pragma mark - Autorization Google
+
+
+
 @end
+
+
+
