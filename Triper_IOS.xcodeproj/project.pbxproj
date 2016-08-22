@@ -19,13 +19,20 @@
 		FD4BF6DF1D43794E00504327 /* TSUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4BF6DE1D43794E00504327 /* TSUserViewController.m */; };
 		FD4C964B1D2DB4FD00D965F4 /* TSTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4C964A1D2DB4FC00D965F4 /* TSTextField.m */; };
 		FD530D601D265E3500E0651A /* TSSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD530D5F1D265E3500E0651A /* TSSettingsViewController.m */; };
+		FD5FFF5E1D67AE0000188E29 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD5FFF5D1D67AE0000188E29 /* StoreKit.framework */; };
+		FD5FFF601D67AE1200188E29 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD5FFF5F1D67AE1200188E29 /* AddressBookUI.framework */; };
+		FD5FFF621D67AE2000188E29 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD5FFF611D67AE2000188E29 /* SystemConfiguration.framework */; };
 		FD68657B1D5B653800FBFD79 /* TSContact.m in Sources */ = {isa = PBXBuildFile; fileRef = FD68657A1D5B653800FBFD79 /* TSContact.m */; };
 		FD68657D1D5BAD9300FBFD79 /* libAPAddressBook.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD68657C1D5BAD9300FBFD79 /* libAPAddressBook.a */; };
+		FD6C405F1D687A6E004F434C /* linkedin-sdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD6C405E1D687A6E004F434C /* linkedin-sdk.framework */; };
+		FD6C40611D687ED7004F434C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FD6C40601D687ED7004F434C /* Default-568h@2x.png */; };
+		FD6C40651D68A4C0004F434C /* TSRegisrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD6C40641D68A4C0004F434C /* TSRegisrationViewController.m */; };
 		FD6EC5B41D64BCD6003A3C50 /* TSFireUser.m in Sources */ = {isa = PBXBuildFile; fileRef = FD6EC5B31D64BCD6003A3C50 /* TSFireUser.m */; };
 		FD8F15C51D25A1F6004F953B /* TSMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8F15C41D25A1F6004F953B /* TSMenuTableViewCell.m */; };
 		FD8F51CD1D5C537800D5E0E8 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD8F51CC1D5C537800D5E0E8 /* Contacts.framework */; };
 		FD8F51D31D5D03A600D5E0E8 /* TSSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8F51D21D5D03A600D5E0E8 /* TSSearchBar.m */; };
 		FD9E79A41D36D7B5003E402A /* TSProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = FD9E79A31D36D7B5003E402A /* TSProfileView.m */; };
+		FDA73ACC1D6B0B7A001F1210 /* TSLinkedinWebViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDA73ACB1D6B0B7A001F1210 /* TSLinkedinWebViewViewController.m */; };
 		FDBFA4F51D1C23020074D92D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4F41D1C23020074D92D /* main.m */; };
 		FDBFA4F81D1C23020074D92D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4F71D1C23020074D92D /* AppDelegate.m */; };
 		FDBFA4FB1D1C23020074D92D /* TSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4FA1D1C23020074D92D /* TSLoginViewController.m */; };
@@ -98,9 +105,16 @@
 		FD4C964A1D2DB4FC00D965F4 /* TSTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSTextField.m; sourceTree = "<group>"; };
 		FD530D5E1D265E3500E0651A /* TSSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSSettingsViewController.h; sourceTree = "<group>"; };
 		FD530D5F1D265E3500E0651A /* TSSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSSettingsViewController.m; sourceTree = "<group>"; };
+		FD5FFF5D1D67AE0000188E29 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		FD5FFF5F1D67AE1200188E29 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		FD5FFF611D67AE2000188E29 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		FD6865791D5B653800FBFD79 /* TSContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSContact.h; sourceTree = "<group>"; };
 		FD68657A1D5B653800FBFD79 /* TSContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSContact.m; sourceTree = "<group>"; };
 		FD68657C1D5BAD9300FBFD79 /* libAPAddressBook.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAPAddressBook.a; path = "../../../Library/Developer/Xcode/DerivedData/Triper_IOS-ffksmvhawhzkvchintbosoebiozy/Build/Products/Debug-iphonesimulator/APAddressBook/libAPAddressBook.a"; sourceTree = "<group>"; };
+		FD6C405E1D687A6E004F434C /* linkedin-sdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "linkedin-sdk.framework"; sourceTree = "<group>"; };
+		FD6C40601D687ED7004F434C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		FD6C40631D68A4C0004F434C /* TSRegisrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSRegisrationViewController.h; sourceTree = "<group>"; };
+		FD6C40641D68A4C0004F434C /* TSRegisrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSRegisrationViewController.m; sourceTree = "<group>"; };
 		FD6EC5B21D64BCD6003A3C50 /* TSFireUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSFireUser.h; sourceTree = "<group>"; };
 		FD6EC5B31D64BCD6003A3C50 /* TSFireUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSFireUser.m; sourceTree = "<group>"; };
 		FD8F15C31D25A1F6004F953B /* TSMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSMenuTableViewCell.h; sourceTree = "<group>"; };
@@ -110,6 +124,8 @@
 		FD8F51D21D5D03A600D5E0E8 /* TSSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSSearchBar.m; sourceTree = "<group>"; };
 		FD9E79A21D36D7B5003E402A /* TSProfileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSProfileView.h; sourceTree = "<group>"; };
 		FD9E79A31D36D7B5003E402A /* TSProfileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSProfileView.m; sourceTree = "<group>"; };
+		FDA73ACA1D6B0B7A001F1210 /* TSLinkedinWebViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSLinkedinWebViewViewController.h; sourceTree = "<group>"; };
+		FDA73ACB1D6B0B7A001F1210 /* TSLinkedinWebViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSLinkedinWebViewViewController.m; sourceTree = "<group>"; };
 		FDBFA4F01D1C23010074D92D /* Triper_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Triper_IOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDBFA4F41D1C23020074D92D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FDBFA4F61D1C23020074D92D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -169,9 +185,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD5FFF621D67AE2000188E29 /* SystemConfiguration.framework in Frameworks */,
+				FD5FFF601D67AE1200188E29 /* AddressBookUI.framework in Frameworks */,
+				FD5FFF5E1D67AE0000188E29 /* StoreKit.framework in Frameworks */,
 				FD8F51CD1D5C537800D5E0E8 /* Contacts.framework in Frameworks */,
 				FD68657D1D5BAD9300FBFD79 /* libAPAddressBook.a in Frameworks */,
 				FDF1852F1D30309300EE3391 /* CFNetwork.framework in Frameworks */,
+				FD6C405F1D687A6E004F434C /* linkedin-sdk.framework in Frameworks */,
 				FD0635CB1D2FEE5F005D39EE /* MapKit.framework in Frameworks */,
 				F1B2EFFC2D91B863E9323D52 /* libPods-Triper_IOS.a in Frameworks */,
 			);
@@ -197,6 +217,9 @@
 		35E7B8FE43D2DD46C4B36EFB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FD5FFF611D67AE2000188E29 /* SystemConfiguration.framework */,
+				FD5FFF5F1D67AE1200188E29 /* AddressBookUI.framework */,
+				FD5FFF5D1D67AE0000188E29 /* StoreKit.framework */,
 				FD8F51CC1D5C537800D5E0E8 /* Contacts.framework */,
 				FD68657C1D5BAD9300FBFD79 /* libAPAddressBook.a */,
 				FDF1852E1D30309300EE3391 /* CFNetwork.framework */,
@@ -245,6 +268,19 @@
 			name = TSButton;
 			sourceTree = "<group>";
 		};
+		FD6C40621D68A45E004F434C /* Controllers registration */ = {
+			isa = PBXGroup;
+			children = (
+				FDBFA4F91D1C23020074D92D /* TSLoginViewController.h */,
+				FDBFA4FA1D1C23020074D92D /* TSLoginViewController.m */,
+				FD6C40631D68A4C0004F434C /* TSRegisrationViewController.h */,
+				FD6C40641D68A4C0004F434C /* TSRegisrationViewController.m */,
+				FDA73ACA1D6B0B7A001F1210 /* TSLinkedinWebViewViewController.h */,
+				FDA73ACB1D6B0B7A001F1210 /* TSLinkedinWebViewViewController.m */,
+			);
+			name = "Controllers registration";
+			sourceTree = "<group>";
+		};
 		FD8F15C21D25A166004F953B /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -283,6 +319,7 @@
 		FDBFA4E71D1C23010074D92D = {
 			isa = PBXGroup;
 			children = (
+				FD6C40601D687ED7004F434C /* Default-568h@2x.png */,
 				FDBFA4F21D1C23020074D92D /* Triper_IOS */,
 				FDBFA50F1D1C23030074D92D /* Triper_IOSTests */,
 				FDBFA51A1D1C23030074D92D /* Triper_IOSUITests */,
@@ -323,6 +360,7 @@
 				FDBFA5071D1C23020074D92D /* Info.plist */,
 				FDCBDA821D3E674200F07849 /* GoogleService-Info.plist */,
 				FDBFA4FF1D1C23020074D92D /* Triper_IOS.xcdatamodeld */,
+				FD6C405E1D687A6E004F434C /* linkedin-sdk.framework */,
 				FDBFA4F31D1C23020074D92D /* Supporting Files */,
 			);
 			path = Triper_IOS;
@@ -414,8 +452,7 @@
 		FDF38CB61D1C7954005D081F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				FDBFA4F91D1C23020074D92D /* TSLoginViewController.h */,
-				FDBFA4FA1D1C23020074D92D /* TSLoginViewController.m */,
+				FD6C40621D68A45E004F434C /* Controllers registration */,
 				FD530D5E1D265E3500E0651A /* TSSettingsViewController.h */,
 				FD530D5F1D265E3500E0651A /* TSSettingsViewController.m */,
 				FD0635C11D2FCC1D005D39EE /* TSMatchViewController.h */,
@@ -572,6 +609,7 @@
 				FDF83A0A1D391CC200FA5955 /* TSProfileView.xib in Resources */,
 				FDCBDA831D3E674200F07849 /* GoogleService-Info.plist in Resources */,
 				FDBFA5031D1C23020074D92D /* Assets.xcassets in Resources */,
+				FD6C40611D687ED7004F434C /* Default-568h@2x.png in Resources */,
 				FDBFA4FE1D1C23020074D92D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -653,6 +691,7 @@
 				FDD28EF31D64679B0021EDC9 /* TSParsingUserName.m in Sources */,
 				FDF0B4421D47A09C00DCD135 /* TSNewPostViewController.m in Sources */,
 				FDBFA4F81D1C23020074D92D /* AppDelegate.m in Sources */,
+				FD6C40651D68A4C0004F434C /* TSRegisrationViewController.m in Sources */,
 				FDDC4FD41D3D031A00B11286 /* TSRandomFriendsTest.m in Sources */,
 				FDF38CBB1D1C7AED005D081F /* TSServerManager.m in Sources */,
 				FD1334AB1D2811E70074F5E9 /* TSUser.m in Sources */,
@@ -663,6 +702,7 @@
 				FD6EC5B41D64BCD6003A3C50 /* TSFireUser.m in Sources */,
 				FD0635C61D2FCCE9005D39EE /* TSHomyViewController.m in Sources */,
 				FDF185321D30380C00EE3391 /* TSChatViewController.m in Sources */,
+				FDA73ACC1D6B0B7A001F1210 /* TSLinkedinWebViewViewController.m in Sources */,
 				FDF247F61D3D94380035FBDF /* TSHandler.m in Sources */,
 				FD4BF6DF1D43794E00504327 /* TSUserViewController.m in Sources */,
 				FD9E79A41D36D7B5003E402A /* TSProfileView.m in Sources */,
@@ -827,9 +867,11 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Triper_IOS",
 				);
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = Triper_IOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-lxml2",
@@ -909,9 +951,11 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Triper_IOS",
 				);
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = Triper_IOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-lxml2",

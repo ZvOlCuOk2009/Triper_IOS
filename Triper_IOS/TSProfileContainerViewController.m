@@ -10,8 +10,14 @@
 #import "TSServerManager.h"
 #import "TSProfileView.h"
 #import "TSView.h"
+#import "TSFireUser.h"
+
+@import Firebase;
+@import FirebaseDatabase;
 
 @interface TSProfileContainerViewController ()
+
+@property (strong, nonatomic) FIRDatabaseReference *ref;
 
 @end
 
@@ -19,14 +25,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.ref = [[FIRDatabase database] reference];
     
-    [[TSServerManager sharedManager] requestUserDataFromTheServerFacebook:^(TSUser *user) {
+    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        TSFireUser *fireUser = [TSFireUser initWithSnapshot:snapshot];
+        
         TSProfileView *profileView = [TSProfileView profileView];
         profileView.frame = CGRectMake((self.view.frame.size.width - profileView.frame.size.width) / 2, 55, profileView.frame.size.width, profileView.frame.size.height);
-        profileView.nameLabel.text = user.name;
-        profileView.miniNameLabel.text = user.name;
         profileView.likeView.hidden = YES;
-        profileView.avatarImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:user.avatar]];
+        profileView.nameLabel.text = fireUser.displayName;
+        profileView.miniNameLabel.text = fireUser.displayName;
+        profileView.avatarImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:
+                                                                    [NSURL URLWithString:fireUser.photoURL]]];
+        
         [self.view addSubview:profileView];
     }];
     

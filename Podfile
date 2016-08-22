@@ -12,4 +12,5 @@ pod 'Firebase/Database'
 pod 'ZLSwipeableView'
 pod 'JSQMessagesViewController'
 pod 'APAddressBook'
+pod 'Google/SignIn'
 end

@@ -23,16 +23,7 @@
 
 - (IBAction)actionSkypeButton:(UIButton *)sender
 {
-//    NSLog(@"Skype %ld", (long)sender.tag);
-//    
-//    BOOL installed = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"skype:"]];
-//    if(installed) {
-//        NSString * userNameString = @"valia.ts.2016";
-//        NSString* urlString = [NSString stringWithFormat:@"skype:%@?call", userNameString];
-//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
-//    } else {
-//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://appsto.re/ru/Uobls.i"]];
-//    }
+
 }
 
 @end

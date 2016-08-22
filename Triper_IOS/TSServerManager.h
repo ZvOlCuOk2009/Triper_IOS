@@ -24,6 +24,6 @@
 - (void)logOutFacebook;
 
 
-- (void)requestUserServerFacebook:(void(^)(NSDictionary *friends))success;
+//- (void)requestUserServerFacebook:(void(^)(NSDictionary *friends))success;
 
 @end

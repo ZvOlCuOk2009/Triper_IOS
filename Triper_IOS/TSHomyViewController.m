@@ -10,8 +10,13 @@
 #import "TSServerManager.h"
 #import "TSUser.h"
 #import "TSLoginViewController.h"
+#import "TSFireUser.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+//#import <AddressBookUI/AddressBookUI.h>
+
+@import Firebase;
+@import FirebaseDatabase;
 
 @interface TSHomyViewController ()
 
@@ -19,6 +24,7 @@
 
 @property (strong, nonatomic) TSUser *user;
 @property (weak, nonatomic) IBOutlet UIButton *outButton;
+@property (strong, nonatomic) FIRDatabaseReference *ref;
 
 @end
 
@@ -28,11 +34,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    FBSDKProfilePictureView *avatar = [[TSServerManager sharedManager]
-                                       requestUserImageFromTheServerFacebook:self.avatarImageView ID:@"me"];
-    avatar.layer.cornerRadius = avatar.frame.size.width / 2;
-    avatar.clipsToBounds = YES;
-    [self.view addSubview:avatar];
+    self.ref = [[FIRDatabase database] reference];
+    
+    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        TSFireUser *fireUser = [TSFireUser initWithSnapshot:snapshot];
+        self.avatarImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:
+                                                                    [NSURL URLWithString:fireUser.photoURL]]];
+        self.avatarImageView.layer.cornerRadius = self.avatarImageView.frame.size.width / 2;
+        self.avatarImageView.layer.masksToBounds = YES;
+    }];
     
     self.outButton.layer.cornerRadius = self.outButton.frame.size.width / 2;
 }
@@ -43,16 +54,12 @@
 }
 
 
-- (IBAction)addFriendsList:(id)sender
-{
-    
-}
-
 
 - (IBAction)actionInviteFriends:(id)sender
 {
     [[TSServerManager sharedManager] inviteUserFriendsTheServerFacebook:self];
 }
+
 
 - (IBAction)actionLogOut:(id)sender
 {

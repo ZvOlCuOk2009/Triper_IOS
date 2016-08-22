@@ -9,12 +9,20 @@
 #import "AppDelegate.h"
 #import "TSLoginViewController.h"
 #import "TSTabBarController.h"
+
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <GoogleSignIn/GoogleSignIn.h>
+#import <GGLCore/GGLCore.h>
+#import <linkedin-sdk/LISDK.h>
 
 @import Firebase;
 @import FirebaseAuth;
+@import FirebaseDatabase;
 
-@interface AppDelegate ()
+@interface AppDelegate () <GIDSignInDelegate>
+
+@property (strong, nonatomic) FIRDatabaseReference *ref;
+@property (strong, nonatomic) UIStoryboard *storyBoard;
 
 @end
 
@@ -25,30 +33,55 @@
     
     [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    self.storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     if([[NSUserDefaults standardUserDefaults] valueForKey:@"token"])
     {
-        TSTabBarController *homeViewController = [storyBoard instantiateViewControllerWithIdentifier:@"TSTabBarController"];
-        self.window.rootViewController = homeViewController;
+        TSTabBarController *tabBarViewController = [self.storyBoard instantiateViewControllerWithIdentifier:@"TSTabBarController"];
+        self.window.rootViewController = tabBarViewController;
     }
     else
     {
-        TSLoginViewController  *loginViewController = [storyBoard instantiateViewControllerWithIdentifier:@"TSLoginViewController"];
+        TSLoginViewController  *loginViewController = [self.storyBoard instantiateViewControllerWithIdentifier:@"TSLoginViewController"];
         self.window.rootViewController = loginViewController;
     }
     
     [FIRApp configure];
     
+    
+    NSError* configureError;
+    [[GGLContext sharedInstance] configureWithError: &configureError];
+    NSAssert(!configureError, @"Error configuring Google services: %@", configureError);
+    
+    [GIDSignIn sharedInstance].clientID = [FIRApp defaultApp].options.clientID;
+    [GIDSignIn sharedInstance].delegate = self;
+    
+    self.ref = [[FIRDatabase database] reference];
+    
     return YES;
 }
 
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    
-    return [[FBSDKApplicationDelegate sharedInstance] application:application
-                                                          openURL:url
-                                                sourceApplication:sourceApplication
-                                                       annotation:annotation];
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
+{
+    if ([LISDKCallbackHandler shouldHandleUrl:url]) {
+        return [LISDKCallbackHandler application:application
+                                         openURL:url
+                               sourceApplication:sourceApplication
+                                      annotation:annotation];
+    } else if ([[url scheme] isEqualToString:@"com.googleusercontent.apps.1074621268547-p5c1fpudgjjsctv1beks4r5dq663j8qu"]) {
+        return [[GIDSignIn sharedInstance] handleURL:url
+                                   sourceApplication:sourceApplication
+                                          annotation:annotation];
+    } else if ([[url scheme] isEqualToString:@"fb1740428519557317"]) {
+        return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                              openURL:url
+                                                    sourceApplication:sourceApplication
+                                                           annotation:annotation];
+    }
+    return YES;
 }
 
 
@@ -56,6 +89,51 @@
 {
     return YES;
 }
+
+
+- (void)signIn:(GIDSignIn *)signIn didSignInForUser:(GIDGoogleUser *)user withError:(NSError *)error
+{
+    if (error == nil) {
+        
+        GIDAuthentication *authentication = user.authentication;
+        FIRAuthCredential *credential = [FIRGoogleAuthProvider credentialWithIDToken:authentication.idToken
+                                                                         accessToken:authentication.accessToken];
+        
+        [[FIRAuth auth] signInWithCredential:credential
+                                  completion:^(FIRUser *user, NSError *error) {
+                                      
+                                  }];
+        
+        NSDictionary *profileData = @{@"profile":user.profile};
+        
+        GIDProfileData *data = [profileData objectForKey:@"profile"];
+        
+        FIRUser *currentUser = [FIRAuth auth].currentUser;
+        NSString *token = currentUser.uid;
+        
+        NSString *name = data.name;
+        NSString *email = data.email;
+        NSString *imageURL = [[data imageURLWithDimension:100] absoluteString];
+        
+        NSDictionary *userData = @{@"userID":token,
+                                   @"displayName":name,
+                                   @"email":email,
+                                   @"photoURL":imageURL};
+        
+        [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"token"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [[[[self.ref child:@"users"] child:token] child:@"username"] setValue:userData];
+        
+        TSTabBarController *tabBarViewController = [self.storyBoard instantiateViewControllerWithIdentifier:@"TSTabBarController"];
+        self.window.rootViewController = tabBarViewController;
+        
+    } else {
+        NSLog(@"%@", error.localizedDescription);
+    }
+    
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

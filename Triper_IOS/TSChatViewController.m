@@ -72,8 +72,8 @@
     }];
     
     [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-//        FIRDataSnapshot *userUID = [snapshot childSnapshotForPath:@"userUID"];
-//        NSLog(@"RETRIVE userUID %@", userUID);
+        FIRDataSnapshot *user = [snapshot childSnapshotForPath:@"users"];
+        NSLog(@"RETRIVE users %@", user);
     }];
 }
 
@@ -113,9 +113,18 @@
 }
 
 
-- (IBAction)actionMessageButton:(UIButton *)sender
+- (IBAction)actionSkypeButton:(UIButton *)sender
 {
-    
+    NSLog(@"Skype %ld", (long)sender.tag);
+
+    BOOL installed = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"skype:"]];
+    if(installed) {
+        NSString * userNameString = @"valia.ts.2016";
+        NSString* urlString = [NSString stringWithFormat:@"skype:%@?call", userNameString];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+    } else {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://appsto.re/ru/Uobls.i"]];
+    }
 }
 
 
@@ -225,6 +234,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    
     NSDictionary *currentSection = [self.friends objectAtIndex:section];
     NSArray *dataNameFriend = [currentSection objectForKey:@"items"];
     NSString *nameFriend = [dataNameFriend objectAtIndex:0];
@@ -253,8 +263,8 @@
     [button addTarget:self action:@selector(didSelectSection:) forControlEvents:UIControlEventTouchUpInside];
     [self.cell addSubview:button];
     
-    
     return self.cell;
+    
 }
 
 

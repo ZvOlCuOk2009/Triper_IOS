@@ -10,14 +10,15 @@
 
 @implementation TSFireUser
 
-- (id)initWithDictionary:(NSDictionary *)responseValue
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
     self = [super init];
     if (self) {
-        self.displayName = [responseValue valueForKey:@"displayName"];
-        self.uid = [responseValue valueForKey:@"userID"];
-        self.email = [responseValue valueForKey:@"email"];
-        self.photoURL = [responseValue valueForKey:@"photoURL"];
+        self.displayName = [dictionary valueForKey:@"displayName"];
+        self.uid = [dictionary valueForKey:@"userID"];
+        self.email = [dictionary valueForKey:@"email"];
+        self.photoURL = [dictionary valueForKey:@"photoURL"];
     }
     return self;
 }
@@ -46,7 +47,7 @@
         user.email = (NSString *)userEmail;
         user.photoURL = (NSString *)userPhoto;
     }
-    
+
     return user;
 }
 

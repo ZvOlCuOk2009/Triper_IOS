@@ -18,9 +18,8 @@
 @property (strong, nonatomic) NSString *email;
 @property (strong, nonatomic) NSString *photoURL;
 
-//- (id)initWithDictionary:(NSDictionary *)responseValue;
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 + (TSFireUser *)initWithSnapshot:(FIRDataSnapshot *)snapshot;
-
 
 @end
 

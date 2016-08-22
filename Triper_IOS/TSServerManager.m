@@ -8,8 +8,9 @@
 
 #import "TSServerManager.h"
 #import "AFNetworking.h"
-
 #import "TSUserViewController.h"
+
+#import <GoogleSignIn/GoogleSignIn.h>
 
 @class FBGraphLocation;
 @class FBGraphPlace;
@@ -18,8 +19,7 @@
 @interface TSServerManager ()
 
 @property (strong, nonatomic) AFHTTPSessionManager *sessionManager;
-
-@property (strong, nonatomic) NSString * after;
+//@property (strong, nonatomic) NSString * after;
 
 @end
 
@@ -110,28 +110,28 @@
 
 //test block
 
-- (void)requestUserServerFacebook:(void(^)(NSDictionary *friends))success
-{
-    NSDictionary * parameters = @{@"fields": @"id, name, link, first_name, last_name, picture.type(large), email, birthday, bio, location, friends, hometown, friendlists"};
-    
-    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
-                                  initWithGraphPath:@"me"
-                                  parameters:parameters
-                                  HTTPMethod:@"GET"];
-    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection,
-                                          id result,
-                                          NSError *error) {
-        if (!error) {
-            NSDictionary * friendList = [[result objectForKey:@"friends"] objectForKey:@"paging"];
-            self.after = [[friendList objectForKey:@"cursors"] objectForKey:@"after"];
-            if (success) {
-                success(friendList);
-            }
-        } else {
-            NSLog(@"Error %@", [error localizedDescription]);
-        }
-    }];
-}
+//- (void)requestUserServerFacebook:(void(^)(NSDictionary *friends))success
+//{
+//    NSDictionary * parameters = @{@"fields": @"id, name, link, first_name, last_name, picture.type(large), email, birthday, bio, location, friends, hometown, friendlists"};
+//    
+//    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
+//                                  initWithGraphPath:@"me"
+//                                  parameters:parameters
+//                                  HTTPMethod:@"GET"];
+//    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection,
+//                                          id result,
+//                                          NSError *error) {
+//        if (!error) {
+//            NSDictionary * friendList = [[result objectForKey:@"friends"] objectForKey:@"paging"];
+//            self.after = [[friendList objectForKey:@"cursors"] objectForKey:@"after"];
+//            if (success) {
+//                success(friendList);
+//            }
+//        } else {
+//            NSLog(@"Error %@", [error localizedDescription]);
+//        }
+//    }];
+//}
 
 
 #pragma mark - FBSDKAppInviteDialogDelegate
@@ -150,6 +150,7 @@
     NSLog(@"results = %@", results);
 }
 
+
 - (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didFailWithError:(NSError *)error {
     NSLog(@"error = %@", error);
 }
@@ -163,6 +164,7 @@
     [[[FBSDKLoginManager alloc] init] logOut];
     [FBSDKAccessToken setCurrentAccessToken:nil];
     [FBSDKProfile setCurrentProfile:nil];
+    [[GIDSignIn sharedInstance] signOut];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"token"];
 }
 
@@ -174,20 +176,21 @@
                      userLogin:(NSString *)userLogin
                      onSuccess:(void(^)(NSArray *token)) success
 {
-    NSDictionary *parameters = @{@"id":userID,
-                                 @"name":userLogin};
+    NSDictionary *parameters = @{@"response_type":@"https://www.linkedin.com/developer/apps",
+                                 @"client_id":@4561613,
+                                 @"redirect_uri":@"https://www.linkedin.com/developer/apps/4561613/mobile"};
     
-    [self.sessionManager POST:@"http://www.golinkder.com/process.php/MyApi/login&id=519465bf-da1f-e682-70a7-052722f7da5a&name=Sasha-Tsvigun&"
+    [self.sessionManager GET:@"https://www.linkedin.com/oauth/v2/authorization"
                    parameters:parameters
                      progress:nil
                       success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                          NSMutableArray *objectArray = [NSMutableArray array];
+                          NSMutableArray *objectArray = [NSMutableArray arrayWithArray:responseObject];
                           if (success) {
                               success(objectArray);
                           }
                       }
                       failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                          
+                          NSLog(@"Error - %@", error.localizedDescription);
                       }
      ];
 }

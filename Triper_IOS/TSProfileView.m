@@ -23,31 +23,6 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    
-//    TSRandomFriendsTest *testUser = [[TSRandomFriendsTest alloc] init];
-//    
-//    NSString *name = [NSString stringWithFormat:@"%@ %@", [testUser.firstNames objectAtIndex:arc4random_uniform(8)],
-//                                                          [testUser.lastNames objectAtIndex:arc4random_uniform(8)]];
-//    NSString *profession = [testUser.profession objectAtIndex:arc4random_uniform(10)];
-//    NSString *countryComing = [testUser.countryComing objectAtIndex:arc4random_uniform(14)];
-//    NSString *countryCoing = [testUser.countryCoing objectAtIndex:arc4random_uniform(14)];
-//    NSString *cityCurrent = [testUser.cityCurrent objectAtIndex:arc4random_uniform(11)];
-//    NSString *age = [NSString stringWithFormat:@"%d", arc4random_uniform(15) + 30];
-//    NSString *launguage = [testUser.launguage objectAtIndex:arc4random_uniform(7)];
-//    UIImage *avatar = [UIImage imageNamed:[testUser.avatars objectAtIndex:arc4random_uniform(16)]];
-//    NSString *match = [NSString stringWithFormat:@"%d", arc4random_uniform(500) + 200];
-//    
-//    self.nameLabel.text = name;
-//    self.professionLabel.text = profession;
-//    self.comingFromLabel.text = countryComing;
-//    self.coingToLabel.text = countryCoing;
-//    self.currentArreaLabel.text = cityCurrent;
-//    self.ageLabel.text = age;
-//    self.launguageLabel.text = launguage;
-//    self.avatarImageView.image = avatar;
-//    self.miniNameLabel.text = name;
-//    self.countMatchLabel.text = match;
-//    self.contentTextView.text = [TSDisplayContent displayContent:1];
 }
 
 
