@@ -24,6 +24,7 @@
 
 @property (strong, nonatomic) TSUser *user;
 @property (weak, nonatomic) IBOutlet UIButton *outButton;
+@property (weak, nonatomic) IBOutlet UIButton *editButton;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 
 @end
@@ -46,6 +47,7 @@
     }];
     
     self.outButton.layer.cornerRadius = self.outButton.frame.size.width / 2;
+    self.editButton.layer.cornerRadius = self.editButton.frame.size.width / 2;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -61,21 +63,27 @@
 }
 
 
+- (IBAction)actionEditing:(id)sender
+{
+    
+}
+
+
 - (IBAction)actionLogOut:(id)sender
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Do you want to exit"
-                                                                             message:@"the application?"
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Do you want to exit the application?"
+                                                                             message:nil
                                                                       preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *actionYes = [UIAlertAction actionWithTitle:@"Yes"
+    UIAlertAction *actionYes = [UIAlertAction actionWithTitle:@"YES"
                                                         style:UIAlertActionStyleDestructive
                                                       handler:^(UIAlertAction * _Nonnull action) {
-                                                          [[TSServerManager sharedManager] logOutFacebook];
+                                                          [[TSServerManager sharedManager] logOutUser];
                                                           TSLoginViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TSLoginViewController"];
                                                           [self presentViewController:controller animated:YES completion:nil];
                                                       }];
     
-    UIAlertAction *actionNo = [UIAlertAction actionWithTitle:@"No"
+    UIAlertAction *actionNo = [UIAlertAction actionWithTitle:@"NO"
                                                        style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction * _Nonnull action) { }];
     

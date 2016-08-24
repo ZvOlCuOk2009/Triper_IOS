@@ -95,38 +95,36 @@
 {
     if (error == nil) {
         
-        GIDAuthentication *authentication = user.authentication;
-        FIRAuthCredential *credential = [FIRGoogleAuthProvider credentialWithIDToken:authentication.idToken
-                                                                         accessToken:authentication.accessToken];
-        
-        [[FIRAuth auth] signInWithCredential:credential
-                                  completion:^(FIRUser *user, NSError *error) {
-                                      
-                                  }];
-        
-        NSDictionary *profileData = @{@"profile":user.profile};
-        
-        GIDProfileData *data = [profileData objectForKey:@"profile"];
-        
-        FIRUser *currentUser = [FIRAuth auth].currentUser;
-        NSString *token = currentUser.uid;
-        
-        NSString *name = data.name;
-        NSString *email = data.email;
-        NSString *imageURL = [[data imageURLWithDimension:100] absoluteString];
-        
-        NSDictionary *userData = @{@"userID":token,
-                                   @"displayName":name,
-                                   @"email":email,
-                                   @"photoURL":imageURL};
-        
-        [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"token"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        [[[[self.ref child:@"users"] child:token] child:@"username"] setValue:userData];
-        
-        TSTabBarController *tabBarViewController = [self.storyBoard instantiateViewControllerWithIdentifier:@"TSTabBarController"];
-        self.window.rootViewController = tabBarViewController;
+            GIDAuthentication *authentication = user.authentication;
+            FIRAuthCredential *credential = [FIRGoogleAuthProvider credentialWithIDToken:authentication.idToken
+                                                                             accessToken:authentication.accessToken];
+            [[FIRAuth auth] signInWithCredential:credential
+                                      completion:^(FIRUser *user, NSError *error) {
+                                          
+                                          NSString *accessToken = authentication.accessToken;
+                                          
+                                          
+                                          if (accessToken) {
+                                          
+                                              NSString *token = user.uid;
+                                              NSString *name = user.displayName;
+                                              NSString *email = user.email;
+                                              NSString *imageURL = user.photoURL.absoluteString;
+                                              
+                                              NSDictionary *userData = @{@"userID":token,
+                                                                         @"displayName":name,
+                                                                         @"email":email,
+                                                                         @"photoURL":imageURL};
+                                              
+                                              [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"token"];
+                                              [[NSUserDefaults standardUserDefaults] synchronize];
+                                              
+                                              [[[[self.ref child:@"users"] child:token] child:@"username"] setValue:userData];
+                                              
+                                              TSTabBarController *tabBarViewController = [self.storyBoard instantiateViewControllerWithIdentifier:@"TSTabBarController"];
+                                              self.window.rootViewController = tabBarViewController;
+                                          }
+                                      }];
         
     } else {
         NSLog(@"%@", error.localizedDescription);

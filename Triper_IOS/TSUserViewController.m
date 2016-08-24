@@ -24,7 +24,6 @@
 @interface TSUserViewController ()
  
 @property (strong, nonatomic) TSUser *user;
-@property (strong, nonatomic) NSMutableArray *contacts;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 @property (strong, nonatomic) TSFireUser *fireUser;
 
@@ -37,30 +36,44 @@
     // Do any additional setup after loading the view.
     
     self.ref = [[FIRDatabase database] reference];
-    self.contacts = [NSMutableArray array];
     
-//    NSArray *contacts = [self contactsFromAddressBook];
-//    for (TSContact *contact in contacts) {
-//        NSLog(@"phomne number is %@ %@", contact.phone, [NSString stringWithFormat:@"%@ %@", contact.firstName, contact.lastName]);
-//    }
+    [self reloadView];
     
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self reloadView];
+    });
+    
+//    [self phoneNumber];
+}
+
+
+- (void)reloadView
+{
     [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
         TSFireUser *fireUser = [TSFireUser initWithSnapshot:snapshot];
         
         TSProfileView *profileView = [TSProfileView profileView];
         
+        NSString *cutUrlString = [fireUser.photoURL substringFromIndex:8];
+        
         profileView.nameLabel.text = fireUser.displayName;
         profileView.miniNameLabel.text = fireUser.displayName;
-        profileView.avatarImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:
-                                                                    [NSURL URLWithString:fireUser.photoURL]]];
+        
+        if ([cutUrlString isEqualToString:@"https://"]) {
+            
+            profileView.avatarImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:
+                                                                        [NSURL URLWithString:fireUser.photoURL]]];
+        } else {
+            
+            NSData *data = [[NSData alloc]initWithBase64EncodedString:fireUser.photoURL options:NSDataBase64DecodingIgnoreUnknownCharacters];
+            UIImage *convertImage = [UIImage imageWithData:data];
+            profileView.avatarImageView.image = convertImage;
+            
+        }
         
         [self.view addSubview:profileView];
     }];
-    
-//    NSArray *contacts = [self contactsFromAddressBook];
-    
-    [self phonenumber];
 }
 
 
@@ -72,7 +85,7 @@
 }
 
 
-- (void)phonenumber
+- (void)phoneNumber
 {
     self.navigationController.navigationBarHidden = true;
     ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
@@ -83,7 +96,7 @@
         // perhaps telling the user that they have to go to settings to grant access
         // to contacts
         
-        [[[UIAlertView alloc] initWithTitle:nil message:@"This app requires access to your contacts to function properly. Please visit to the \"Privacy\" section in the iPhone Settings app." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+//        [[[UIAlertView alloc] initWithTitle:nil message:@"This app requires access to your contacts to function properly. Please visit to the \"Privacy\" section in the iPhone Settings app." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         return;
     }
     

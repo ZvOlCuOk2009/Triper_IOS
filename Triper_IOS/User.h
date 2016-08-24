@@ -12,6 +12,6 @@
 
 @property(strong, nonatomic) NSString *username;
 
-- (instancetype)initWithUsername:(NSString *)username;
+//- (instancetype)initWithUsername:(NSString *)username;
 
 @end

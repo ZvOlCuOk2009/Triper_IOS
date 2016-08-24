@@ -71,10 +71,10 @@
         self.arrayFriends = [NSMutableArray arrayWithArray:self.friends];
     }];
     
-    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        FIRDataSnapshot *user = [snapshot childSnapshotForPath:@"users"];
-        NSLog(@"RETRIVE users %@", user);
-    }];
+//    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+//        FIRDataSnapshot *user = [snapshot childSnapshotForPath:@"users"];
+//        NSLog(@"RETRIVE users %@", user);
+//    }];
 }
 
 

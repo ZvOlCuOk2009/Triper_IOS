@@ -32,7 +32,6 @@
 		FD8F51CD1D5C537800D5E0E8 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD8F51CC1D5C537800D5E0E8 /* Contacts.framework */; };
 		FD8F51D31D5D03A600D5E0E8 /* TSSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8F51D21D5D03A600D5E0E8 /* TSSearchBar.m */; };
 		FD9E79A41D36D7B5003E402A /* TSProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = FD9E79A31D36D7B5003E402A /* TSProfileView.m */; };
-		FDA73ACC1D6B0B7A001F1210 /* TSLinkedinWebViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDA73ACB1D6B0B7A001F1210 /* TSLinkedinWebViewViewController.m */; };
 		FDBFA4F51D1C23020074D92D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4F41D1C23020074D92D /* main.m */; };
 		FDBFA4F81D1C23020074D92D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4F71D1C23020074D92D /* AppDelegate.m */; };
 		FDBFA4FB1D1C23020074D92D /* TSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4FA1D1C23020074D92D /* TSLoginViewController.m */; };
@@ -124,8 +123,6 @@
 		FD8F51D21D5D03A600D5E0E8 /* TSSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSSearchBar.m; sourceTree = "<group>"; };
 		FD9E79A21D36D7B5003E402A /* TSProfileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSProfileView.h; sourceTree = "<group>"; };
 		FD9E79A31D36D7B5003E402A /* TSProfileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSProfileView.m; sourceTree = "<group>"; };
-		FDA73ACA1D6B0B7A001F1210 /* TSLinkedinWebViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSLinkedinWebViewViewController.h; sourceTree = "<group>"; };
-		FDA73ACB1D6B0B7A001F1210 /* TSLinkedinWebViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSLinkedinWebViewViewController.m; sourceTree = "<group>"; };
 		FDBFA4F01D1C23010074D92D /* Triper_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Triper_IOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDBFA4F41D1C23020074D92D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FDBFA4F61D1C23020074D92D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -275,8 +272,6 @@
 				FDBFA4FA1D1C23020074D92D /* TSLoginViewController.m */,
 				FD6C40631D68A4C0004F434C /* TSRegisrationViewController.h */,
 				FD6C40641D68A4C0004F434C /* TSRegisrationViewController.m */,
-				FDA73ACA1D6B0B7A001F1210 /* TSLinkedinWebViewViewController.h */,
-				FDA73ACB1D6B0B7A001F1210 /* TSLinkedinWebViewViewController.m */,
 			);
 			name = "Controllers registration";
 			sourceTree = "<group>";
@@ -702,7 +697,6 @@
 				FD6EC5B41D64BCD6003A3C50 /* TSFireUser.m in Sources */,
 				FD0635C61D2FCCE9005D39EE /* TSHomyViewController.m in Sources */,
 				FDF185321D30380C00EE3391 /* TSChatViewController.m in Sources */,
-				FDA73ACC1D6B0B7A001F1210 /* TSLinkedinWebViewViewController.m in Sources */,
 				FDF247F61D3D94380035FBDF /* TSHandler.m in Sources */,
 				FD4BF6DF1D43794E00504327 /* TSUserViewController.m in Sources */,
 				FD9E79A41D36D7B5003E402A /* TSProfileView.m in Sources */,

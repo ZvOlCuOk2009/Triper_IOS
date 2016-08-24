@@ -12,9 +12,12 @@
 
 #import <GoogleSignIn/GoogleSignIn.h>
 
-@class FBGraphLocation;
-@class FBGraphPlace;
-@class FBGraphUser;
+@import Firebase;
+@import FirebaseAuth;
+
+//@class FBGraphLocation;
+//@class FBGraphPlace;
+//@class FBGraphUser;
 
 @interface TSServerManager ()
 
@@ -108,31 +111,6 @@
      }];
 }
 
-//test block
-
-//- (void)requestUserServerFacebook:(void(^)(NSDictionary *friends))success
-//{
-//    NSDictionary * parameters = @{@"fields": @"id, name, link, first_name, last_name, picture.type(large), email, birthday, bio, location, friends, hometown, friendlists"};
-//    
-//    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
-//                                  initWithGraphPath:@"me"
-//                                  parameters:parameters
-//                                  HTTPMethod:@"GET"];
-//    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection,
-//                                          id result,
-//                                          NSError *error) {
-//        if (!error) {
-//            NSDictionary * friendList = [[result objectForKey:@"friends"] objectForKey:@"paging"];
-//            self.after = [[friendList objectForKey:@"cursors"] objectForKey:@"after"];
-//            if (success) {
-//                success(friendList);
-//            }
-//        } else {
-//            NSLog(@"Error %@", [error localizedDescription]);
-//        }
-//    }];
-//}
-
 
 #pragma mark - FBSDKAppInviteDialogDelegate
 
@@ -159,12 +137,17 @@
 #pragma mark - logOutFacebook
 
 
-- (void)logOutFacebook
+- (void)logOutUser
 {
     [[[FBSDKLoginManager alloc] init] logOut];
     [FBSDKAccessToken setCurrentAccessToken:nil];
     [FBSDKProfile setCurrentProfile:nil];
     [[GIDSignIn sharedInstance] signOut];
+    NSError *error;
+    [[FIRAuth auth] signOut:&error];
+    if (!error) {
+        NSLog(@"Log out");
+    }
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"token"];
 }
 

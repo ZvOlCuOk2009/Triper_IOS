@@ -11,6 +11,7 @@
 #import "TSTabBarController.h"
 #import "TSUser.h"
 #import "TSFireUser.h"
+#import "TSParsingManager.h"
 
 #import <GoogleSignIn/GoogleSignIn.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
@@ -26,6 +27,8 @@
 @property (weak, nonatomic) IBOutlet GIDSignInButton *signInButton;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 @property (strong, nonatomic) TSFireUser *fireUser;
+@property (strong, nonatomic) NSArray *userFriends;
+
 
 @end
 
@@ -35,18 +38,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-//    _loginButton = [[FBSDKLoginButton alloc] init];
-//    _loginButton.frame = CGRectMake(135, 45, 55, 55);
-//    [_loginButton setImage:[UIImage imageNamed:@"fb_login"] forState:UIControlStateNormal];
-//    [_loginButton addTarget:self action:@selector(loginButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:_loginButton];
-    //self.loginButton = (FBSDKLoginButton *)myLoginButton;
-    
     self.loginButton = [[FBSDKLoginButton alloc] init];
-    self.loginButton.frame = CGRectMake(135, 45, 55, 55);
-//    [self.loginButton setImage:[UIImage imageNamed:@"fb_login"] forState:UIControlStateNormal];
-//    self.loginButton.readPermissions = @[@"public_profile", @"email", @"user_friends"];
-//    self.loginButton.layer.cornerRadius = self.loginButton.frame.size.width / 2;
     self.loginButton.hidden = YES;
     [self.view addSubview:self.loginButton];
     
@@ -105,36 +97,55 @@
         
     }
     
-    if ([FBSDKAccessToken currentAccessToken]) {
-        
+//    if ([FBSDKAccessToken currentAccessToken]) {
+    
         FIRAuthCredential *credential = [FIRFacebookAuthProvider
                                          credentialWithAccessToken:[FBSDKAccessToken currentAccessToken].tokenString];
         
         [[FIRAuth auth] signInWithCredential:credential
                                   completion:^(FIRUser *user, NSError *error) {
                                       
-                                      NSDictionary *userData = @{@"userID":user.uid,
-                                                                 @"displayName":user.displayName,
-                                                                 @"email":user.email,
-                                                                 @"photoURL":user.photoURL.absoluteString};
-                                      
-                                      //                                  NSString *displayName = [userData objectForKey:@"displayName"];
-                                      //                                  NSArray *initials = [displayName componentsSeparatedByString:@" "];
-                                      //                                  NSString *firstLetter = [[initials firstObject] substringToIndex:1];
-                                      //                                  NSString *secondWord = [initials lastObject];
-                                      //                                  NSString *keyNode = [NSString stringWithFormat:@"%@%@", firstLetter, secondWord];
-                                      
-                                      self.fireUser = [[TSFireUser alloc] initWithDictionary:userData];
-                                      
-                                      NSString *token = [userData objectForKey:@"userID"];
-                                      
-                                      [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"token"];
-                                      [[NSUserDefaults standardUserDefaults] synchronize];
-                                      
-                                      [[[[self.ref child:@"users"] child:user.uid] child:@"username"] setValue:self.fireUser];
+                                      [self saveUserToFirebase:user];
+                                      [self openTheTabBarController];
                                   }];
         NSLog(@"User log In");
+//    } else {
+//        
+//        [self dismissViewControllerAnimated:YES completion:nil];
+//    }
+    
+}
+
+
+- (void)saveUserToFirebase:(FIRUser *)user
+{
+    NSString *userID = user.uid;
+    NSString *displayName = user.displayName;
+    NSString *email = user.email;
+    NSString *photoURL = user.photoURL.absoluteString;
+    
+    if (email == nil) {
+        email = @"email";
     }
+    
+    NSDictionary *userData = @{@"userID":userID,
+                               @"displayName":displayName,
+                               @"email":email,
+                               @"photoURL":photoURL};
+    
+//                              NSString *displayName = [userData objectForKey:@"displayName"];
+//                              NSArray *initials = [displayName componentsSeparatedByString:@" "];
+//                              NSString *firstLetter = [[initials firstObject] substringToIndex:1];
+//                              NSString *secondWord = [initials lastObject];
+//                              NSString *keyNode = [NSString stringWithFormat:@"%@%@", firstLetter, secondWord];
+    
+    
+    NSString *token = [userData objectForKey:@"userID"];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"token"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [[[[self.ref child:@"users"] child:user.uid] child:@"username"] setValue:userData];
     
 }
 
@@ -146,7 +157,7 @@
 }
 
 
-- (IBAction)myFacebookButton:(id)sender
+- (IBAction)facebookButtonTouchUpInside:(id)sender
 {
     [self.loginButton sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
@@ -163,16 +174,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-        
+    
     UIColor *color = [UIColor blackColor];
     self.userNameTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Username" attributes:@{NSForegroundColorAttributeName: color}];
     
     self.passwordTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: color}];
 }
-
 
 
 #pragma mark - API
@@ -186,17 +197,23 @@
 }
 
 
+
+
 - (void)signInWithEmailAndPassword
 {
+    
     [[FIRAuth auth] signInWithEmail:self.userNameTextField.text
                            password:self.passwordTextField.text
                          completion:^(FIRUser * _Nullable user, NSError * _Nullable error) {
                              if (!error) {
                                  
+                                 [self openTheTabBarController];
+                                 
                              } else {
                                  NSLog(@"Error %@", error.localizedDescription);
                              }
                          }];
+    
 }
 
 
