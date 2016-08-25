@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="test" translatesAutoresizingMaskIntoConstraints="NO" id="wsu-qk-pwv" customClass="TSCustomImageView">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="placeholder_message" translatesAutoresizingMaskIntoConstraints="NO" id="wsu-qk-pwv" customClass="TSCustomImageView">
                     <rect key="frame" x="8" y="14" width="60" height="60"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vgf-As-0EE">
@@ -75,7 +75,7 @@
     </objects>
     <resources>
         <image name="arrow_go" width="32" height="32"/>
-        <image name="test" width="225" height="225"/>
+        <image name="placeholder_message" width="225" height="225"/>
         <image name="tlogo" width="44" height="44"/>
     </resources>
 </document>

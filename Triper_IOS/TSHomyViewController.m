@@ -40,10 +40,19 @@
     [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
         TSFireUser *fireUser = [TSFireUser initWithSnapshot:snapshot];
-        self.avatarImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:
-                                                                    [NSURL URLWithString:fireUser.photoURL]]];
-        self.avatarImageView.layer.cornerRadius = self.avatarImageView.frame.size.width / 2;
-        self.avatarImageView.layer.masksToBounds = YES;
+        
+        NSURL *url = [NSURL URLWithString:fireUser.photoURL];
+        
+        if (url && url.scheme && url.host) {
+            
+            self.avatarImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:
+                                                                 [NSURL URLWithString:fireUser.photoURL]]];
+        } else {
+            
+            NSData *data = [[NSData alloc]initWithBase64EncodedString:fireUser.photoURL options:NSDataBase64DecodingIgnoreUnknownCharacters];
+            UIImage *convertImage = [UIImage imageWithData:data];
+            self.avatarImageView.image = convertImage;
+        }
     }];
     
     self.outButton.layer.cornerRadius = self.outButton.frame.size.width / 2;

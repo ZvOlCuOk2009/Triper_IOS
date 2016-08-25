@@ -31,21 +31,21 @@
     
     if([[NSUserDefaults standardUserDefaults] valueForKey:@"token"])
     {
-//        NSString *currentID = [FIRAuth auth].currentUser.uid;
-//        
-//        NSString *key = [NSString stringWithFormat:@"users/%@/username", currentID];
-//        
-//        FIRDataSnapshot *fireUser = [snapshot childSnapshotForPath:key];
-//        
-//        FIRDataSnapshot *userIdent = fireUser.value[@"userID"];
-//        FIRDataSnapshot *userName = fireUser.value[@"displayName"];
-//        FIRDataSnapshot *userEmail = fireUser.value[@"email"];
-//        FIRDataSnapshot *userPhoto = fireUser.value[@"photoURL"];
-//        
-//        user.uid = (NSString *)userIdent;
-//        user.displayName = (NSString *)userName;
-//        user.email = (NSString *)userEmail;
-//        user.photoURL = (NSString *)userPhoto;
+        NSString *currentID = [FIRAuth auth].currentUser.uid;
+        
+        NSString *key = [NSString stringWithFormat:@"users/%@/username", currentID];
+        
+        FIRDataSnapshot *fireUser = [snapshot childSnapshotForPath:key];
+        
+        FIRDataSnapshot *userIdent = fireUser.value[@"userID"];
+        FIRDataSnapshot *userName = fireUser.value[@"displayName"];
+        FIRDataSnapshot *userEmail = fireUser.value[@"email"];
+        FIRDataSnapshot *userPhoto = fireUser.value[@"photoURL"];
+        
+        user.uid = (NSString *)userIdent;
+        user.displayName = (NSString *)userName;
+        user.email = (NSString *)userEmail;
+        user.photoURL = (NSString *)userPhoto;
     }
 
     return user;

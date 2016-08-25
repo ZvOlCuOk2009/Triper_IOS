@@ -34,7 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+        
     self.ref = [[FIRDatabase database] reference];
     
     [self reloadView];
@@ -43,7 +43,7 @@
         [self reloadView];
     });
     
-//    [self phoneNumber];
+    [self phoneNumber];
 }
 
 
@@ -55,12 +55,12 @@
         
         TSProfileView *profileView = [TSProfileView profileView];
         
-        NSString *cutUrlString = [fireUser.photoURL substringFromIndex:8];
+        NSURL *url = [NSURL URLWithString:fireUser.photoURL];
         
         profileView.nameLabel.text = fireUser.displayName;
         profileView.miniNameLabel.text = fireUser.displayName;
         
-        if ([cutUrlString isEqualToString:@"https://"]) {
+        if (url && url.scheme && url.host) {
             
             profileView.avatarImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:
                                                                         [NSURL URLWithString:fireUser.photoURL]]];
@@ -69,7 +69,6 @@
             NSData *data = [[NSData alloc]initWithBase64EncodedString:fireUser.photoURL options:NSDataBase64DecodingIgnoreUnknownCharacters];
             UIImage *convertImage = [UIImage imageWithData:data];
             profileView.avatarImageView.image = convertImage;
-            
         }
         
         [self.view addSubview:profileView];
@@ -96,7 +95,7 @@
         // perhaps telling the user that they have to go to settings to grant access
         // to contacts
         
-//        [[[UIAlertView alloc] initWithTitle:nil message:@"This app requires access to your contacts to function properly. Please visit to the \"Privacy\" section in the iPhone Settings app." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc] initWithTitle:nil message:@"This app requires access to your contacts to function properly. Please visit to the \"Privacy\" section in the iPhone Settings app." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         return;
     }
     
@@ -148,108 +147,6 @@
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-//
-//- (NSArray *)contactsFromAddressBook
-//{
-//    self.contacts = [NSMutableArray array];
-//    
-//    CNContactStore *store = [[CNContactStore alloc] init];
-//    
-//    if ([CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts] == CNAuthorizationStatusNotDetermined) {
-//        
-//        [store requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
-//            
-//            if (granted == YES) {
-//                [self retrieveContacts:store];
-//            } else {
-//                NSLog(@"access error %@", [error localizedDescription]);
-//            }
-//        }];
-//    } else if ([CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts] == CNAuthorizationStatusAuthorized) {
-//        [self retrieveContacts:store];
-//    }
-//    return self.contacts;
-//}
-//
-//- (void)retrieveContacts:(CNContactStore *)store {
-//    NSArray *keys = @[CNContactFamilyNameKey, CNContactGivenNameKey, CNContactPhoneNumbersKey, CNContactImageDataKey];
-//    NSString *containerId = store.defaultContainerIdentifier;
-//    NSPredicate *predicate = [CNContact predicateForContactsInContainerWithIdentifier:containerId];
-//    NSError *error;
-//    NSArray *cnContacts = [store unifiedContactsMatchingPredicate:predicate keysToFetch:keys error:&error];
-//    
-//    if (!error) {
-//        for (CNContact *contact in cnContacts) {
-//            
-//            TSContact *newContact = [[TSContact alloc] init];
-//            newContact.firstName = contact.givenName;
-//            newContact.lastName = contact.familyName;
-//            
-//            for (CNLabeledValue *label in contact.phoneNumbers) {
-//                
-//                NSString *phone = [label.value stringValue];
-//                
-//                if ([phone length] > 0) {
-//                    newContact.phone = phone;
-//                }
-//            }
-//            [self.contacts addObject:newContact];
-//        }
-//    } else {
-//        NSLog(@"error fetching contacts %@", [error localizedDescription]);
-//    }
-//    
-//}
-
-///******************************************
-
-
-//-(void)addressbookAuthorizationUsingContacts
-//{
-//    CNContactStore *store = [[CNContactStore alloc] init];
-//    [store requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
-//        if (granted == YES) {
-//
-//            NSMutableArray *contacts = [NSMutableArray array];
-//            
-//            NSArray *keys = @[CNContactFamilyNameKey, CNContactGivenNameKey, CNContactPhoneNumbersKey, CNContactImageDataKey];
-//            NSString *containerId = store.defaultContainerIdentifier;
-//            NSPredicate *predicate = [CNContact predicateForContactsInContainerWithIdentifier:containerId];
-//            NSError *error;
-//            NSArray *cnContacts = [store unifiedContactsMatchingPredicate:predicate keysToFetch:keys error:&error];
-//            if (error) {
-//                NSLog(@"error fetching contacts %@", error);
-//            } else {
-//                for (CNContact *contact in cnContacts) {
-//
-//                    TSContact *newContact = [[TSContact alloc] init];
-//                    newContact.firstName = contact.givenName;
-//                    newContact.lastName = contact.familyName;
-//                    UIImage *image = [UIImage imageWithData:contact.imageData];
-//                    newContact.image = image;
-//                    for (CNLabeledValue *label in contact.phoneNumbers) {
-//                        NSString *phone = [label.value stringValue];
-//                        if ([phone length] > 0) {
-//                            [contacts addObject:phone];
-//                        }
-//                    }
-//                }
-//            }
-//        } else {
-//            NSLog(@"Error = %@", error.localizedDescription);
-//        }
-//    }];
-//}
 
 
 - (void)didReceiveMemoryWarning {

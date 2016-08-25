@@ -75,12 +75,17 @@
 - (IBAction)registerButton:(id)sender
 {
     
-    NSData *dataImage = UIImagePNGRepresentation(self.image);
+    CGSize newSize = CGSizeMake(300, 300);
+    
+    UIGraphicsBeginImageContext(newSize);
+    [self.image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    
+    NSData *dataImage = UIImagePNGRepresentation(newImage);
     NSString *stringImage = [dataImage base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
     
-    
-//    NSData *data = [[NSData alloc]initWithBase64EncodedString:stringImage options:NSDataBase64DecodingIgnoreUnknownCharacters];
-//    UIImage *convertImage = [UIImage imageWithData:data];
     
     NSString *email = self.emailRegistrationTextField.text;
     NSString *password = self.passwordRegistrationTextField.text;
@@ -104,6 +109,7 @@
                                          [[NSUserDefaults standardUserDefaults] synchronize];
                                          
                                          [[[[self.ref child:@"users"] child:user.uid] child:@"username"] setValue:userData];
+                                         
                                      }
                                      
                                      TSTabBarController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TSTabBarController"];
@@ -131,17 +137,17 @@
 
 - (void)alertController
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"This e-mail address is already registered in the database. Or this e-mail address does not exist..."
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"This e-mail address has already been registered in the database, or it does not exist..."
                                                                              message:nil
                                                                       preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *actionYes = [UIAlertAction actionWithTitle:@"OK"
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK"
                                                         style:UIAlertActionStyleCancel
                                                       handler:^(UIAlertAction * _Nonnull action) {
                                                           
                                                       }];
     
-    [alertController addAction:actionYes];
+    [alertController addAction:action];
     
     [self presentViewController:alertController animated:YES completion:nil];
 }
@@ -149,13 +155,19 @@
 
 - (void)keyboardDidShow:(NSNotification *)notification
 {
-    [self.view setFrame:CGRectMake(0, -110, self.view.bounds.size.width, 460)];
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view setFrame:CGRectMake(0, -110, self.view.bounds.size.width, 460)];
+    }];
+   
 }
 
 
 - (void)keyboardDidHide:(NSNotification *)notification
 {
-    [self.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, 460)];
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, 460)];
+    }];
+    
 }
 
 

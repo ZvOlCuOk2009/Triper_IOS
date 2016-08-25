@@ -29,7 +29,6 @@
 @property (strong, nonatomic) TSFireUser *fireUser;
 @property (strong, nonatomic) NSArray *userFriends;
 
-
 @end
 
 @implementation TSLoginViewController
@@ -97,7 +96,6 @@
         
     }
     
-//    if ([FBSDKAccessToken currentAccessToken]) {
     
         FIRAuthCredential *credential = [FIRFacebookAuthProvider
                                          credentialWithAccessToken:[FBSDKAccessToken currentAccessToken].tokenString];
@@ -109,16 +107,18 @@
                                       [self openTheTabBarController];
                                   }];
         NSLog(@"User log In");
-//    } else {
-//        
-//        [self dismissViewControllerAnimated:YES completion:nil];
-//    }
+    
+    if (![FBSDKAccessToken currentAccessToken])
+    {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
     
 }
 
 
 - (void)saveUserToFirebase:(FIRUser *)user
 {
+    
     NSString *userID = user.uid;
     NSString *displayName = user.displayName;
     NSString *email = user.email;
@@ -140,12 +140,24 @@
 //                              NSString *keyNode = [NSString stringWithFormat:@"%@%@", firstLetter, secondWord];
     
     
+    
+    
+    
+    
+    
     NSString *token = [userData objectForKey:@"userID"];
     
     [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"token"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     [[[[self.ref child:@"users"] child:user.uid] child:@"username"] setValue:userData];
+    
+//    [[TSServerManager sharedManager] requestUserFriendsTheServerFacebook:^(NSArray *friends)
+//     {
+//         NSArray *myFriends = [TSParsingManager parsingFriendsFacebook:friends];
+//         NSArray *arrayFriends = [NSMutableArray arrayWithArray:myFriends];
+//         [[[[self.ref child:@"users"] child:user.uid] child:@"friends"] setValue:arrayFriends];
+//     }];
     
 }
 
@@ -197,8 +209,6 @@
 }
 
 
-
-
 - (void)signInWithEmailAndPassword
 {
     
@@ -207,15 +217,41 @@
                          completion:^(FIRUser * _Nullable user, NSError * _Nullable error) {
                              if (!error) {
                                  
+                                 NSArray *provider = user.providerData;
+                                 NSLog(@"provider = %@", provider.description);
+                                 
                                  [self openTheTabBarController];
+                                 
+                                 NSString *token = user.uid;
+                                 
+                                 [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"token"];
+                                 [[NSUserDefaults standardUserDefaults] synchronize];
                                  
                              } else {
                                  NSLog(@"Error %@", error.localizedDescription);
+                                 [self alertController];
                              }
                          }];
     
 }
 
+
+- (void)alertController
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Invalid password or e-mail, try again..."
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK"
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:^(UIAlertAction * _Nonnull action) {
+                                                          
+                                                      }];
+    
+    [alertController addAction:action];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
 
 
 #pragma mark - Autorization Google
@@ -241,6 +277,9 @@
 
 - (void)signIn:(GIDSignIn *)signIn dismissViewController:(UIViewController *)viewController
 {
+//    [self sampleFriendsListGIDSignIn];
+    
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -250,6 +289,25 @@
     
 }
 
+
+//- (void)sampleFriendsListGIDSignIn
+//{
+//    
+//    GTLQueryPlus *query = [GTLQueryPlus queryForPeopleListWithUserId:@"me" collection:kGTLPlusCollectionVisible];
+//    
+//    [plusService executeQuery:query
+//            completionHandler:^(GTLServiceTicket *ticket,
+//                                GTLPlusPeopleFeed *peopleFeed,
+//                                NSError *error) {
+//                if (error) {
+//                    GTMLoggerError(@"Error: %@", error);
+//                } else {
+//                    // Get an array of people from GTLPlusPeopleFeed
+//                    NSArray* peopleList = peopleFeed.items;
+//                }
+//            }];
+//
+//}
 
 
 #pragma mark - Autorization Linkedin

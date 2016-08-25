@@ -36,8 +36,22 @@
         profileView.likeView.hidden = YES;
         profileView.nameLabel.text = fireUser.displayName;
         profileView.miniNameLabel.text = fireUser.displayName;
-        profileView.avatarImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:
-                                                                    [NSURL URLWithString:fireUser.photoURL]]];
+        
+        profileView.nameLabel.text = fireUser.displayName;
+        profileView.miniNameLabel.text = fireUser.displayName;
+        
+        NSURL *url = [NSURL URLWithString:fireUser.photoURL];
+        
+        if (url && url.scheme && url.host) {
+            
+            profileView.avatarImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:
+                                                                        [NSURL URLWithString:fireUser.photoURL]]];
+        } else {
+            
+            NSData *data = [[NSData alloc]initWithBase64EncodedString:fireUser.photoURL options:NSDataBase64DecodingIgnoreUnknownCharacters];
+            UIImage *convertImage = [UIImage imageWithData:data];
+            profileView.avatarImageView.image = convertImage;
+        }
         
         [self.view addSubview:profileView];
     }];
