@@ -16,15 +16,14 @@
 #import "TSCellView.h"
 #import "TSServerManager.h"
 #import "TSMessagerViewController.h"
-#import "TSContact.h"
+#import "TSParsingManager.h"
 #import "TSSearch.h"
 #import "TSView.h"
-#import "TSParsingManager.h"
-#import "TSParsingUserName.h"
+#import "TSRetriveFriendsFBDatabase.h"
 #import "TSContainerChatViewController.h"
+#import "TSUserViewController.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <Contacts/Contacts.h>
 
 @import Firebase;
 @import FirebaseDatabase;
@@ -33,8 +32,9 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *friends;
-@property (strong, nonatomic) NSMutableArray *nameFriends;
 @property (strong, nonatomic) NSMutableArray *arrayFriends;
+@property (strong, nonatomic) NSMutableArray *imageFriends;
+@property (strong, nonatomic) NSMutableArray *IDFriends;
 @property (strong, nonatomic) TSCellView *cell;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 @property (assign, nonatomic) BOOL isOpen;
@@ -50,6 +50,9 @@
     
     self.ref = [[FIRDatabase database] reference];
     [self requestToServerFacebookListFriends];
+    
+    self.imageFriends = [NSMutableArray array];
+    self.IDFriends = [NSMutableArray array];
     
     TSView *grayRect = [[TSView alloc] initWithView:self.view];
     [self.view addSubview:grayRect];
@@ -71,10 +74,11 @@
         self.arrayFriends = [NSMutableArray arrayWithArray:self.friends];
     }];
     
-//    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-//        FIRDataSnapshot *user = [snapshot childSnapshotForPath:@"users"];
-//        NSLog(@"RETRIVE users %@", user);
-//    }];
+    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        self.IDFriends = [TSRetriveFriendsFBDatabase retriveFriendsDatabase:snapshot];
+    }];
+    
 }
 
 
@@ -96,6 +100,9 @@
 - (IBAction)actionPhoneButton:(UIButton *)sender
 {
     
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:indexPath.section];
+//    NSLog(@"indexPath section = %ld", indexPath.section);
+    
 }
 
 
@@ -115,7 +122,6 @@
 
 - (IBAction)actionSkypeButton:(UIButton *)sender
 {
-    NSLog(@"Skype %ld", (long)sender.tag);
 
     BOOL installed = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"skype:"]];
     if(installed) {
@@ -213,20 +219,19 @@
         cell = [[TSMenuTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-//    FBSDKProfilePictureView *avatar = [[TSServerManager sharedManager]
-//                                       requestUserImageFromTheServerFacebook:cell.avatarUser ID:@"me"];
-
-//    UIImage *image = nil;
-//    
-//    for (NSObject *obj in [avatar subviews]) {
-//        if ([obj isMemberOfClass:[UIImageView class]]) {
-//            UIImageView *objImg = (UIImageView *)obj;
-//            image = objImg.image;
-//            break;
-//        }
-//    }
-//
-//    cell.avatarUser.image = image;
+    NSString *index = [self.imageFriends objectAtIndex:indexPath.section];
+    
+    
+    
+    NSString *indexID = [self.IDFriends objectAtIndex:indexPath.section];
+    
+    NSLog(@"index %@ indexID %@", index, indexID);
+    
+    FBSDKProfilePictureView *avatar = [[TSServerManager sharedManager]
+                                       requestUserImageFromTheServerFacebook:cell.avatarUser ID:index];
+    avatar.layer.cornerRadius = avatar.frame.size.width / 2;
+    avatar.clipsToBounds = YES;
+    [cell.orangeRectangle addSubview:avatar];
     
     return cell;
 }
@@ -255,6 +260,7 @@
     avatar.clipsToBounds = YES;
     [self.cell addSubview:avatar];
     
+    [self.imageFriends addObject:idFriend];
     
     UIButton *button = [[UIButton alloc] init];
     button.frame = CGRectMake(275.0f, 39.0f, 22.0f, 22.0f);
@@ -270,28 +276,16 @@
 
 - (void)didSelectSection:(UIButton *)sender
 {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:[sender tag]];
-    
-    NSDictionary *indexSection = [self.friends objectAtIndex:indexPath.section];
-    NSArray *dataIDFriend = [indexSection objectForKey:@"id"];
-    NSString *idFriend = [dataIDFriend objectAtIndex:0];
-    NSLog(@"ID friends %@", idFriend);
-    
-    TSMenuTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    FBSDKProfilePictureView *avatar = [[TSServerManager sharedManager]
-                                       requestUserImageFromTheServerFacebook:self.cell.avatarImageView ID:idFriend];
-    avatar.layer.cornerRadius = avatar.frame.size.width / 2;
-    avatar.clipsToBounds = YES;
-    [cell addSubview:avatar];
     
     NSMutableDictionary *currentSection = [self.friends objectAtIndex:sender.tag];
+    
     NSArray *items = [currentSection objectForKey:@"items"];
     
     NSMutableArray *indexPaths = [NSMutableArray array];
     for (int i = 0; i < items.count; i++) {
         [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:sender.tag]];
     }
-    
+
     BOOL isOpen = [[currentSection objectForKey:@"isOpen"] boolValue];
     
     [currentSection setObject:[NSNumber numberWithBool:!isOpen] forKey:@"isOpen"];
@@ -301,6 +295,7 @@
     } else {
         [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
     }
+    
 }
 
 

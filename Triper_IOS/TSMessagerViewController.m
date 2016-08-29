@@ -33,8 +33,8 @@
 @property (assign, nonatomic) BOOL localTyping;
 @property (assign, nonatomic) BOOL isTyping;
 
-@property (strong, nonatomic) NSString *outID;
-@property (strong, nonatomic) NSArray *friends;
+//@property (strong, nonatomic) NSString *outID;
+//@property (strong, nonatomic) NSArray *friends;
 
 @end
 
@@ -44,45 +44,31 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self requestToServerFacebookListFriends];
-    
     self.ref = [[FIRDatabase database] reference];
-    self.messages = [NSMutableArray array];
     self.user = [FIRAuth auth].currentUser;
-    
-    self.usersTypingQuery = [self.ref queryOrderedByKey];
+    self.messages = [NSMutableArray array];
     
     self.senderId = self.user.uid;
-    
     self.senderDisplayName = self.user.displayName;
-    
-    [self setupBubbles];
+    self.usersTypingQuery = [self.ref queryOrderedByKey];
     
     self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
     self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
     
+    [self setupBubbles];
     [self observeMessages];
     [self observeTyping];
     
     self.localTyping = NO;
 
-    self.collectionView.contentInset = UIEdgeInsetsMake(36, 0, 44, 0);
+//    self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, 44, 0);
     
     TSView *grayRect = [[TSView alloc] initWithView:self.view];
     [self.view addSubview:grayRect];
     
     UISearchBar *searchBar = [[TSSearchBar alloc] initWithView:self.view];
     [self.view addSubview:searchBar];
-    
-}
 
-
-- (void)requestToServerFacebookListFriends
-{
-    [[TSServerManager sharedManager] requestUserFriendsTheServerFacebook:^(NSArray *friends)
-     {
-         self.friends = [TSParsingManager parsingFriendsFacebook:friends];
-     }];
 }
 
 
@@ -129,18 +115,20 @@
     } else {
         cell.textView.textColor = [UIColor blackColor];
     }
-    //[cell.avatarImageView setImage:[UIImage imageNamed:@"placeholder_message"]];
+//    [cell.avatarImageView setImage:[UIImage imageNamed:@"placeholder_message"]];
     return cell;
 }
 
 
 - (id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [JSQMessagesAvatarImageFactory avatarImageWithUserInitials:@"av4"
-                                                      backgroundColor:[UIColor blueColor]
-                                                            textColor:[UIColor whiteColor]
-                                                                 font:[UIFont systemFontOfSize:12.0]
-                                                             diameter:30.0];
+//    return [JSQMessagesAvatarImageFactory avatarImageWithUserInitials:@"av4"
+//                                                      backgroundColor:[UIColor blueColor]
+//                                                            textColor:[UIColor whiteColor]
+//                                                                 font:[UIFont systemFontOfSize:12.0]
+//                                                             diameter:30.0];
+    
+    return nil;
 }
 
 
@@ -156,34 +144,39 @@
 
 - (void)addMessage:(NSString *)idString text:(NSString *)text
 {
-    JSQMessage * message = [JSQMessage messageWithSenderId:self.user.uid displayName:self.senderDisplayName text:text];
+    
+    JSQMessage * message = [JSQMessage messageWithSenderId:idString displayName:self.senderDisplayName text:text];
     [self.messages addObject:message];
     
-    UIImage *placeHolderImage = [UIImage imageNamed:@"placeholder_message"];
-    JSQMessagesAvatarImage *avatarMessage = [[JSQMessagesAvatarImage alloc] initWithAvatarImage:nil
-                                                                               highlightedImage:nil
-                                                                               placeholderImage:placeHolderImage];
-    
-    NSData *dataImage = [NSData dataWithContentsOfURL:self.user.photoURL];
-    UIImage *imageFromData = [UIImage imageWithData:dataImage];
-    UIImage *circularImage = [JSQMessagesAvatarImageFactory circularAvatarHighlightedImage:imageFromData
-                                                                              withDiameter:kJSQMessagesCollectionViewAvatarSizeDefault];
-
-    avatarMessage.avatarImage = circularImage;
-    avatarMessage.avatarHighlightedImage = circularImage;
+//    UIImage *placeHolderImage = [UIImage imageNamed:@"placeholder_message"];
+//    JSQMessagesAvatarImage *avatarMessage = [[JSQMessagesAvatarImage alloc] initWithAvatarImage:nil
+//                                                                               highlightedImage:nil
+//                                                                               placeholderImage:placeHolderImage];
+//    
+//    NSData *dataImage = [NSData dataWithContentsOfURL:self.user.photoURL];
+//    UIImage *imageFromData = [UIImage imageWithData:dataImage];
+//    UIImage *circularImage = [JSQMessagesAvatarImageFactory circularAvatarHighlightedImage:imageFromData
+//                                                                              withDiameter:kJSQMessagesCollectionViewAvatarSizeDefault];
+//
+//    avatarMessage.avatarImage = circularImage;
+//    avatarMessage.avatarHighlightedImage = circularImage;
 }
 
 
 - (void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId
          senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date
 {
-    FIRDatabaseReference *itemRef = [self.ref childByAutoId];
+    NSString *IDConversation = [NSString stringWithFormat:@"%@NCzEQbWotsWCyadxfPhGmG8s8P43", self.user.uid];
+    
+    FIRDatabaseReference *itemRef = [[self.ref child:IDConversation] childByAutoId];
     NSDictionary *messageItem = @{@"text":text, @"senderId":senderId};
+    NSLog(@"***TEXT*** - %@", text);
     NSLog(@"***SENDER ID*** - %@", senderId);
     
     [itemRef setValue:messageItem];
     [JSQSystemSoundPlayer jsq_playMessageSentSound];
 
+    [self observeMessages];
     self.isTyping = NO;
 }
 
@@ -193,10 +186,15 @@
     FIRDatabaseQuery *messagesQuery = [self.ref queryLimitedToLast:20];
     [messagesQuery observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
-        NSString *ID = snapshot.value[@"senderID"];
+        NSString *ID = snapshot.value[@"brRnRblEAkXc55DleFnAE5FRVnF3NCzEQbWotsWCyadxfPhGmG8s8P43/KQMvznQizzRerxX8a5o/text"]; //brRnRblEAkXc55DleFnAE5FRVnF3
         NSString *text = snapshot.value[@"text"];
-
-//        [self addMessage:ID text:text];
+        
+        if ([text isEqual:nil]) {
+            [self addMessage:ID text:text];
+        } else {
+            
+        }
+        
         [self finishReceivingMessageAnimated:YES];
     }];
 }

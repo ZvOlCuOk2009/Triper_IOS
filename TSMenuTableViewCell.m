@@ -7,13 +7,27 @@
 //
 
 #import "TSMenuTableViewCell.h"
-#import "TSMessagerViewController.h"
+#import "TSUserViewController.h"
 
 @implementation TSMenuTableViewCell
 
 - (IBAction)actionPhoneButton:(UIButton *)sender
 {
 //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel:+38-067-775-6449"]];
+    
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    TSUserViewController *controller = [storyBoard instantiateViewControllerWithIdentifier:@"TSUserViewController"];
+    NSArray *contacts = [controller retriveNumberPhoneContacts];
+//    NSLog(@"contacts %@", contacts.description);
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:[sender tag]];
+    
+//    NSLog(@"TAG %ld", sender.tag);
+//    NSLog(@"indexPath %ld", indexPath.section);
+//    NSDictionary *indexSection = [friends objectAtIndex:indexPath.section];
+//    NSArray *dataIDFriend = [indexSection objectForKey:@"id"];
+//    NSString *idFriend = [dataIDFriend objectAtIndex:0];
+//    NSLog(@"indexPath %@", indexSection.description);
 }
 
 - (IBAction)actionChatButton:(UIButton *)sender

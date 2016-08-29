@@ -11,19 +11,6 @@
 @implementation TSFireUser
 
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary
-{
-    self = [super init];
-    if (self) {
-        self.displayName = [dictionary valueForKey:@"displayName"];
-        self.uid = [dictionary valueForKey:@"userID"];
-        self.email = [dictionary valueForKey:@"email"];
-        self.photoURL = [dictionary valueForKey:@"photoURL"];
-    }
-    return self;
-}
-
-
 + (TSFireUser *)initWithSnapshot:(FIRDataSnapshot *)snapshot
 {
     
@@ -32,7 +19,6 @@
     if([[NSUserDefaults standardUserDefaults] valueForKey:@"token"])
     {
         NSString *currentID = [FIRAuth auth].currentUser.uid;
-        
         NSString *key = [NSString stringWithFormat:@"users/%@/username", currentID];
         
         FIRDataSnapshot *fireUser = [snapshot childSnapshotForPath:key];

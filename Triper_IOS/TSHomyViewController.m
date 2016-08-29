@@ -57,6 +57,7 @@
     
     self.outButton.layer.cornerRadius = self.outButton.frame.size.width / 2;
     self.editButton.layer.cornerRadius = self.editButton.frame.size.width / 2;
+
 }
 
 - (void)didReceiveMemoryWarning {

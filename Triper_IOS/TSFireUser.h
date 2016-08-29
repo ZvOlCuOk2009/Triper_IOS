@@ -19,7 +19,6 @@
 @property (strong, nonatomic) NSString *photoURL;
 @property (strong, nonatomic) NSDictionary *friends;
 
-//- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 + (TSFireUser *)initWithSnapshot:(FIRDataSnapshot *)snapshot;
 
 @end

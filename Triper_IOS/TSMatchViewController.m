@@ -14,11 +14,16 @@
 
 static NSInteger counter = 0;
 
+@import Firebase;
+@import FirebaseDatabase;
+
 @interface TSMatchViewController () <ZLSwipeableViewDataSource, ZLSwipeableViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray *friends;
 
 @property (weak, nonatomic) TSProfileView *profileView;
+
+@property (strong, nonatomic) FIRDatabaseReference *ref;
 
 @property (strong, nonatomic) ZLSwipeableView *swipeableView;
 
@@ -29,6 +34,8 @@ static NSInteger counter = 0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.ref = [[FIRDatabase database] reference];
     
     CGRect frame = CGRectMake(0, - 20, self.view.bounds.size.width, self.view.bounds.size.height);
 
@@ -57,7 +64,7 @@ static NSInteger counter = 0;
          self.friends = [TSParsingManager parsingFriendsFacebook:friends];
      }];
     
-    [self.view setNeedsDisplay];
+//    [self.view setNeedsDisplay];
     
 }
 

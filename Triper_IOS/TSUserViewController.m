@@ -9,12 +9,12 @@
 #import "TSUserViewController.h"
 #import "TSServerManager.h"
 #import "TSUser.h"
-#import "TSLoginViewController.h"
+//#import "TSLoginViewController.h"
 #import "TSProfileView.h"
 #import "TSContact.h"
 #import "TSFireUser.h"
+#import "TSParsingManager.h"
 
-//#import <Contacts/Contacts.h>
 #import <AddressBook/AddressBook.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
@@ -23,7 +23,6 @@
 
 @interface TSUserViewController ()
  
-@property (strong, nonatomic) TSUser *user;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 @property (strong, nonatomic) TSFireUser *fireUser;
 
@@ -39,11 +38,11 @@
     
     [self reloadView];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self reloadView];
     });
     
-    [self phoneNumber];
+//    [self phoneNumber];
 }
 
 
@@ -51,22 +50,22 @@
 {
     [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
-        TSFireUser *fireUser = [TSFireUser initWithSnapshot:snapshot];
+        self.fireUser = [TSFireUser initWithSnapshot:snapshot];
         
         TSProfileView *profileView = [TSProfileView profileView];
         
-        NSURL *url = [NSURL URLWithString:fireUser.photoURL];
+        NSURL *url = [NSURL URLWithString:self.fireUser.photoURL];
         
-        profileView.nameLabel.text = fireUser.displayName;
-        profileView.miniNameLabel.text = fireUser.displayName;
+        profileView.nameLabel.text = self.fireUser.displayName;
+        profileView.miniNameLabel.text = self.fireUser.displayName;
         
         if (url && url.scheme && url.host) {
             
             profileView.avatarImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:
-                                                                        [NSURL URLWithString:fireUser.photoURL]]];
+                                                                        [NSURL URLWithString:self.fireUser.photoURL]]];
         } else {
             
-            NSData *data = [[NSData alloc]initWithBase64EncodedString:fireUser.photoURL options:NSDataBase64DecodingIgnoreUnknownCharacters];
+            NSData *data = [[NSData alloc]initWithBase64EncodedString:self.fireUser.photoURL options:NSDataBase64DecodingIgnoreUnknownCharacters];
             UIImage *convertImage = [UIImage imageWithData:data];
             profileView.avatarImageView.image = convertImage;
         }
@@ -90,10 +89,6 @@
     ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
     
     if (status == kABAuthorizationStatusDenied || status == kABAuthorizationStatusRestricted) {
-        // if you got here, user had previously denied/revoked permission for your
-        // app to access the contacts, and all you can do is handle this gracefully,
-        // perhaps telling the user that they have to go to settings to grant access
-        // to contacts
         
         [[[UIAlertView alloc] initWithTitle:nil message:@"This app requires access to your contacts to function properly. Please visit to the \"Privacy\" section in the iPhone Settings app." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         return;
@@ -113,39 +108,51 @@
         }
         
         if (granted) {
-            // if they gave you permission, then just carry on
+
             [self listPeopleInAddressBook:addressBook];
         } else {
-            // however, if they didn't give you permission, handle it gracefully, for example...
+
             dispatch_async(dispatch_get_main_queue(), ^{
-                // BTW, this is not on the main thread, so dispatch UI updates back to the main queue
+
                 [[[UIAlertView alloc] initWithTitle:nil message:@"This app requires access to your contacts to function properly. Please visit to the \"Privacy\" section in the iPhone Settings app." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             });
         }
         CFRelease(addressBook);
     });
-    // Do any additional setup after loading the view.
 }
 
-- (void)listPeopleInAddressBook:(ABAddressBookRef)addressBook
+- (NSArray *)listPeopleInAddressBook:(ABAddressBookRef)addressBook
 {
-    //Run UI Updates
+
     NSArray *allPeople = CFBridgingRelease(ABAddressBookCopyArrayOfAllPeople(addressBook));
+    
+    NSMutableArray *contacts = [NSMutableArray array];
     NSInteger numberOfPeople = [allPeople count];
     
     for (NSInteger i = 0; i < numberOfPeople; i++) {
         ABRecordRef person = (__bridge ABRecordRef)allPeople[i];
-        //From Below code you can get what you want.
+
         NSString *firstName = CFBridgingRelease(ABRecordCopyValue(person, kABPersonFirstNameProperty));
         NSString *lastName  = CFBridgingRelease(ABRecordCopyValue(person, kABPersonLastNameProperty));
-        NSLog(@"Name:%@ %@", firstName, lastName);
+//        NSLog(@"Name:%@ %@", firstName, lastName);
         
         ABMultiValueRef phoneNumbers = ABRecordCopyValue(person, kABPersonPhoneProperty);
         NSString *phoneNumber = CFBridgingRelease(ABMultiValueCopyValueAtIndex(phoneNumbers, 0));
-        NSLog(@"phone:%@", phoneNumber);
-        NSLog(@"=============================================");
+//        NSLog(@"phone:%@", phoneNumber);
+//        NSLog(@"=============================================");
+        [contacts addObject:[NSString stringWithFormat:@"%@ %@ %@", firstName, lastName, phoneNumber]];
     }
+    return contacts;
+}
+
+
+- (NSArray *)retriveNumberPhoneContacts
+{
+    CFErrorRef error = NULL;
+    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, &error);
     
+    NSArray *contacts = [self listPeopleInAddressBook:addressBook];
+    return contacts;
 }
 
 

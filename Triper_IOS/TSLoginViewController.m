@@ -12,6 +12,7 @@
 #import "TSUser.h"
 #import "TSFireUser.h"
 #import "TSParsingManager.h"
+#import "TSSaveFriendsFBDatabase.h"
 
 #import <GoogleSignIn/GoogleSignIn.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
@@ -140,11 +141,6 @@
 //                              NSString *keyNode = [NSString stringWithFormat:@"%@%@", firstLetter, secondWord];
     
     
-    
-    
-    
-    
-    
     NSString *token = [userData objectForKey:@"userID"];
     
     [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"token"];
@@ -152,12 +148,7 @@
     
     [[[[self.ref child:@"users"] child:user.uid] child:@"username"] setValue:userData];
     
-//    [[TSServerManager sharedManager] requestUserFriendsTheServerFacebook:^(NSArray *friends)
-//     {
-//         NSArray *myFriends = [TSParsingManager parsingFriendsFacebook:friends];
-//         NSArray *arrayFriends = [NSMutableArray arrayWithArray:myFriends];
-//         [[[[self.ref child:@"users"] child:user.uid] child:@"friends"] setValue:arrayFriends];
-//     }];
+    [TSSaveFriendsFBDatabase saveFriendsDatabase:user];
     
 }
 
@@ -290,9 +281,9 @@
 }
 
 
+//
 //- (void)sampleFriendsListGIDSignIn
 //{
-//    
 //    GTLQueryPlus *query = [GTLQueryPlus queryForPeopleListWithUserId:@"me" collection:kGTLPlusCollectionVisible];
 //    
 //    [plusService executeQuery:query
