@@ -16,8 +16,8 @@
 //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel:+38-067-775-6449"]];
     
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    TSUserViewController *controller = [storyBoard instantiateViewControllerWithIdentifier:@"TSUserViewController"];
-    NSArray *contacts = [controller retriveNumberPhoneContacts];
+    
+    
 //    NSLog(@"contacts %@", contacts.description);
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:[sender tag]];

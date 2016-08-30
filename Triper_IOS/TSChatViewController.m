@@ -11,12 +11,13 @@
 #define GRAY_COLOR RGB(65, 70, 80)
 
 #import "TSChatViewController.h"
-#import "TSUserViewController.h"
 #import "TSMenuTableViewCell.h"
 #import "TSCellView.h"
 #import "TSServerManager.h"
 #import "TSMessagerViewController.h"
+#import "TSUserViewController.h"
 #import "TSParsingManager.h"
+#import "TSParsingUserName.h"
 #import "TSSearch.h"
 #import "TSView.h"
 #import "TSRetriveFriendsFBDatabase.h"
@@ -34,7 +35,7 @@
 @property (strong, nonatomic) NSMutableArray *friends;
 @property (strong, nonatomic) NSMutableArray *arrayFriends;
 @property (strong, nonatomic) NSMutableArray *imageFriends;
-@property (strong, nonatomic) NSMutableArray *IDFriends;
+@property (strong, nonatomic) NSString *currentID;
 @property (strong, nonatomic) TSCellView *cell;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 @property (assign, nonatomic) BOOL isOpen;
@@ -52,7 +53,6 @@
     [self requestToServerFacebookListFriends];
     
     self.imageFriends = [NSMutableArray array];
-    self.IDFriends = [NSMutableArray array];
     
     TSView *grayRect = [[TSView alloc] initWithView:self.view];
     [self.view addSubview:grayRect];
@@ -61,22 +61,18 @@
     [self.view addSubview:searchBar];
     searchBar.delegate = self;
     
-    self.tableView.contentInset = UIEdgeInsetsMake(36, 0, 0, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(36, 0, 46, 0);
 }
 
 
 - (void)requestToServerFacebookListFriends
 {
+    
     [[TSServerManager sharedManager] requestUserFriendsTheServerFacebook:^(NSArray *friends)
     {
         self.friends = [TSParsingManager parsingFriendsFacebook:friends];
         [self.tableView reloadData];
         self.arrayFriends = [NSMutableArray arrayWithArray:self.friends];
-    }];
-    
-    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        
-        self.IDFriends = [TSRetriveFriendsFBDatabase retriveFriendsDatabase:snapshot];
     }];
     
 }
@@ -100,8 +96,44 @@
 - (IBAction)actionPhoneButton:(UIButton *)sender
 {
     
-//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:indexPath.section];
-//    NSLog(@"indexPath section = %ld", indexPath.section);
+    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
+    
+    NSLog(@"section ID %ld", indexPath.section);
+    NSInteger curruntUserIndex = indexPath.section;
+    
+    NSArray *nameContacts = [TSParsingUserName parsingOfTheUserName:self.friends];
+    
+    NSString *currentUser = [nameContacts objectAtIndex:curruntUserIndex];
+    NSLog(@"currentUser %@", currentUser);
+    
+    TSUserViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TSUserViewController"];
+    NSArray *contacts = [controller retriveNumberPhoneContacts];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[cd] %@", currentUser];
+    NSArray *searchArray = [contacts filteredArrayUsingPredicate:predicate];
+    
+    NSLog(@"intermediateArray %@", searchArray.description);
+    
+    if ([searchArray count] > 0) {
+        NSString *nameAndNumber = [searchArray objectAtIndex:0];
+        NSArray *component = [nameAndNumber componentsSeparatedByString:@" "];
+        NSString *number = [component lastObject];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:number]];
+
+    } else {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"The selected user does not have a phone number in the phone book"
+                                                                                 message:nil
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * _Nonnull action) { }];
+        
+        [alertController addAction:action];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
     
 }
 
@@ -221,12 +253,6 @@
     
     NSString *index = [self.imageFriends objectAtIndex:indexPath.section];
     
-    
-    
-    NSString *indexID = [self.IDFriends objectAtIndex:indexPath.section];
-    
-    NSLog(@"index %@ indexID %@", index, indexID);
-    
     FBSDKProfilePictureView *avatar = [[TSServerManager sharedManager]
                                        requestUserImageFromTheServerFacebook:cell.avatarUser ID:index];
     avatar.layer.cornerRadius = avatar.frame.size.width / 2;
@@ -285,7 +311,12 @@
     for (int i = 0; i < items.count; i++) {
         [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:sender.tag]];
     }
+    
 
+    NSDictionary *currentDict = [self.friends objectAtIndex:sender.tag];
+    
+    self.currentID = [currentDict objectForKey:@"id"];
+    
     BOOL isOpen = [[currentSection objectForKey:@"isOpen"] boolValue];
     
     [currentSection setObject:[NSNumber numberWithBool:!isOpen] forKey:@"isOpen"];

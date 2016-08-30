@@ -153,13 +153,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Triper_IOS/TSMessagerViewController.m"
-            timestampString = "494194541.787353"
+            filePath = "Triper_IOS/TSChatViewController.m"
+            timestampString = "494288489.990661"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "193"
-            endingLineNumber = "193"
-            landmarkName = "-observeMessages"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
+            landmarkName = "-actionPhoneButton:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -169,29 +169,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Triper_IOS/TSMessagerViewController.m"
-            timestampString = "494194541.787353"
+            filePath = "Triper_IOS/TSChatViewController.m"
+            timestampString = "494288489.990661"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "195"
-            endingLineNumber = "195"
-            landmarkName = "-observeMessages"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Triper_IOS/TSMessagerViewController.m"
-            timestampString = "494194640.46263"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
-            landmarkName = "-observeMessages"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
+            landmarkName = "-actionPhoneButton:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
