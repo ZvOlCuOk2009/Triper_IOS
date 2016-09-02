@@ -134,13 +134,6 @@
                                @"email":email,
                                @"photoURL":photoURL};
     
-//                              NSString *displayName = [userData objectForKey:@"displayName"];
-//                              NSArray *initials = [displayName componentsSeparatedByString:@" "];
-//                              NSString *firstLetter = [[initials firstObject] substringToIndex:1];
-//                              NSString *secondWord = [initials lastObject];
-//                              NSString *keyNode = [NSString stringWithFormat:@"%@%@", firstLetter, secondWord];
-    
-    
     NSString *token = [userData objectForKey:@"userID"];
     
     [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"token"];
@@ -267,9 +260,7 @@
 
 
 - (void)signIn:(GIDSignIn *)signIn dismissViewController:(UIViewController *)viewController
-{
-//    [self sampleFriendsListGIDSignIn];
-    
+{    
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }

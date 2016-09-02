@@ -15,7 +15,7 @@
                     <rect key="frame" x="8" y="14" width="60" height="60"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vgf-As-0EE">
-                    <rect key="frame" x="76" y="8" width="170" height="21"/>
+                    <rect key="frame" x="76" y="12" width="170" height="15"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" red="1" green="0.43137254899999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -27,7 +27,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Company :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R43-MM-Sag">
-                    <rect key="frame" x="82" y="57" width="62" height="13"/>
+                    <rect key="frame" x="82" y="57" width="56" height="14"/>
                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -39,14 +39,11 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EWj-hF-jaT">
-                    <rect key="frame" x="82" y="74" width="132" height="13"/>
+                    <rect key="frame" x="82" y="74" width="45" height="14"/>
                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="tlogo" translatesAutoresizingMaskIntoConstraints="NO" id="2wS-t3-uNl">
-                    <rect key="frame" x="28" y="74" width="20" height="20"/>
-                </imageView>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l9Y-fi-PLQ">
                     <rect key="frame" x="15" y="99" width="305" height="1"/>
                     <color key="backgroundColor" red="0.78431372549019607" green="0.78431372549019607" blue="0.78431372549019607" alpha="1" colorSpace="calibratedRGB"/>
@@ -60,6 +57,9 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="arrow_go" translatesAutoresizingMaskIntoConstraints="NO" id="M1s-hO-lz5">
                     <rect key="frame" x="275" y="39" width="22" height="22"/>
                 </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="tlogo" translatesAutoresizingMaskIntoConstraints="NO" id="2wS-t3-uNl">
+                    <rect key="frame" x="28" y="74" width="20" height="20"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -70,7 +70,7 @@
                 <outlet property="nameLabel" destination="Vgf-As-0EE" id="cIi-RJ-Ze3"/>
                 <outlet property="titleLabel" destination="Cp7-pG-bWw" id="Sme-Po-j9K"/>
             </connections>
-            <point key="canvasLocation" x="-18" y="314"/>
+            <point key="canvasLocation" x="-21" y="261"/>
         </view>
     </objects>
     <resources>

@@ -9,6 +9,11 @@
 #define RGB(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue: b/255.0 alpha:1.0]
 #define ORANGE_COLOR RGB(255, 110, 50)
 
+#define IS_IPHONE_4 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)480) < DBL_EPSILON)
+#define IS_IPHONE_5 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)568) < DBL_EPSILON)
+#define IS_IPHONE_6 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)667) < DBL_EPSILON)
+#define IS_IPHONE_6_PLUS (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)736) < DBL_EPSILON)
+
 #import "TSMessagerViewController.h"
 #import "TSSearchBar.h"
 #import "TSView.h"
@@ -60,13 +65,27 @@
     [self observeTyping];
     
     self.localTyping = NO;
-
-//    self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, 44, 0);
     
-    TSView *grayRect = [[TSView alloc] initWithView:self.view];
+    CGRect rect;
+    UIView *view = [[UIView alloc] initWithFrame:rect];
+    
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        if (IS_IPHONE_4) {
+            
+        } else if (IS_IPHONE_5) {
+            rect = CGRectMake(0, 0, 320, 568);
+        } else if (IS_IPHONE_6) {
+            rect = CGRectMake(0, 0, 375, 667);
+        } else if (IS_IPHONE_6_PLUS) {
+            
+        }
+    }
+    
+    TSView *grayRect = [[TSView alloc] initWithView:view];
     [self.view addSubview:grayRect];
     
-    UISearchBar *searchBar = [[TSSearchBar alloc] initWithView:self.view];
+    UISearchBar *searchBar = [[TSSearchBar alloc] initWithView:view];
     [self.view addSubview:searchBar];
 
 }
@@ -186,15 +205,10 @@
     FIRDatabaseQuery *messagesQuery = [self.ref queryLimitedToLast:20];
     [messagesQuery observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
-        NSString *ID = snapshot.value[@"brRnRblEAkXc55DleFnAE5FRVnF3NCzEQbWotsWCyadxfPhGmG8s8P43/KQMvznQizzRerxX8a5o/text"]; //brRnRblEAkXc55DleFnAE5FRVnF3
+        NSString *ID = snapshot.value[@"brRnRblEAkXc55DleFnAE5FRVnF3NCzEQbWotsWCyadxfPhGmG8s8P43"];
         NSString *text = snapshot.value[@"text"];
         
-        if ([text isEqual:nil]) {
-            [self addMessage:ID text:text];
-        } else {
-            
-        }
-        
+//        [self addMessage:ID text:text];
         [self finishReceivingMessageAnimated:YES];
     }];
 }

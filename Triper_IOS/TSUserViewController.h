@@ -10,6 +10,6 @@
 
 @interface TSUserViewController : UIViewController
 
-- (NSArray *)retriveNumberPhoneContacts;
+- (NSString *)retriveNumberPhoneContacts:(NSString *)contact;
 
 @end

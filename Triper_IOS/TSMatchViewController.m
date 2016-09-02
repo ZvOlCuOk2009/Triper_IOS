@@ -11,6 +11,7 @@
 #import "ZLSwipeableView.h"
 #import "TSServerManager.h"
 #import "TSParsingManager.h"
+#import "TSRetriveFriendsFBDatabase.h"
 
 static NSInteger counter = 0;
 
@@ -20,12 +21,9 @@ static NSInteger counter = 0;
 @interface TSMatchViewController () <ZLSwipeableViewDataSource, ZLSwipeableViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray *friends;
-
 @property (weak, nonatomic) TSProfileView *profileView;
-
-@property (strong, nonatomic) FIRDatabaseReference *ref;
-
 @property (strong, nonatomic) ZLSwipeableView *swipeableView;
+@property (strong, nonatomic) FIRDatabaseReference *ref;
 
 @end
 
@@ -35,7 +33,18 @@ static NSInteger counter = 0;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+//    [[TSServerManager sharedManager] requestUserFriendsTheServerFacebook:^(NSArray *friends)
+//     {
+//         self.friends = [TSParsingManager parsingFriendsFacebook:friends];
+//         [self nextViewForSwipeableView:self.swipeableView];
+//     }];
+    
     self.ref = [[FIRDatabase database] reference];
+    
+    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        self.friends = [TSRetriveFriendsFBDatabase retriveFriendsDatabase:snapshot];
+    }];
     
     CGRect frame = CGRectMake(0, - 20, self.view.bounds.size.width, self.view.bounds.size.height);
 
@@ -52,20 +61,16 @@ static NSInteger counter = 0;
     [self.swipeableView discardAllViews];
     [self.swipeableView loadViewsIfNeeded];
     
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self nextViewForSwipeableView:self.swipeableView];
+    });
+    
 }
 
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    [[TSServerManager sharedManager] requestUserFriendsTheServerFacebook:^(NSArray *friends)
-     {
-         self.friends = [TSParsingManager parsingFriendsFacebook:friends];
-     }];
-    
-//    [self.view setNeedsDisplay];
-    
 }
 
 
@@ -101,6 +106,7 @@ static NSInteger counter = 0;
     
     self.profileView.nameLabel.text = nameFriend;
     self.profileView.miniNameLabel.text = nameFriend;
+    
     FBSDKProfilePictureView *avatar = [[TSServerManager sharedManager]
                                        requestUserImageFromTheServerFacebook:self.profileView.avatarImageView
                                                                           ID:idFriend];
@@ -159,10 +165,5 @@ static NSInteger counter = 0;
     // Dispose of any resources that can be recreated.
 }
 
-
-- (IBAction)addProfile:(UIButton *)sender
-{
-    
-}
 
 @end

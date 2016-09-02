@@ -13,7 +13,6 @@
 #import "TSFireUser.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-//#import <AddressBookUI/AddressBookUI.h>
 
 @import Firebase;
 @import FirebaseDatabase;
@@ -22,10 +21,10 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 
-@property (strong, nonatomic) TSUser *user;
 @property (weak, nonatomic) IBOutlet UIButton *outButton;
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
+@property (strong, nonatomic) TSUser *user;
 
 @end
 
@@ -45,8 +44,18 @@
         
         if (url && url.scheme && url.host) {
             
-            self.avatarImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:
-                                                                 [NSURL URLWithString:fireUser.photoURL]]];
+            if ([self verificationURL:fireUser.photoURL]) {
+                FBSDKProfilePictureView *avatar = [[TSServerManager sharedManager] requestUserImageFromTheServerFacebook:self.avatarImageView ID:@"me"];
+                avatar.layer.cornerRadius = avatar.frame.size.width / 2;
+                avatar.layer.masksToBounds = YES;
+                [self.view addSubview:avatar];
+                
+            } else {
+                self.avatarImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:
+                                                                     [NSURL URLWithString:fireUser.photoURL]]];
+
+            }
+            
         } else {
             
             NSData *data = [[NSData alloc]initWithBase64EncodedString:fireUser.photoURL options:NSDataBase64DecodingIgnoreUnknownCharacters];
@@ -54,9 +63,6 @@
             self.avatarImageView.image = convertImage;
         }
     }];
-    
-    self.outButton.layer.cornerRadius = self.outButton.frame.size.width / 2;
-    self.editButton.layer.cornerRadius = self.editButton.frame.size.width / 2;
 
 }
 
@@ -65,6 +71,20 @@
     // Dispose of any resources that can be recreated.    
 }
 
+
+- (BOOL)verificationURL:(NSString *)url
+{
+    BOOL verification;
+    NSArray *component = [url componentsSeparatedByString:@"."];
+    NSString *firstComponent = [component firstObject];
+    
+    if ([firstComponent isEqualToString:@"https://scontent"]) {
+        verification = YES;
+    } else {
+        verification = NO;
+    }
+    return verification;
+}
 
 
 - (IBAction)actionInviteFriends:(id)sender

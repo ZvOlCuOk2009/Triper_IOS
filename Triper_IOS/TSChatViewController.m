@@ -10,6 +10,11 @@
 #define WHITE_COLOR RGB(175, 175, 175)
 #define GRAY_COLOR RGB(65, 70, 80)
 
+#define IS_IPHONE_4 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)480) < DBL_EPSILON)
+#define IS_IPHONE_5 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)568) < DBL_EPSILON)
+#define IS_IPHONE_6 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)667) < DBL_EPSILON)
+#define IS_IPHONE_6_PLUS (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)736) < DBL_EPSILON)
+
 #import "TSChatViewController.h"
 #import "TSMenuTableViewCell.h"
 #import "TSCellView.h"
@@ -75,6 +80,15 @@
         self.arrayFriends = [NSMutableArray arrayWithArray:self.friends];
     }];
     
+//    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+//        
+//        self.friends = [TSRetriveFriendsFBDatabase retriveFriendsDatabase:snapshot];
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [self.tableView reloadData];
+//        });
+//        self.arrayFriends = [NSMutableArray arrayWithArray:self.friends];
+//    }];
+    
 }
 
 
@@ -96,31 +110,25 @@
 - (IBAction)actionPhoneButton:(UIButton *)sender
 {
     
-    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
+    NSIndexPath *indexPath = [self determineTheAffiliationSectionOfTheCell:sender];
     
-    NSLog(@"section ID %ld", indexPath.section);
     NSInteger curruntUserIndex = indexPath.section;
     
     NSArray *nameContacts = [TSParsingUserName parsingOfTheUserName:self.friends];
-    
     NSString *currentUser = [nameContacts objectAtIndex:curruntUserIndex];
-    NSLog(@"currentUser %@", currentUser);
     
     TSUserViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TSUserViewController"];
-    NSArray *contacts = [controller retriveNumberPhoneContacts];
+    NSString *contact = [controller retriveNumberPhoneContacts:currentUser];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[cd] %@", currentUser];
-    NSArray *searchArray = [contacts filteredArrayUsingPredicate:predicate];
+    NSCharacterSet *nonDigitCharacterSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+    NSString *number = [[contact componentsSeparatedByCharactersInSet:nonDigitCharacterSet] componentsJoinedByString:@""];
     
-    NSLog(@"intermediateArray %@", searchArray.description);
-    
-    if ([searchArray count] > 0) {
-        NSString *nameAndNumber = [searchArray objectAtIndex:0];
-        NSArray *component = [nameAndNumber componentsSeparatedByString:@" "];
-        NSString *number = [component lastObject];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:number]];
-
+    if (number) {
+        
+        NSString *numberPrefix = [NSString stringWithFormat:@"tel:%@", number];
+        
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:numberPrefix]];
+        
     } else {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"The selected user does not have a phone number in the phone book"
                                                                                  message:nil
@@ -128,7 +136,10 @@
         
         UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK"
                                                            style:UIAlertActionStyleDefault
-                                                         handler:^(UIAlertAction * _Nonnull action) { }];
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                         
+                                                             [self secondAlert];
+                                                         }];
         
         [alertController addAction:action];
         
@@ -138,17 +149,32 @@
 }
 
 
+- (void)secondAlert
+{
+    UIAlertController *secondAlertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"To call the contact numbers of applications, it is necessary that the names of friends and contacts in the address book were the same!"]
+                                                                                message:@"Please edit the contact names in the phone book to make calls from Triper ..."
+                                                                         preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *secondAction = [UIAlertAction actionWithTitle:@"OK"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction * _Nonnull action) {
+                                                      }];
+    
+    [secondAlertController addAction:secondAction];
+    
+    [self presentViewController:secondAlertController animated:YES completion:nil];
+}
+
+
 - (IBAction)actionChatButton:(UIButton *)sender
 {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:[sender tag]];
-    
-    NSDictionary *indexSection = [self.friends objectAtIndex:indexPath.section];
-    NSArray *dataIDFriend = [indexSection objectForKey:@"id"];
-    NSString *idFriend = [dataIDFriend objectAtIndex:0];
-    NSLog(@"ID friends %@", idFriend);
-    
+
     TSContainerChatViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TSContainerChatViewController"];
     [controller callActionButtonNavigation];
+    
+    NSIndexPath *indexPath = [self determineTheAffiliationSectionOfTheCell:sender];
+    
+    NSLog(@"section ID %ld", indexPath.section);
 }
 
 
@@ -157,12 +183,21 @@
 
     BOOL installed = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"skype:"]];
     if(installed) {
-        NSString * userNameString = @"valia.ts.2016";
-        NSString* urlString = [NSString stringWithFormat:@"skype:%@?call", userNameString];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+//        NSString * userNameString = @"valia.ts.2016";
+//        NSString* urlString = [NSString stringWithFormat:@"skype:%@?call", userNameString];
+//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
     } else {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://appsto.re/ru/Uobls.i"]];
     }
+    
+}
+
+
+- (NSIndexPath *)determineTheAffiliationSectionOfTheCell:(UIButton *)button
+{
+    CGPoint buttonPosition = [button convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
+    return indexPath;
 }
 
 
@@ -289,7 +324,20 @@
     [self.imageFriends addObject:idFriend];
     
     UIButton *button = [[UIButton alloc] init];
-    button.frame = CGRectMake(275.0f, 39.0f, 22.0f, 22.0f);
+    
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        if (IS_IPHONE_4) {
+            
+        } else if (IS_IPHONE_5) {
+            button.frame = CGRectMake(275.0f, 39.0f, 22.0f, 22.0f);
+        } else if (IS_IPHONE_6) {
+            button.frame = CGRectMake(323.0f, 46.0f, 26.0f, 26.0f);
+        } else if (IS_IPHONE_6_PLUS) {
+            
+        }
+    }
+    
     button.tag = section;
     
     [button addTarget:self action:@selector(didSelectSection:) forControlEvents:UIControlEventTouchUpInside];
@@ -335,13 +383,41 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 100;
+    CGFloat height;
+    
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        if (IS_IPHONE_4) {
+            
+        } else if (IS_IPHONE_5) {
+            height = 100;
+        } else if (IS_IPHONE_6) {
+            height = 118;
+        } else if (IS_IPHONE_6_PLUS) {
+            
+        }
+    }
+    return height;
 }
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 67;
+    CGFloat height;
+    
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        if (IS_IPHONE_4) {
+            
+        } else if (IS_IPHONE_5) {
+            height = 67;
+        } else if (IS_IPHONE_6) {
+            height = 79;
+        } else if (IS_IPHONE_6_PLUS) {
+            
+        }
+    }
+    return height;
 }
 
 

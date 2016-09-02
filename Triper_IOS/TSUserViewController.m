@@ -36,13 +36,47 @@
         
     self.ref = [[FIRDatabase database] reference];
     
-    [self reloadView];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self reloadView];
+    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        self.fireUser = [TSFireUser initWithSnapshot:snapshot];
+    }];
+    
+//    [self reloadView];
+//    
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self reloadView];
+//    });
+    
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
+        TSProfileView *profileView = [TSProfileView profileView];
+        
+        NSURL *url = [NSURL URLWithString:self.fireUser.photoURL];
+        
+        profileView.nameLabel.text = self.fireUser.displayName;
+        profileView.miniNameLabel.text = self.fireUser.displayName;
+        
+        if (url && url.scheme && url.host) {
+            
+            profileView.avatarImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:
+                                                                        [NSURL URLWithString:self.fireUser.photoURL]]];
+        } else {
+            
+            if (self.fireUser.photoURL) {
+                NSData *data = [[NSData alloc]initWithBase64EncodedString:self.fireUser.photoURL options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                UIImage *convertImage = [UIImage imageWithData:data];
+                profileView.avatarImageView.image = convertImage;
+            } else {
+                
+            }
+        }
+        
+        [self.view addSubview:profileView];
     });
     
 //    [self phoneNumber];
+    
 }
 
 
@@ -121,6 +155,7 @@
     });
 }
 
+
 - (NSArray *)listPeopleInAddressBook:(ABAddressBookRef)addressBook
 {
 
@@ -140,19 +175,31 @@
         NSString *phoneNumber = CFBridgingRelease(ABMultiValueCopyValueAtIndex(phoneNumbers, 0));
 //        NSLog(@"phone:%@", phoneNumber);
 //        NSLog(@"=============================================");
+       
         [contacts addObject:[NSString stringWithFormat:@"%@ %@ %@", firstName, lastName, phoneNumber]];
     }
     return contacts;
 }
 
 
-- (NSArray *)retriveNumberPhoneContacts
+- (NSString *)retriveNumberPhoneContacts:(NSString *)contact
 {
     CFErrorRef error = NULL;
     ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, &error);
     
     NSArray *contacts = [self listPeopleInAddressBook:addressBook];
-    return contacts;
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[cd] %@", contact];
+    NSArray *searchArray = [contacts filteredArrayUsingPredicate:predicate];
+    NSString *serchContact = nil;
+    
+    if ([searchArray count] > 0) {
+        serchContact = [searchArray objectAtIndex:0];
+    } else {
+        serchContact = nil;
+    }
+    
+    return serchContact;
 }
 
 

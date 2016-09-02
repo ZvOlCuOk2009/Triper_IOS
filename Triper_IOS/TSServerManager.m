@@ -83,7 +83,6 @@
 
 - (FBSDKProfilePictureView *)requestUserImageFromTheServerFacebook:(UIImageView *)currentImageView ID:(NSString *)ID
 {
-//    NSLog(@"Token is available = %@", [[FBSDKAccessToken currentAccessToken]tokenString]);
     
     FBSDKProfilePictureView *profilePictureview = [[FBSDKProfilePictureView alloc]initWithFrame:currentImageView.frame];
     [profilePictureview setProfileID:ID];
