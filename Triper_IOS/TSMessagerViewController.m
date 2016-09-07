@@ -21,6 +21,7 @@
 #import "TSParsingManager.h"
 #import "TSParsingUserName.h"
 #import "TSFireUser.h"
+#import "TSRetriveFriendsFBDatabase.h"
 
 @import Firebase;
 @import FirebaseDatabase;
@@ -28,15 +29,20 @@
 @interface TSMessagerViewController () <JSQMessagesCollectionViewDataSource, UITextFieldDelegate>
 
 @property (strong, nonatomic) FIRUser *user;
-@property (strong, nonatomic) TSFireUser *twoUser;
+@property (strong, nonatomic) TSFireUser *fireUser;
+@property (strong, nonatomic) NSString *interlocutor;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
-@property (strong, nonatomic) FIRDatabaseReference *messageRef;
-@property (strong, nonatomic) FIRDatabaseReference *userIsTypingRef;
+@property (strong, nonatomic) FIRDatabaseReference *messageRefUser;
+@property (strong, nonatomic) FIRDatabaseReference *messageRefInterlocutor;
+@property (strong, nonatomic) NSMutableArray *friends;
 @property (strong, nonatomic) FIRDatabaseQuery *usersTypingQuery;
 
 @property (strong, nonatomic) NSMutableArray <JSQMessage *> *messages;
 @property (strong, nonatomic) JSQMessagesBubbleImage *outgoingBubbleImageView;
 @property (strong, nonatomic) JSQMessagesBubbleImage *incomingBubbleImageView;
+
+@property (strong, nonatomic) UIImage *interlocutorImage;
+@property (strong, nonatomic) UIImage *userImage;
 
 @property (assign, nonatomic) BOOL localTyping;
 @property (assign, nonatomic) BOOL isTyping;
@@ -49,29 +55,39 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startLocating:) name:@"noticeOnTheMethodCall" object:nil];
     
     self.ref = [[FIRDatabase database] reference];
     self.user = [FIRAuth auth].currentUser;
     self.messages = [NSMutableArray array];
     
-    if (!self.twoUserID) {
-        self.twoUserID = @"";
-    } else {
-        self.messageRef = [self.ref child:self.twoUserID];
-        
-        [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-            
-            NSString *key = [NSString stringWithFormat:@"users/%@/username", self.twoUserID];
-            FIRDataSnapshot *twoUser = [snapshot childSnapshotForPath:key];
-            NSLog(@"twoUser %@", twoUser.description);
-            self.twoUser = [[TSFireUser alloc] init];
-            self.twoUser.displayName = twoUser.value[@"displayName"];
-            self.twoUser.photoURL = twoUser.value[@"photoURL"];
-        }];
-    }
     
-    NSLog(@"Two user %@", self.twoUserID);
+    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+
+        self.friends = [TSRetriveFriendsFBDatabase retriveFriendsDatabase:snapshot];
+        self.fireUser = [TSFireUser initWithSnapshot:snapshot];
+        
+        NSURL *url = [NSURL URLWithString:self.fireUser.photoURL];
+        NSData *dataImage = [NSData dataWithContentsOfURL:url];
+        self.userImage = [UIImage imageWithData:dataImage];
+        
+        if (!self.interlocutor) {
+            NSDictionary *temporaryDict = [self.friends objectAtIndex:0];
+            NSString * temporaryID = [temporaryDict objectForKey:@"fireUserID"];
+            self.interlocutor = temporaryID;
+        }
+        
+        [self getImageInterlocutor:self.friends];
+        
+        self.messageRefUser = [[[self.ref child:self.user.uid] child:@"chat"] child:self.interlocutor];
+        self.messageRefInterlocutor = [[[self.ref child:self.interlocutor] child:@"chat"] child:self.user.uid];
+    }];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(transferToInterlocutor:) name:@"noticeOnTheMethodCall" object:nil];
+    
+    
+    NSLog(@"interlocutor %@", self.interlocutor);
+    
     
     self.senderId = self.user.uid;
     self.senderDisplayName = self.user.displayName;
@@ -84,7 +100,6 @@
 
     
     [self setupBubbles];
-    [self observeMessages];
     
     
     self.localTyping = NO;
@@ -102,14 +117,56 @@
         }
     }
     
-    self.collectionView.contentInset = UIEdgeInsetsMake(35, 0, 40, 0);
     
     TSView *grayRect = [[TSView alloc] initWithView:self.view];
     [self.view addSubview:grayRect];
     
     UISearchBar *searchBar = [[TSSearchBar alloc] initWithView:self.view];
     [self.view addSubview:searchBar];
+    
+}
 
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.collectionView.contentInset = UIEdgeInsetsMake(40, 0, 40, 0);
+}
+
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self observeMessages];
+    
+}
+
+
+- (void)getImageInterlocutor:(NSMutableArray *)friends
+{
+    for (NSDictionary *data in friends) {
+        NSString *ID = [data objectForKey:@"fireUserID"];
+        if ([ID isEqualToString:self.interlocutor]) {
+            NSString *urlString = [data objectForKey:@"photoURL"];
+            NSURL *url = [NSURL URLWithString:urlString];
+            NSData *dataImage = [NSData dataWithContentsOfURL:url];
+            self.interlocutorImage = [UIImage imageWithData:dataImage];
+        }
+    }
+}
+
+
+- (void)getImageUser
+{
+    
+    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        self.fireUser = [TSFireUser initWithSnapshot:snapshot];
+        NSURL *url = [NSURL URLWithString:self.fireUser.photoURL];
+        NSData *dataImage = [NSData dataWithContentsOfURL:url];
+        self.userImage = [UIImage imageWithData:dataImage];
+    }];
+    
 }
 
 
@@ -166,19 +223,19 @@
     
     if ([message.senderId isEqualToString:self.senderId]) {
         
-        NSData *imageData = [NSData dataWithContentsOfURL:self.user.photoURL];
-        UIImage *url = [UIImage imageWithData:imageData];
-        return [JSQMessagesAvatarImageFactory avatarImageWithImage:url
+        UIImage *userImage = nil;
+        
+        if (!self.userImage) {
+            userImage = [UIImage imageNamed:@"av4"];
+        } else {
+            userImage = self.userImage;
+        }
+        
+        return [JSQMessagesAvatarImageFactory avatarImageWithImage:userImage
                                                           diameter:60];
     } else {
-        
-//        UIImage *url = [UIImage imageNamed:self.twoUser.photoURL];
-//        return [JSQMessagesAvatarImageFactory avatarImageWithImage:url
-//                                                          diameter:60];
-        
-        NSData *imageData = [NSData dataWithContentsOfURL:self.user.photoURL];
-        UIImage *url = [UIImage imageWithData:imageData];
-        return [JSQMessagesAvatarImageFactory avatarImageWithImage:url
+       
+        return [JSQMessagesAvatarImageFactory avatarImageWithImage:self.interlocutorImage
                                                           diameter:60];
     }
     
@@ -210,20 +267,23 @@
          senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date
 {
     
-    FIRDatabaseReference *itemRef = [self.messageRef childByAutoId];
+    FIRDatabaseReference *itemRefUser = [self.messageRefUser childByAutoId];
+    FIRDatabaseReference *itemRefInterlocutor = [self.messageRefInterlocutor childByAutoId];
+    
     NSDictionary *messageItem = @{@"text":text, @"senderId":senderId};
     
-    [itemRef setValue:messageItem];
+    [itemRefUser setValue:messageItem];
+    [itemRefInterlocutor setValue:messageItem];
+    
     [JSQSystemSoundPlayer jsq_playMessageSentSound];
     
-//    self.isTyping = NO;
 }
 
 
 - (void)observeMessages
 {
     
-    FIRDatabaseQuery *messagesQuery = [self.messageRef queryLimitedToLast:20];
+    FIRDatabaseQuery *messagesQuery = [self.messageRefUser queryLimitedToLast:20];
     [messagesQuery observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
         NSString *ID = snapshot.value[@"senderId"];
@@ -232,6 +292,23 @@
         [self addMessage:ID text:text];
         [self finishReceivingMessageAnimated:YES];
     }];
+    
+}
+
+
+- (void)transferToInterlocutor:(NSNotification *)notification
+{
+    
+    [self.messages removeAllObjects];
+    self.interlocutor = [notification object];
+    
+    self.messageRefUser = [[[self.ref child:self.user.uid] child:@"chat"] child:self.interlocutor];
+    self.messageRefInterlocutor = [[[self.ref child:self.interlocutor] child:@"chat"] child:self.user.uid];
+    
+    [self getImageInterlocutor:self.friends];
+    [self observeMessages];
+    
+    NSLog(@"Message %@", self.interlocutor);
     
 }
 
@@ -255,12 +332,6 @@
 //    
 //    //self.usersTypingQuery = [typingIndicatorRef.queryOrderedByValue queryEqualToValue:];
 //}
-
-
-- (void)startLocating:(NSNotification *)notification
-{
-    NSLog(@"notification %@", notification);
-}
 
 
 - (void)didReceiveMemoryWarning {

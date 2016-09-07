@@ -135,7 +135,6 @@ static NSInteger tag = 0;
         pinView.frame = CGRectMake(0, 0, 40, 40);
         pinView.canShowCallout = YES;
         
-        // зменить на количество элементов в массиве
         
         UIImageView *imgView = nil;
         

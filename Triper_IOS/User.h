@@ -10,7 +10,7 @@
 
 @interface User : NSObject
 
-@property(strong, nonatomic) NSString *username;
+//@property(strong, nonatomic) NSString *username;
 
 //- (instancetype)initWithUsername:(NSString *)username;
 

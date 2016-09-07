@@ -32,6 +32,13 @@ static NSInteger counter = 0;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.ref = [[FIRDatabase database] reference];
+    
+    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        self.friends = [TSRetriveFriendsFBDatabase retriveFriendsDatabase:snapshot];
+    }];
+    
     CGRect frame = CGRectMake(0, - 20, self.view.bounds.size.width, self.view.bounds.size.height);
 
     self.swipeableView = [[ZLSwipeableView alloc] initWithFrame:self.view.frame];
@@ -61,19 +68,19 @@ static NSInteger counter = 0;
 
 - (UIView *)nextViewForSwipeableView:(ZLSwipeableView *)swipeableView
 {
-    if  (!self.friends.count)
-    {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Here you will see your friends..."
-                                                                                 message:@""
-                                                                          preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *action  = [UIAlertAction actionWithTitle:@"Ok"
-                                                          style:UIAlertActionStyleCancel
-                                                        handler:^(UIAlertAction * _Nonnull action) { }];
-        [alertController addAction:action];
-        [self presentViewController:alertController animated:YES completion:nil];
-        
-        return nil;
-    }
+//    if  (!self.friends.count)
+//    {
+//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Here you will see your friends..."
+//                                                                                 message:@""
+//                                                                          preferredStyle:UIAlertControllerStyleAlert];
+//        UIAlertAction *action  = [UIAlertAction actionWithTitle:@"Ok"
+//                                                          style:UIAlertActionStyleCancel
+//                                                        handler:^(UIAlertAction * _Nonnull action) { }];
+//        [alertController addAction:action];
+//        [self presentViewController:alertController animated:YES completion:nil];
+//        
+//        return nil;
+//    }
     
     self.profileView = [TSProfileView profileView];
     
@@ -81,20 +88,28 @@ static NSInteger counter = 0;
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:counter inSection:0];
     NSDictionary *indexCard = [self.friends objectAtIndex:indexPath.row];
-    NSArray *arrayID = [indexCard objectForKey:@"id"];
-    NSArray *arrayName = [indexCard objectForKey:@"items"];
-    NSString *idFriend = [arrayID objectAtIndex:0];
-    NSString *nameFriend = [arrayName objectAtIndex:0];
+    NSString *nameFriend = [indexCard objectForKey:@"items"];
+    NSString *photoURL = [indexCard objectForKey:@"photoURL"];
+    NSURL *url = [NSURL URLWithString:photoURL];
     
     self.profileView.nameLabel.text = nameFriend;
     self.profileView.miniNameLabel.text = nameFriend;
     
-    FBSDKProfilePictureView *avatar = [[TSServerManager sharedManager]
-                                       requestUserImageFromTheServerFacebook:self.profileView.avatarImageView
-                                                                          ID:idFriend];
-    avatar.layer.cornerRadius = avatar.frame.size.width / 2;
-    avatar.clipsToBounds = YES;
-    [self.profileView addSubview:avatar];
+    if (url && url.scheme && url.host) {
+        
+        NSData *dataImage = [NSData dataWithContentsOfURL:url];
+        self.profileView.avatarImageView.image = [UIImage imageWithData:dataImage];
+        
+    } else {
+        
+        if (!photoURL) {
+            photoURL = @"";
+        }
+        
+        NSData *data = [[NSData alloc]initWithBase64EncodedString:photoURL options:NSDataBase64DecodingIgnoreUnknownCharacters];
+        UIImage *convertImage = [UIImage imageWithData:data];
+        self.profileView.avatarImageView.image = convertImage;
+    }
     
     ++counter;
     

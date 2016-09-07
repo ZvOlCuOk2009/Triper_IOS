@@ -41,9 +41,11 @@
 @property (strong, nonatomic) NSMutableArray *friends;
 @property (strong, nonatomic) NSMutableArray *arrayFriends;
 @property (strong, nonatomic) NSMutableArray *imageFriends;
+@property (strong, nonatomic) NSMutableArray *friendsIDs;
 @property (strong, nonatomic) NSString *currentID;
 @property (strong, nonatomic) TSCellView *cell;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
+@property (strong, nonatomic) FIRUser *user;
 @property (assign, nonatomic) BOOL isOpen;
 
 @end
@@ -59,6 +61,8 @@
     [self requestToServerFacebookListFriends];
     
     self.imageFriends = [NSMutableArray array];
+    self.friendsIDs = [NSMutableArray array];
+    self.user = [FIRAuth auth].currentUser;
     
     TSView *grayRect = [[TSView alloc] initWithView:self.view];
     [self.view addSubview:grayRect];
@@ -82,14 +86,18 @@
         self.arrayFriends = [NSMutableArray arrayWithArray:self.friends];
     }];
     
-//    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-//        
-//        self.friends = [TSRetriveFriendsFBDatabase retriveFriendsDatabase:snapshot];
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [self.tableView reloadData];
-//        });
-//        self.arrayFriends = [NSMutableArray arrayWithArray:self.friends];
-//    }];
+    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        NSString *key = [NSString stringWithFormat:@"users/%@/friends", self.user.uid];
+        FIRDataSnapshot *friendSnapshot = [snapshot childSnapshotForPath:key];
+        
+        for (int i = 0; i < friendSnapshot.childrenCount; i++) {
+            NSString *key = [NSString stringWithFormat:@"key%d", i];
+            FIRDataSnapshot *pair = [friendSnapshot childSnapshotForPath:key];
+            FIRDataSnapshot *ID = pair.value[@"fireUserID"];
+            [self.friendsIDs addObject:ID];
+        }
+    }];
     
 }
 
@@ -167,9 +175,13 @@
 - (IBAction)actionChatButton:(UIButton *)sender
 {
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"noticeOnTheMethodCall" object:nil];
-    
     NSIndexPath *indexPath = [self determineTheAffiliationSectionOfTheCell:sender];
+    
+    NSString *ID = [self.friendsIDs objectAtIndex:indexPath.section];
+    
+    NSLog(@"ID %@", ID);
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"noticeOnTheMethodCall" object:ID];
     
     NSLog(@"section ID %ld", indexPath.section);
     
@@ -181,7 +193,6 @@
 
     BOOL installed = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"skype:"]];
     if(installed) {
-//        NSString * userNameString = @"valia.ts.2016";
         NSString* urlString = [NSString stringWithFormat:@"skype:?call"];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
     } else {
@@ -189,7 +200,6 @@
     }
     
 }
-
 
 
 - (NSIndexPath *)determineTheAffiliationSectionOfTheCell:(UIButton *)button
@@ -278,7 +288,7 @@
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
         if (IS_IPHONE_4) {
-            
+            button.frame = CGRectMake(275.0f, 39.0f, 22.0f, 22.0f);
         } else if (IS_IPHONE_5) {
             button.frame = CGRectMake(275.0f, 39.0f, 22.0f, 22.0f);
         } else if (IS_IPHONE_6) {

@@ -24,12 +24,12 @@
     
     __block NSDictionary *friendsData = nil;
     __block NSArray *myFriends = nil;
-    __block NSMutableArray *ID = nil;
+    __block NSMutableArray *IDs = nil;
     __block NSMutableArray *photoURLs = nil;
     
     [ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
-        ID = [NSMutableArray array];
+        IDs = [NSMutableArray array];
         photoURLs = [NSMutableArray array];
         NSString *key = [NSString stringWithFormat:@"users"];
         
@@ -40,9 +40,8 @@
         
         NSMutableDictionary *userFriends = [NSMutableDictionary dictionary];
         
-        //убрать минус 1 !!!
         
-        for (int i = 0; i < myFriends.count - 1; i++) {
+        for (int i = 0; i < myFriends.count; i++) {
             NSDictionary *pairFriend = [myFriends objectAtIndex:i];
             NSArray *dataName = [pairFriend objectForKey:@"items"];
             NSString *name = [dataName objectAtIndex:0];
@@ -54,15 +53,26 @@
                 NSString *photoURL = [[intermediaryPair objectForKey:@"username"] objectForKey:@"photoURL"];
                 
                 if ([name isEqualToString:nameOfTheDatabase]) {
-                    [ID addObject:key];
+                    [IDs addObject:key];
                     [photoURLs addObject:photoURL];
                 }
             }
             NSDictionary *pair = [myFriends objectAtIndex:i];
-            [pair setValue:[ID objectAtIndex:i] forKey:@"fireUserID"];
-            [pair setValue:[photoURLs objectAtIndex:i] forKey:@"photoURL"];
+            NSArray *itemsArray = [pair objectForKey:@"items"];
+            NSArray *idFBArray = [pair objectForKey:@"id"];
+            
+            NSString *items = [itemsArray objectAtIndex:0];
+            NSString *idFB = [idFBArray objectAtIndex:0];
+            NSString *idFireUser = [IDs objectAtIndex:i];
+            NSString *photoURL = [photoURLs objectAtIndex:i];
+            
+            NSDictionary *newPairs = @{@"fireUserID":idFireUser,
+                                       @"photoURL":photoURL,
+                                       @"items":items,
+                                       @"id":idFB};
+            
             NSString *key = [NSString stringWithFormat:@"key%d", i];
-            [userFriends setValue:pair forKey:key];
+            [userFriends setValue:newPairs forKey:key];
         }
         
         [[[[ref child:@"users"] child:user.uid] child:@"friends"] setValue:userFriends];

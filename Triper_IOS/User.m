@@ -17,7 +17,7 @@
 - (instancetype)initWithUsername:(NSString *)username {
     self = [super init];
     if (self) {
-        self.username = username;
+//        self.username = username;
     }
     return self;
 }

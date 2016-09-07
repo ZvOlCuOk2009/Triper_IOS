@@ -110,6 +110,29 @@
                                          
                                          [[[[self.ref child:@"users"] child:user.uid] child:@"username"] setValue:userData];
                                          
+                                         //save friends
+                                         /*
+                                         
+                                         NSDictionary *pair = [myFriends objectAtIndex:i];
+                                         NSArray *itemsArray = [pair objectForKey:@"items"];
+                                         NSArray *idFBArray = [pair objectForKey:@"id"];
+                                         
+                                         NSString *items = [itemsArray objectAtIndex:0];
+                                         NSString *idFB = [idFBArray objectAtIndex:0];
+                                         NSString *idFireUser = [IDs objectAtIndex:i];
+                                         NSString *photoURL = [photoURLs objectAtIndex:i];
+                                         
+                                         NSDictionary *newPairs = @{@"fireUserID":idFireUser,
+                                                                    @"photoURL":photoURL,
+                                                                    @"items":items,
+                                                                    @"id":idFB};
+                                         
+                                         NSString *key = [NSString stringWithFormat:@"key%d", i];
+                                         [userFriends setValue:newPairs forKey:key];
+                                          
+                                          [[[[ref child:@"users"] child:user.uid] child:@"friends"] setValue:userFriends];
+                                          */
+                                         
                                      }
                                      
                                      TSTabBarController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TSTabBarController"];

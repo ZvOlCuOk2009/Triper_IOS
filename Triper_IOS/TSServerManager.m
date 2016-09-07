@@ -15,14 +15,9 @@
 @import Firebase;
 @import FirebaseAuth;
 
-//@class FBGraphLocation;
-//@class FBGraphPlace;
-//@class FBGraphUser;
-
 @interface TSServerManager ()
 
 @property (strong, nonatomic) AFHTTPSessionManager *sessionManager;
-//@property (strong, nonatomic) NSString * after;
 
 @end
 

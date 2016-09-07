@@ -17,6 +17,14 @@
 @property (strong, nonatomic) NSString *uid;
 @property (strong, nonatomic) NSString *email;
 @property (strong, nonatomic) NSString *photoURL;
+@property (strong, nonatomic) NSString *displayName;
+@property (strong, nonatomic) NSString *uid;
+@property (strong, nonatomic) NSString *email;
+@property (strong, nonatomic) NSString *photoURL;
+@property (strong, nonatomic) NSString *displayName;
+@property (strong, nonatomic) NSString *uid;
+@property (strong, nonatomic) NSString *email;
+@property (strong, nonatomic) NSString *photoURL;
 @property (strong, nonatomic) NSDictionary *friends;
 
 + (TSFireUser *)initWithSnapshot:(FIRDataSnapshot *)snapshot;
