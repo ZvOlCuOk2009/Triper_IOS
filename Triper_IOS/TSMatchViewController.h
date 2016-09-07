@@ -10,5 +10,6 @@
 
 @interface TSMatchViewController : UIViewController
 
+@property (strong, nonatomic) NSMutableArray *friends;
 
 @end

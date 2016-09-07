@@ -53,7 +53,9 @@
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
         if (IS_IPHONE_4) {
-            
+            UINib *nib = [UINib nibWithNibName:@"TSCellView" bundle:nil];
+            view = [nib instantiateWithOwner:self options:nil][0];
+            view.frame = CGRectMake(0, 0, 320, 100);
         } else if (IS_IPHONE_5) {
             UINib *nib = [UINib nibWithNibName:@"TSCellView" bundle:nil];
             view = [nib instantiateWithOwner:self options:nil][0];

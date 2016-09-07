@@ -97,7 +97,6 @@
         
     }
     
-    
         FIRAuthCredential *credential = [FIRFacebookAuthProvider
                                          credentialWithAccessToken:[FBSDKAccessToken currentAccessToken].tokenString];
         

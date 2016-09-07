@@ -18,6 +18,9 @@
 + (CGRect)hendlerPositionArrow:(NSInteger)tag
 {
     CGFloat yValue = 0.0;
+    CGFloat xValue = 0.0;
+    CGFloat weihgt = 0.0;
+    CGFloat height = 0.0;
     
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
@@ -25,8 +28,25 @@
             
         } else if (IS_IPHONE_5) {
             yValue = 298;
+            xValue = 1;
+            weihgt = 24;
+            height = 8;
         } else if (IS_IPHONE_6) {
             yValue = 350;
+            
+            if (tag == 1) {
+                xValue = 28;
+            } else if (tag == 2) {
+                xValue = 111;
+            } else if (tag == 3) {
+                xValue = 210;
+            }else if (tag == 4) {
+                xValue = 309;
+            }
+            
+            weihgt = 25;
+            height = 11;
+            
         } else if (IS_IPHONE_6_PLUS) {
             
         }
@@ -34,13 +54,13 @@
     
     CGRect frame;
     if (tag == 1) {
-        frame = CGRectMake(22, yValue, 24, 8);
+        frame = CGRectMake(xValue, yValue, weihgt, height);
     } else if (tag == 2) {
-        frame = CGRectMake(93, yValue, 24, 8);
+        frame = CGRectMake(xValue, yValue, weihgt, height);
     } else if (tag == 3) {
-        frame = CGRectMake(176, yValue, 24, 8);
+        frame = CGRectMake(xValue, yValue, weihgt, height);
     } else if (tag == 4) {
-        frame = CGRectMake(262, yValue, 24, 8);
+        frame = CGRectMake(xValue, yValue, weihgt, height);
     }
     return frame;
 }

@@ -33,6 +33,8 @@
 		FD8F51CD1D5C537800D5E0E8 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD8F51CC1D5C537800D5E0E8 /* Contacts.framework */; };
 		FD8F51D31D5D03A600D5E0E8 /* TSSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8F51D21D5D03A600D5E0E8 /* TSSearchBar.m */; };
 		FD9E79A41D36D7B5003E402A /* TSProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = FD9E79A31D36D7B5003E402A /* TSProfileView.m */; };
+		FDBC306B1D7F8EF9004F4CF0 /* TSIntermediateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBC306A1D7F8EF8004F4CF0 /* TSIntermediateViewController.m */; };
+		FDBC306E1D7F9D57004F4CF0 /* TSContainerMatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBC306D1D7F9D57004F4CF0 /* TSContainerMatchViewController.m */; };
 		FDBFA4F51D1C23020074D92D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4F41D1C23020074D92D /* main.m */; };
 		FDBFA4F81D1C23020074D92D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4F71D1C23020074D92D /* AppDelegate.m */; };
 		FDBFA4FB1D1C23020074D92D /* TSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4FA1D1C23020074D92D /* TSLoginViewController.m */; };
@@ -129,6 +131,10 @@
 		FD8F51D21D5D03A600D5E0E8 /* TSSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSSearchBar.m; sourceTree = "<group>"; };
 		FD9E79A21D36D7B5003E402A /* TSProfileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSProfileView.h; sourceTree = "<group>"; };
 		FD9E79A31D36D7B5003E402A /* TSProfileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSProfileView.m; sourceTree = "<group>"; };
+		FDBC30691D7F8EF8004F4CF0 /* TSIntermediateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSIntermediateViewController.h; sourceTree = "<group>"; };
+		FDBC306A1D7F8EF8004F4CF0 /* TSIntermediateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSIntermediateViewController.m; sourceTree = "<group>"; };
+		FDBC306C1D7F9D57004F4CF0 /* TSContainerMatchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSContainerMatchViewController.h; sourceTree = "<group>"; };
+		FDBC306D1D7F9D57004F4CF0 /* TSContainerMatchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSContainerMatchViewController.m; sourceTree = "<group>"; };
 		FDBFA4F01D1C23010074D92D /* Triper_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Triper_IOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDBFA4F41D1C23020074D92D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FDBFA4F61D1C23020074D92D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -480,6 +486,10 @@
 				FD0635C81D2FE78F005D39EE /* TSTabBarController.m */,
 				FD0635CC1D2FF009005D39EE /* TSMapKitViewController.h */,
 				FD0635CD1D2FF009005D39EE /* TSMapKitViewController.m */,
+				FDBC30691D7F8EF8004F4CF0 /* TSIntermediateViewController.h */,
+				FDBC306A1D7F8EF8004F4CF0 /* TSIntermediateViewController.m */,
+				FDBC306C1D7F9D57004F4CF0 /* TSContainerMatchViewController.h */,
+				FDBC306D1D7F9D57004F4CF0 /* TSContainerMatchViewController.m */,
 				FDF0B4401D47A09C00DCD135 /* TSNewPostViewController.h */,
 				FDF0B4411D47A09C00DCD135 /* TSNewPostViewController.m */,
 				FDC611B61D5A2D7C00C26589 /* ChatView Controllers */,
@@ -704,12 +714,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FDBC306B1D7F8EF9004F4CF0 /* TSIntermediateViewController.m in Sources */,
 				FD8F51D31D5D03A600D5E0E8 /* TSSearchBar.m in Sources */,
 				FDF0B4451D47B27300DCD135 /* User.m in Sources */,
 				FDBFA4FB1D1C23020074D92D /* TSLoginViewController.m in Sources */,
 				FDEF97EC1D5E7A4700D34ACF /* TSParsingManager.m in Sources */,
 				FD8ACCDF1D7072A000788CD6 /* TSRetriveFriendsFBDatabase.m in Sources */,
 				FDDC03CB1D784D5A0049B907 /* TSEditProfileViewController.m in Sources */,
+				FDBC306E1D7F9D57004F4CF0 /* TSContainerMatchViewController.m in Sources */,
 				FDC3C94F1D2D5A2E0036FF3D /* TSSegmentedControl.m in Sources */,
 				FDD28EF31D64679B0021EDC9 /* TSParsingUserName.m in Sources */,
 				FDF0B4421D47A09C00DCD135 /* TSNewPostViewController.m in Sources */,

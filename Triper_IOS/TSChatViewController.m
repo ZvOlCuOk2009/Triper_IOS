@@ -28,6 +28,7 @@
 #import "TSRetriveFriendsFBDatabase.h"
 #import "TSContainerChatViewController.h"
 #import "TSUserViewController.h"
+#import "TSTabBarController.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
@@ -67,6 +68,7 @@
     searchBar.delegate = self;
     
     self.tableView.contentInset = UIEdgeInsetsMake(36, 0, 46, 0);
+    
 }
 
 
@@ -95,12 +97,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    
 }
 
 
@@ -151,8 +147,9 @@
 
 - (void)secondAlert
 {
+    
     UIAlertController *secondAlertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"To call the contact numbers of applications, it is necessary that the names of friends and contacts in the address book were the same!"]
-                                                                                message:@"Please edit the contact names in the phone book to make calls from Triper ..."
+                                                                                message:@"Please change the contact names in the phone book, in order to be able to make phone calls from the application Triper..."
                                                                          preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *secondAction = [UIAlertAction actionWithTitle:@"OK"
@@ -163,18 +160,19 @@
     [secondAlertController addAction:secondAction];
     
     [self presentViewController:secondAlertController animated:YES completion:nil];
+    
 }
 
 
 - (IBAction)actionChatButton:(UIButton *)sender
 {
-
-    TSContainerChatViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TSContainerChatViewController"];
-    [controller callActionButtonNavigation];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"noticeOnTheMethodCall" object:nil];
     
     NSIndexPath *indexPath = [self determineTheAffiliationSectionOfTheCell:sender];
     
     NSLog(@"section ID %ld", indexPath.section);
+    
 }
 
 
@@ -184,8 +182,8 @@
     BOOL installed = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"skype:"]];
     if(installed) {
 //        NSString * userNameString = @"valia.ts.2016";
-//        NSString* urlString = [NSString stringWithFormat:@"skype:%@?call", userNameString];
-//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+        NSString* urlString = [NSString stringWithFormat:@"skype:?call"];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
     } else {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://appsto.re/ru/Uobls.i"]];
     }
@@ -193,67 +191,15 @@
 }
 
 
+
 - (NSIndexPath *)determineTheAffiliationSectionOfTheCell:(UIButton *)button
 {
+    
     CGPoint buttonPosition = [button convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
     return indexPath;
+    
 }
-
-
-- (IBAction)actionAddUser:(UIButton *)sender
-{
-    FIRUser *user = [FIRAuth auth].currentUser;
-    
-    NSString *name = user.displayName;
-//    NSString *email = user.email;
-//    NSURL *photoUrl = user.photoURL;
-    NSString *uid = user.uid;
-    NSString *userID = user.displayName;
-    
-    
-    NSLog(@"name = %@", name);
-    
-    
-    NSString *key = [[_ref child:@"posts"] childByAutoId].key;
-    NSDictionary *post = @{@"uid": uid,
-                        @"author": name};
-    NSDictionary *childUpdates = @{[@"/posts/" stringByAppendingString:key]: post,
-                                   [NSString stringWithFormat:@"/user-posts/%@/%@/", userID, key]: post};
-    [self.ref updateChildValues:childUpdates];
-    
-    NSLog(@"key = %@", key);
-}
-
-
-- (IBAction)actionMessage:(UIButton *)sender  //FIRDataEventTypeValue
-{
-    TSMessagerViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TSMessagerViewController"];
-    [self presentViewController:controller animated:YES completion:nil];
-    
-    
-    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        FIRDataSnapshot *muterData = [snapshot childSnapshotForPath:@"user-posts/v7rDRmPZrgQKh2NOLNp9s2X0cov1"];
-        FIRDataSnapshot *muterDataPost = [snapshot childSnapshotForPath:@"user-posts/v7rDRmPZrgQKh2NOLNp9s2X0cov1/-KNgPaRndUDfP4yuiRRY"];
-        NSLog(@"Shapshot childSnapshotForPath count = %@", muterDataPost);
-        NSLog(@"Shapshot children = %@", [muterData children]);
-
-//        NSString *key = [[[self.ref child:@"posts"] childByAutoId] key];
-
-        NSLog(@"%@", muterDataPost.value[@"title"]);
-        NSLog(@"%@", muterDataPost.value[@"body"]);
-
-        NSString *post = [NSString stringWithFormat:@"%@", muterDataPost];
-        NSScanner *scanPost = [NSScanner scannerWithString:post];
-        NSString *updatePost;
-        while (![scanPost isAtEnd]) {
-            [scanPost scanString:@"(body)" intoString:nil];
-            [scanPost scanUpToString:@"(body)" intoString:&updatePost];
-        }
-        NSLog(@"updatePost %@", updatePost);
-    }];
-}
-
 
 
 #pragma mark - UITableViewDataSource
@@ -267,17 +213,20 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    
     NSDictionary *currentSection = [self.friends objectAtIndex:section];
     if ([[currentSection objectForKey:@"isOpen"] boolValue]) {
         NSArray *items = [currentSection objectForKey:@"items"];
         return items.count;
     }
     return 0;
+    
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     static NSString *CellIdentifier = @"detail";
     
     TSMenuTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -295,6 +244,7 @@
     [cell.orangeRectangle addSubview:avatar];
     
     return cell;
+    
 }
 
 
@@ -334,7 +284,7 @@
         } else if (IS_IPHONE_6) {
             button.frame = CGRectMake(323.0f, 46.0f, 26.0f, 26.0f);
         } else if (IS_IPHONE_6_PLUS) {
-            
+            button.frame = CGRectMake(323.0f, 46.0f, 26.0f, 26.0f);
         }
     }
     
@@ -383,41 +333,45 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    
     CGFloat height;
     
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
         if (IS_IPHONE_4) {
-            
+            height = 100;
         } else if (IS_IPHONE_5) {
             height = 100;
         } else if (IS_IPHONE_6) {
             height = 118;
         } else if (IS_IPHONE_6_PLUS) {
-            
+            height = 118;
         }
     }
     return height;
+    
 }
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     CGFloat height;
     
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
         if (IS_IPHONE_4) {
-            
+            height = 67;
         } else if (IS_IPHONE_5) {
             height = 67;
         } else if (IS_IPHONE_6) {
             height = 79;
         } else if (IS_IPHONE_6_PLUS) {
-            
+            height = 79;
         }
     }
     return height;
+    
 }
 
 
@@ -432,6 +386,7 @@
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText;
 {
+    
     if ([searchText isEqualToString:@""]) {
         
         self.friends = [NSMutableArray arrayWithArray:self.arrayFriends];
@@ -439,6 +394,7 @@
         self.friends = [TSSearch calculationSearchArray:self.friends text:searchText];
     }
     [self.tableView reloadData];
+    
 }
 
 

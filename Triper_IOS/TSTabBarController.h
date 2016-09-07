@@ -10,4 +10,6 @@
 
 @interface TSTabBarController : UITabBarController
 
+- (void)callActionButton;
+
 @end

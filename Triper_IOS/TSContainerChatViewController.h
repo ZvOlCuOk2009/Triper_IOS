@@ -11,6 +11,5 @@
 @interface TSContainerChatViewController : UIViewController
 
 - (IBAction)actionNavigationButton:(UIButton *)sender;
-- (void)callActionButtonNavigation;
 
 @end

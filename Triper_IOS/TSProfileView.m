@@ -93,7 +93,9 @@
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
         if (IS_IPHONE_4) {
-            
+            UINib *nib = [UINib nibWithNibName:@"TSProfileView" bundle:nil];
+            view = [nib instantiateWithOwner:self options:nil][0];
+            view.frame = CGRectMake(8, 20, 304, 482);
         } else if (IS_IPHONE_5) {
             UINib *nib = [UINib nibWithNibName:@"TSProfileView" bundle:nil];
             view = [nib instantiateWithOwner:self options:nil][0];

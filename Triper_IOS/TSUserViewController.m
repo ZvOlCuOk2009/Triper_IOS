@@ -40,43 +40,20 @@
     [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
         self.fireUser = [TSFireUser initWithSnapshot:snapshot];
+        
     }];
     
-//    [self reloadView];
-//    
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [self reloadView];
-//    });
+    [self reloadView];
     
-    dispatch_async(dispatch_get_main_queue(), ^
-    {
-        TSProfileView *profileView = [TSProfileView profileView];
-        
-        NSURL *url = [NSURL URLWithString:self.fireUser.photoURL];
-        
-        profileView.nameLabel.text = self.fireUser.displayName;
-        profileView.miniNameLabel.text = self.fireUser.displayName;
-        
-        if (url && url.scheme && url.host) {
-            
-            profileView.avatarImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:
-                                                                        [NSURL URLWithString:self.fireUser.photoURL]]];
-        } else {
-            
-            if (self.fireUser.photoURL) {
-                NSData *data = [[NSData alloc]initWithBase64EncodedString:self.fireUser.photoURL options:NSDataBase64DecodingIgnoreUnknownCharacters];
-                UIImage *convertImage = [UIImage imageWithData:data];
-                profileView.avatarImageView.image = convertImage;
-            } else {
-                
-            }
-        }
-        
-        [self.view addSubview:profileView];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self reloadView];
     });
     
-//    [self phoneNumber];
-    
+//    dispatch_async(dispatch_get_main_queue(), ^
+//    {
+//        
+//    });
+        
 }
 
 

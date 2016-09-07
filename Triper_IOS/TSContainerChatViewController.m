@@ -44,6 +44,7 @@
     self.contactsButton.layer.borderWidth = 1;
     self.contactsButton.layer.borderColor = WHITE_COLOR.CGColor;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startLocating:) name:@"noticeOnTheMethodCall" object:nil];
 }
 
 
@@ -51,7 +52,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 
 #pragma mark - Actions
@@ -97,11 +97,22 @@
 }
 
 
-- (void)callActionButtonNavigation
+- (void)startLocating:(NSNotification *)notifocation
 {
-//    [self performSegueWithIdentifier:@"chatIdent" sender:nil];
+    self.messageView.alpha = 1;
+    self.profileView.alpha = 0;
+    self.contactsView.alpha = 0;
+    
+    self.messageButton.layer.borderColor = WHITE_COLOR.CGColor;
+    self.profileButton.layer.borderColor = GRAY_COLOR.CGColor;
+    self.contactsButton.layer.borderColor = GRAY_COLOR.CGColor;
 }
 
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 
 @end

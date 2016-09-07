@@ -12,7 +12,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L6M-n7-AWK" customClass="TSProfileView">
-                    <rect key="frame" x="0.0" y="0.0" width="304" height="482"/>
+                    <rect key="frame" x="0.0" y="0.0" width="304" height="399"/>
                     <subviews>
                         <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SL3-ow-rT4">
                             <rect key="frame" x="76" y="254" width="58" height="44"/>
@@ -179,27 +179,6 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fjC-Jc-fzb">
-                            <rect key="frame" x="0.0" y="408" width="304" height="74"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MFb-tw-3iw">
-                                    <rect key="frame" x="197" y="5" width="64" height="64"/>
-                                    <state key="normal" image="thumbbig"/>
-                                    <connections>
-                                        <action selector="getEmailAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="9n1-md-9h4"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XSF-3j-CVf">
-                                    <rect key="frame" x="130" y="15" width="44" height="44"/>
-                                    <state key="normal" image="thing"/>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="syB-kA-8G1">
-                                    <rect key="frame" x="44" y="5" width="64" height="64"/>
-                                    <state key="normal" image="thumbblue"/>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </view>
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ely-lD-cXA">
                             <rect key="frame" x="0.0" y="179" width="304" height="66"/>
                             <subviews>
@@ -249,7 +228,35 @@
                     <color key="backgroundColor" red="0.8666666666666667" green="0.8666666666666667" blue="0.88235294117647056" alpha="1" colorSpace="calibratedRGB"/>
                     <gestureRecognizers/>
                 </view>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dIP-Wl-i1X">
+                    <rect key="frame" x="0.0" y="399" width="304" height="83"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fjC-Jc-fzb">
+                            <rect key="frame" x="0.0" y="8" width="304" height="75"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MFb-tw-3iw">
+                                    <rect key="frame" x="197" y="5" width="64" height="64"/>
+                                    <state key="normal" image="thumbbig"/>
+                                    <connections>
+                                        <action selector="getEmailAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="9n1-md-9h4"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XSF-3j-CVf">
+                                    <rect key="frame" x="130" y="15" width="44" height="44"/>
+                                    <state key="normal" image="thing"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="syB-kA-8G1">
+                                    <rect key="frame" x="44" y="5" width="64" height="64"/>
+                                    <state key="normal" image="thumbblue"/>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="0.8666666666666667" green="0.8666666666666667" blue="0.88235294117647056" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
             </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="ageLabel" destination="2cT-iL-Qib" id="8z9-vi-WJh"/>
@@ -261,7 +268,7 @@
                 <outlet property="countMatchLabel" destination="qJd-d8-Rzh" id="xVe-yf-FIz"/>
                 <outlet property="currentArreaLabel" destination="aun-K3-co2" id="Z42-m2-Ojb"/>
                 <outlet property="launguageLabel" destination="SPl-El-rV9" id="PuS-nX-j4O"/>
-                <outlet property="likeView" destination="fjC-Jc-fzb" id="xzk-2g-qi5"/>
+                <outlet property="likeView" destination="dIP-Wl-i1X" id="i01-Y7-N7B"/>
                 <outlet property="miniNameLabel" destination="Nzw-1x-8wL" id="M9Z-8D-nXv"/>
                 <outlet property="nameLabel" destination="B1o-f8-DXh" id="Fum-sX-QnP"/>
                 <outlet property="professionLabel" destination="TCG-0q-XiT" id="7um-vx-qDj"/>

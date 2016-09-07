@@ -20,7 +20,6 @@ static NSInteger counter = 0;
 
 @interface TSMatchViewController () <ZLSwipeableViewDataSource, ZLSwipeableViewDelegate>
 
-@property (strong, nonatomic) NSMutableArray *friends;
 @property (weak, nonatomic) TSProfileView *profileView;
 @property (strong, nonatomic) ZLSwipeableView *swipeableView;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
@@ -32,19 +31,6 @@ static NSInteger counter = 0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-//    [[TSServerManager sharedManager] requestUserFriendsTheServerFacebook:^(NSArray *friends)
-//     {
-//         self.friends = [TSParsingManager parsingFriendsFacebook:friends];
-//         [self nextViewForSwipeableView:self.swipeableView];
-//     }];
-    
-    self.ref = [[FIRDatabase database] reference];
-    
-    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        
-        self.friends = [TSRetriveFriendsFBDatabase retriveFriendsDatabase:snapshot];
-    }];
     
     CGRect frame = CGRectMake(0, - 20, self.view.bounds.size.width, self.view.bounds.size.height);
 
@@ -61,10 +47,6 @@ static NSInteger counter = 0;
     [self.swipeableView discardAllViews];
     [self.swipeableView loadViewsIfNeeded];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self nextViewForSwipeableView:self.swipeableView];
-    });
-    
 }
 
 
@@ -79,19 +61,19 @@ static NSInteger counter = 0;
 
 - (UIView *)nextViewForSwipeableView:(ZLSwipeableView *)swipeableView
 {
-//    if  (!self.friends.count)
-//    {
-//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Here you will see your friends..."
-//                                                                                 message:@""
-//                                                                          preferredStyle:UIAlertControllerStyleAlert];
-//        UIAlertAction *action  = [UIAlertAction actionWithTitle:@"Ok"
-//                                                          style:UIAlertActionStyleCancel
-//                                                        handler:^(UIAlertAction * _Nonnull action) { }];
-//        [alertController addAction:action];
-//        [self presentViewController:alertController animated:YES completion:nil];
-//        
-//        return nil;
-//    }
+    if  (!self.friends.count)
+    {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Here you will see your friends..."
+                                                                                 message:@""
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action  = [UIAlertAction actionWithTitle:@"Ok"
+                                                          style:UIAlertActionStyleCancel
+                                                        handler:^(UIAlertAction * _Nonnull action) { }];
+        [alertController addAction:action];
+        [self presentViewController:alertController animated:YES completion:nil];
+        
+        return nil;
+    }
     
     self.profileView = [TSProfileView profileView];
     
@@ -129,30 +111,29 @@ static NSInteger counter = 0;
 - (void)swipeableView:(ZLSwipeableView *)swipeableView didSwipeView:(UIView *)view
           inDirection:(ZLSwipeableViewDirection)direction
 {
-//    NSLog(@"did swipe in direction: %zd", direction);
+
 }
 
 - (void)swipeableView:(ZLSwipeableView *)swipeableView didCancelSwipe:(UIView *)view
 {
-//    NSLog(@"did cancel swipe");
+
 }
 
 - (void)swipeableView:(ZLSwipeableView *)swipeableView didStartSwipingView:(UIView *)view atLocation:(CGPoint)location
 {
-//    NSLog(@"did start swiping at location: x %f, y%f", location.x, location.y);
+
 }
 
 - (void)swipeableView:(ZLSwipeableView *)swipeableView swipingView:(UIView *)view
            atLocation:(CGPoint)location translation:(CGPoint)translation
 {
-//    NSLog(@"swiping at location: x %f, y %f, translation: x %f, y %f", location.x, location.y, translation.x, translation.y);
+
 }
 
 - (void)swipeableView:(ZLSwipeableView *)swipeableView didEndSwipingView:(UIView *)view atLocation:(CGPoint)location
 {
-//    NSLog(@"did start swiping at location: x %f, y%f", location.x, location.y);
+
 }
-    
 
 
 - (void)viewDidDisappear:(BOOL)animated
