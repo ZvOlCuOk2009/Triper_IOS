@@ -50,8 +50,6 @@
     [[GIDSignIn sharedInstance] signInSilently];
     
     
-//    linkedin
-    
 //    NSString *linkedinInKey = @"776i4jzlob18oz";
 //    NSString *linkedinInSecret = @"D9CWpr620WbmIZEl";
 }
@@ -119,28 +117,189 @@
 - (void)saveUserToFirebase:(FIRUser *)user
 {
     
-    NSString *userID = user.uid;
-    NSString *displayName = user.displayName;
-    NSString *email = user.email;
-    NSString *photoURL = user.photoURL.absoluteString;
+    [[TSServerManager sharedManager] requestUserFriendsTheServerFacebook:^(NSArray *friends)
+     {
+         self.userFriends = [TSParsingManager parsingFriendsFacebook:friends];
+     }];
     
-    if (email == nil) {
-        email = @"email";
-    }
     
-    NSDictionary *userData = @{@"userID":userID,
-                               @"displayName":displayName,
-                               @"email":email,
-                               @"photoURL":photoURL};
-    
-    NSString *token = [userData objectForKey:@"userID"];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"token"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    [[[[self.ref child:@"users"] child:user.uid] child:@"username"] setValue:userData];
-    
-    [TSSaveFriendsFBDatabase saveFriendsDatabase:user];
+    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        self.fireUser = [TSFireUser initWithSnapshot:snapshot];
+        
+        
+        NSString *userID = user.uid;
+        NSString *displayName = user.displayName;
+        NSString *email = user.email;
+        NSString *photoURL = user.photoURL.absoluteString;
+        
+        
+        NSString *name = nil;
+        NSString *profession = nil;
+        NSString *commingFrom = nil;
+        NSString *coingTo = nil;
+        NSString *city = nil;
+        NSString *launguage = nil;
+        NSString *age = nil;
+        NSString *mission = nil;
+        NSString *about = nil;
+        NSString *background = nil;
+        NSString *interest = nil;
+        
+        
+        if (![self.fireUser.displayName isEqualToString:@""]) {
+            
+            name = displayName;
+            
+        } else {
+            
+            name = self.fireUser.displayName;
+        }
+        
+        
+        
+        if (![self.fireUser.profession isEqualToString:@""]) {
+            
+            profession = @".";
+            
+        } else {
+            
+            profession = self.fireUser.profession;
+        }
+        
+        
+        
+        if (![self.fireUser.commingFrom isEqualToString:@""]) {
+            
+            
+            commingFrom = @".";
+            
+        } else {
+            
+            commingFrom = self.fireUser.commingFrom;
+        }
+        
+        
+        
+        if (![self.fireUser.coingTo isEqualToString:@""]) {
+            
+            coingTo = @".";
+            
+        } else {
+            
+            coingTo = self.fireUser.coingTo;
+        }
+        
+        
+        
+        if (![self.fireUser.currentArrea isEqualToString:@""]) {
+            
+            city = @".";
+            
+        } else {
+            
+            city = self.fireUser.currentArrea;
+        }
+        
+        
+        
+        if (![self.fireUser.launguage isEqualToString:@""]) {
+            
+            launguage = @".";
+            
+        } else {
+            
+            launguage = self.fireUser.launguage;
+        }
+        
+        
+        
+        if (![self.fireUser.age isEqualToString:@""]) {
+            
+            age = @".";
+            
+        } else {
+            
+            age = self.fireUser.age;
+        }
+        
+        
+        
+        if (![self.fireUser.mission isEqualToString:@""]) {
+            
+            mission = @".";
+            
+        } else {
+            
+            mission = self.fireUser.mission;
+            
+        }
+        
+        
+        
+        if (![self.fireUser.about isEqualToString:@""]) {
+            
+            about = @".";
+            
+        } else {
+            
+            about = self.fireUser.about;
+        }
+        
+        
+        
+        if (![self.fireUser.background isEqualToString:@""]) {
+            
+            background = @".";
+            
+        } else {
+            
+            background = self.fireUser.background;
+        }
+        
+        
+        
+        if (![self.fireUser.interest isEqualToString:@""]) {
+            
+            interest = @".";
+            
+        } else {
+            
+            interest = self.fireUser.interest;
+        }
+        
+        
+        
+        if (email == nil) {
+            email = @"email";
+        }
+        
+        
+        NSDictionary *userData = @{@"userID":userID,
+                                   @"displayName":name,
+                                   @"email":email,
+                                   @"photoURL":photoURL,
+                                   @"profession":profession,
+                                   @"commingFrom":commingFrom,
+                                   @"coingTo":coingTo,
+                                   @"city":city,
+                                   @"launguage":launguage,
+                                   @"age":age,
+                                   @"mission":mission,
+                                   @"about":about,
+                                   @"background":background,
+                                   @"interest":interest,};
+        
+        NSString *token = [userData objectForKey:@"userID"];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"token"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [[[[self.ref child:@"users"] child:user.uid] child:@"username"] setValue:userData];
+        
+        [TSSaveFriendsFBDatabase saveFriendsDatabase:user userFriend:self.userFriends];
+        
+    }];
     
 }
 
@@ -269,26 +428,6 @@
 {
     
 }
-
-
-//
-//- (void)sampleFriendsListGIDSignIn
-//{
-//    GTLQueryPlus *query = [GTLQueryPlus queryForPeopleListWithUserId:@"me" collection:kGTLPlusCollectionVisible];
-//    
-//    [plusService executeQuery:query
-//            completionHandler:^(GTLServiceTicket *ticket,
-//                                GTLPlusPeopleFeed *peopleFeed,
-//                                NSError *error) {
-//                if (error) {
-//                    GTMLoggerError(@"Error: %@", error);
-//                } else {
-//                    // Get an array of people from GTLPlusPeopleFeed
-//                    NSArray* peopleList = peopleFeed.items;
-//                }
-//            }];
-//
-//}
 
 
 #pragma mark - Autorization Linkedin

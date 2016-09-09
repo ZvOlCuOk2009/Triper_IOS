@@ -78,13 +78,16 @@
         
         [self getImageInterlocutor:self.friends];
         
-        self.messageRefUser = [[[self.ref child:self.user.uid] child:@"chat"] child:self.interlocutor];
-        self.messageRefInterlocutor = [[[self.ref child:self.interlocutor] child:@"chat"] child:self.user.uid];
+        if (!self.interlocutor || !self.user.uid) {
+            
+            self.messageRefUser = [[[self.ref child:self.user.uid] child:@"chat"] child:self.interlocutor];
+            self.messageRefInterlocutor = [[[self.ref child:self.interlocutor] child:@"chat"] child:self.user.uid];
+        }
+        
     }];
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(transferToInterlocutor:) name:@"noticeOnTheMethodCall" object:nil];
-    
     
     NSLog(@"interlocutor %@", self.interlocutor);
     
@@ -130,7 +133,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.collectionView.contentInset = UIEdgeInsetsMake(40, 0, 40, 0);
+    
 }
 
 
@@ -138,7 +141,14 @@
 {
     [super viewDidAppear:animated];
     [self observeMessages];
+    self.collectionView.contentInset = UIEdgeInsetsMake(40, 0, 40, 0);
     
+}
+
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
 }
 
 
@@ -225,17 +235,25 @@
         
         UIImage *userImage = nil;
         
-        if (!self.userImage) {
-            userImage = [UIImage imageNamed:@"av4"];
-        } else {
+        if (self.userImage) {
             userImage = self.userImage;
+        } else {
+            userImage = [UIImage imageNamed:@"placeholder_message"];
         }
         
         return [JSQMessagesAvatarImageFactory avatarImageWithImage:userImage
                                                           diameter:60];
     } else {
+        
+        UIImage *interlocutorImage = nil;
+        
+        if (self.interlocutorImage) {
+            interlocutorImage = self.interlocutorImage;
+        } else {
+            interlocutorImage = [UIImage imageNamed:@"placeholder_message"];
+        }
        
-        return [JSQMessagesAvatarImageFactory avatarImageWithImage:self.interlocutorImage
+        return [JSQMessagesAvatarImageFactory avatarImageWithImage:interlocutorImage
                                                           diameter:60];
     }
     
@@ -277,38 +295,29 @@
     
     [JSQSystemSoundPlayer jsq_playMessageSentSound];
     
+    JSQMessagesComposerTextView *textView = self.inputToolbar.contentView.textView;
+    textView.text = @"";
 }
 
 
 - (void)observeMessages
 {
-    
-    FIRDatabaseQuery *messagesQuery = [self.messageRefUser queryLimitedToLast:20];
-    [messagesQuery observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+ 
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
         
-        NSString *ID = snapshot.value[@"senderId"];
-        NSString *text = snapshot.value[@"text"];
-        
-        [self addMessage:ID text:text];
-        [self finishReceivingMessageAnimated:YES];
-    }];
-    
-}
-
-
-- (void)transferToInterlocutor:(NSNotification *)notification
-{
-    
-    [self.messages removeAllObjects];
-    self.interlocutor = [notification object];
-    
-    self.messageRefUser = [[[self.ref child:self.user.uid] child:@"chat"] child:self.interlocutor];
-    self.messageRefInterlocutor = [[[self.ref child:self.interlocutor] child:@"chat"] child:self.user.uid];
-    
-    [self getImageInterlocutor:self.friends];
-    [self observeMessages];
-    
-    NSLog(@"Message %@", self.interlocutor);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            FIRDatabaseQuery *messagesQuery = [self.messageRefUser queryLimitedToLast:20];
+            [messagesQuery observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                
+                NSString *ID = snapshot.value[@"senderId"];
+                NSString *text = snapshot.value[@"text"];
+                
+                [self addMessage:ID text:text];
+                [self finishReceivingMessageAnimated:YES];
+            }];
+        });
+    });
     
 }
 
@@ -323,16 +332,36 @@
 }
 
 
-//- (void)observeTyping
-//{
-//    
-//    FIRDatabaseReference *typingIndicatorRef = [self.ref child:@"typingIndicator"];
-//    self.userIsTypingRef = [typingIndicatorRef child:self.user.uid];
-//    [self.userIsTypingRef onDisconnectRemoveValue];
-//    
-//    //self.usersTypingQuery = [typingIndicatorRef.queryOrderedByValue queryEqualToValue:];
-//}
+#pragma mark - Notification
 
+
+- (void)transferToInterlocutor:(NSNotification *)notification
+{
+    [self.messages removeAllObjects];
+    self.interlocutor = [notification object];
+    
+    self.messageRefUser = [[[self.ref child:self.user.uid] child:@"chat"] child:self.interlocutor];
+    self.messageRefInterlocutor = [[[self.ref child:self.interlocutor] child:@"chat"] child:self.user.uid];
+    
+    [self getImageInterlocutor:self.friends];
+    [self observeMessages];
+    
+    NSLog(@"Message %@", self.interlocutor);
+    
+}
+
+
+/*
+- (void)observeTyping
+{
+    
+    FIRDatabaseReference *typingIndicatorRef = [self.ref child:@"typingIndicator"];
+    self.userIsTypingRef = [typingIndicatorRef child:self.user.uid];
+    [self.userIsTypingRef onDisconnectRemoveValue];
+    
+    //self.usersTypingQuery = [typingIndicatorRef.queryOrderedByValue queryEqualToValue:];
+}
+*/
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

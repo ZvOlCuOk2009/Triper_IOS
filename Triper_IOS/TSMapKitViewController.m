@@ -190,7 +190,6 @@ static NSInteger tag = 0;
     NSString *userID = [self.IDs objectAtIndex:button.tag];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"noticeOnTheMethodCall" object:userID];
     
-    
     NSLog(@"SENDER %ld", button.tag);
     
 }
@@ -198,29 +197,7 @@ static NSInteger tag = 0;
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
-    id <MKAnnotation> annotation = [view annotation];
-    if ([annotation isKindOfClass:[MKPointAnnotation class]])
-    {
-        NSLog(@"Clicked Pizza Shop");
-    }
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Disclosure Pressed"
-                                                                              message:@"Click Cancel to Go Back"
-                                                                       preferredStyle:UIAlertControllerStyleAlert];
-                                          
-    UIAlertAction *actionYes = [UIAlertAction actionWithTitle:@"Ok"
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction * _Nonnull action) {
-                                                          
-                                                      }];
     
-    UIAlertAction *actionNo = [UIAlertAction actionWithTitle:@"Cencel"
-                                                        style:UIAlertActionStyleCancel
-                                                      handler:^(UIAlertAction * _Nonnull action) {
-                                                          
-                                                      }];
-    [alertController addAction:actionYes];
-    [alertController addAction:actionNo];
-    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 

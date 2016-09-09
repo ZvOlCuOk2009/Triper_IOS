@@ -17,13 +17,14 @@
 @implementation TSSaveFriendsFBDatabase
 
 
-+ (void)saveFriendsDatabase:(FIRUser *)user
++ (void)saveFriendsDatabase:(FIRUser *)user userFriend:(NSArray *)friends
 {
+    
+    NSArray *myFriends = friends;
     
     FIRDatabaseReference *ref = [[FIRDatabase database] reference];
     
     __block NSDictionary *friendsData = nil;
-    __block NSArray *myFriends = nil;
     __block NSMutableArray *IDs = nil;
     __block NSMutableArray *photoURLs = nil;
     
@@ -63,8 +64,21 @@
             
             NSString *items = [itemsArray objectAtIndex:0];
             NSString *idFB = [idFBArray objectAtIndex:0];
-            NSString *idFireUser = [IDs objectAtIndex:i];
-            NSString *photoURL = [photoURLs objectAtIndex:i];
+            
+            NSString *idFireUser = nil;
+            NSString *photoURL = nil;
+            
+            if (IDs.count > 0 && photoURLs.count > 0) {
+                
+                idFireUser = [IDs objectAtIndex:i];
+                photoURL = [photoURLs objectAtIndex:i];
+                
+            } else {
+                
+                idFireUser = @"";
+                photoURL = @"";
+            }
+            
             
             NSDictionary *newPairs = @{@"fireUserID":idFireUser,
                                        @"photoURL":photoURL,
@@ -77,12 +91,6 @@
         
         [[[[ref child:@"users"] child:user.uid] child:@"friends"] setValue:userFriends];
     }];
-    
-    
-    [[TSServerManager sharedManager] requestUserFriendsTheServerFacebook:^(NSArray *friends)
-     {
-         myFriends = [TSParsingManager parsingFriendsFacebook:friends];
-     }];
     
 }
 

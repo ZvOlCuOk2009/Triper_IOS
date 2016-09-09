@@ -12,7 +12,6 @@
 #define IS_IPHONE_6_PLUS (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)736) < DBL_EPSILON)
 
 #import "TSCellView.h"
-#import "TSRandomFriendsTest.h"
 
 @interface TSCellView ()
 
@@ -53,19 +52,28 @@
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
         if (IS_IPHONE_4) {
+            
             UINib *nib = [UINib nibWithNibName:@"TSCellView" bundle:nil];
             view = [nib instantiateWithOwner:self options:nil][0];
             view.frame = CGRectMake(0, 0, 320, 100);
+            
         } else if (IS_IPHONE_5) {
+            
             UINib *nib = [UINib nibWithNibName:@"TSCellView" bundle:nil];
             view = [nib instantiateWithOwner:self options:nil][0];
             view.frame = CGRectMake(0, 0, 320, 100);
+            
         } else if (IS_IPHONE_6) {
+            
             UINib *nib = [UINib nibWithNibName:@"TSCellView6" bundle:nil];
             view = [nib instantiateWithOwner:self options:nil][0];
             view.frame = CGRectMake(0, 0, 375, 118);
+            
         } else if (IS_IPHONE_6_PLUS) {
             
+            UINib *nib = [UINib nibWithNibName:@"TSCellView6" bundle:nil];
+            view = [nib instantiateWithOwner:self options:nil][0];
+            view.frame = CGRectMake(0, 0, 375, 118);
         }
     }
     

@@ -9,9 +9,7 @@
 #import "TSUserViewController.h"
 #import "TSServerManager.h"
 #import "TSUser.h"
-//#import "TSLoginViewController.h"
 #import "TSProfileView.h"
-#import "TSContact.h"
 #import "TSFireUser.h"
 #import "TSParsingManager.h"
 
@@ -37,44 +35,80 @@
     self.ref = [[FIRDatabase database] reference];
     
     
-    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        
-        self.fireUser = [TSFireUser initWithSnapshot:snapshot];
-        
-    }];
+//    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+//        
+//        self.fireUser = [TSFireUser initWithSnapshot:snapshot];
+//        
+//    }];
+
+    
     
     [self reloadView];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self reloadView];
     });
-        
+    
 }
 
 
 - (void)reloadView
 {
+    
     [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
         self.fireUser = [TSFireUser initWithSnapshot:snapshot];
         
-        TSProfileView *profileView = [TSProfileView profileView];
+        NSDictionary *content = nil;
+        
+        if (self.fireUser.mission != nil && self.fireUser.about != nil &&
+            self.fireUser.background != nil && self.fireUser.interest != nil) {
+            
+            NSString *mission = self.fireUser.mission;
+            NSString *about = self.fireUser.about;
+            NSString *background = self.fireUser.background;
+            NSString *interest = self.fireUser.interest;
+            
+            content = @{@"mission":mission,
+                        @"about":about,
+                        @"background":background,
+                        @"interest":interest};
+
+        }
+        
+        
+        TSProfileView *profileView = [TSProfileView profileView:content];
+        
         
         NSURL *url = [NSURL URLWithString:self.fireUser.photoURL];
         
         profileView.nameLabel.text = self.fireUser.displayName;
-        profileView.miniNameLabel.text = self.fireUser.displayName;
+        profileView.professionLabel.text = self.fireUser.profession;
+        profileView.comingFromLabel.text = self.fireUser.commingFrom;
+        profileView.coingToLabel.text = self.fireUser.coingTo;
+        profileView.currentArreaLabel.text = self.fireUser.currentArrea;
+        profileView.miniNameLabel.text = self.fireUser.uid;
+        profileView.launguageLabel.text = self.fireUser.launguage;
+        profileView.ageLabel.text = self.fireUser.age;
         
-        if (url && url.scheme && url.host) {
+        
+        if (self.fireUser.photoURL) {
             
-            profileView.avatarImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:
-                                                                        [NSURL URLWithString:self.fireUser.photoURL]]];
+            if (url && url.scheme && url.host) {
+                
+                profileView.avatarImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:
+                                                                            [NSURL URLWithString:self.fireUser.photoURL]]];
+            } else {
+                
+                NSData *data = [[NSData alloc]initWithBase64EncodedString:self.fireUser.photoURL options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                UIImage *convertImage = [UIImage imageWithData:data];
+                profileView.avatarImageView.image = convertImage;
+            }
         } else {
             
-            NSData *data = [[NSData alloc]initWithBase64EncodedString:self.fireUser.photoURL options:NSDataBase64DecodingIgnoreUnknownCharacters];
-            UIImage *convertImage = [UIImage imageWithData:data];
-            profileView.avatarImageView.image = convertImage;
+            profileView.avatarImageView.image = [UIImage imageNamed:@"placeholder_message"];
         }
+        
         
         [self.view addSubview:profileView];
     }];
@@ -141,12 +175,9 @@
 
         NSString *firstName = CFBridgingRelease(ABRecordCopyValue(person, kABPersonFirstNameProperty));
         NSString *lastName  = CFBridgingRelease(ABRecordCopyValue(person, kABPersonLastNameProperty));
-//        NSLog(@"Name:%@ %@", firstName, lastName);
         
         ABMultiValueRef phoneNumbers = ABRecordCopyValue(person, kABPersonPhoneProperty);
         NSString *phoneNumber = CFBridgingRelease(ABMultiValueCopyValueAtIndex(phoneNumbers, 0));
-//        NSLog(@"phone:%@", phoneNumber);
-//        NSLog(@"=============================================");
        
         [contacts addObject:[NSString stringWithFormat:@"%@ %@ %@", firstName, lastName, phoneNumber]];
     }

@@ -13,6 +13,6 @@
 
 @interface TSSaveFriendsFBDatabase : NSObject
 
-+ (void)saveFriendsDatabase:(FIRUser *)user;
++ (void)saveFriendsDatabase:(FIRUser *)user userFriend:(NSArray *)friends;
 
 @end

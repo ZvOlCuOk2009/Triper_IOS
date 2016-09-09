@@ -75,75 +75,59 @@
 - (IBAction)registerButton:(id)sender
 {
     
-    CGSize newSize = CGSizeMake(300, 300);
-    
-    UIGraphicsBeginImageContext(newSize);
-    [self.image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    
-    NSData *dataImage = UIImagePNGRepresentation(newImage);
-    NSString *stringImage = [dataImage base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
-    
-    
-    NSString *email = self.emailRegistrationTextField.text;
-    NSString *password = self.passwordRegistrationTextField.text;
-    NSString *displayName = self.displayNameRegiatration.text;
-    
-    [[FIRAuth auth] createUserWithEmail:email
-                               password:password
-                             completion:^(FIRUser * _Nullable user, NSError * _Nullable error) {
-                                 if (!error) {
-                                     
-                                     if (user.uid) {
+    if (![self.emailRegistrationTextField.text isEqualToString:@""] && ![self.passwordRegistrationTextField.text isEqualToString:@""] && ![self.displayNameRegiatration.text isEqualToString:@""]) {
+        
+        CGSize newSize = CGSizeMake(300, 300);
+        
+        UIGraphicsBeginImageContext(newSize);
+        [self.image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+        UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        
+        NSData *dataImage = UIImagePNGRepresentation(newImage);
+        NSString *stringImage = [dataImage base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+        
+        
+        NSString *email = self.emailRegistrationTextField.text;
+        NSString *password = self.passwordRegistrationTextField.text;
+        NSString *displayName = self.displayNameRegiatration.text;
+        
+        [[FIRAuth auth] createUserWithEmail:email
+                                   password:password
+                                 completion:^(FIRUser * _Nullable user, NSError * _Nullable error) {
+                                     if (!error) {
                                          
-                                         NSDictionary *userData = @{@"userID":user.uid,
-                                                                    @"displayName":displayName,
-                                                                    @"email":email,
-                                                                    @"photoURL":stringImage};
+                                         if (user.uid) {
+                                             
+                                             NSDictionary *userData = @{@"userID":user.uid,
+                                                                        @"displayName":displayName,
+                                                                        @"email":email,
+                                                                        @"photoURL":stringImage};
+                                             
+                                             NSString *token = user.uid;
+                                             
+                                             [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"token"];
+                                             [[NSUserDefaults standardUserDefaults] synchronize];
+                                             
+                                             [[[[self.ref child:@"users"] child:user.uid] child:@"username"] setValue:userData];
+                                             
+                                         }
                                          
-                                         NSString *token = user.uid;
+                                         TSTabBarController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TSTabBarController"];
+                                         [self presentViewController:controller animated:YES completion:nil];
                                          
-                                         [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"token"];
-                                         [[NSUserDefaults standardUserDefaults] synchronize];
+                                     } else {
+                                         NSLog(@"Error - %@", error.localizedDescription);
                                          
-                                         [[[[self.ref child:@"users"] child:user.uid] child:@"username"] setValue:userData];
-                                         
-                                         //save friends
-                                         /*
-                                         
-                                         NSDictionary *pair = [myFriends objectAtIndex:i];
-                                         NSArray *itemsArray = [pair objectForKey:@"items"];
-                                         NSArray *idFBArray = [pair objectForKey:@"id"];
-                                         
-                                         NSString *items = [itemsArray objectAtIndex:0];
-                                         NSString *idFB = [idFBArray objectAtIndex:0];
-                                         NSString *idFireUser = [IDs objectAtIndex:i];
-                                         NSString *photoURL = [photoURLs objectAtIndex:i];
-                                         
-                                         NSDictionary *newPairs = @{@"fireUserID":idFireUser,
-                                                                    @"photoURL":photoURL,
-                                                                    @"items":items,
-                                                                    @"id":idFB};
-                                         
-                                         NSString *key = [NSString stringWithFormat:@"key%d", i];
-                                         [userFriends setValue:newPairs forKey:key];
-                                          
-                                          [[[[ref child:@"users"] child:user.uid] child:@"friends"] setValue:userFriends];
-                                          */
-                                         
+                                         [self alertControllerEmail];
                                      }
-                                     
-                                     TSTabBarController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TSTabBarController"];
-                                     [self presentViewController:controller animated:YES completion:nil];
-                                     
-                                 } else {
-                                     NSLog(@"Error - %@", error.localizedDescription);
-                                     
-                                     [self alertController];
-                                 }
-                             }];
+                                 }];
+        
+    } else {
+        
+        [self alertControllerTextFieldNil];
+    }
     
 }
 
@@ -164,7 +148,7 @@
 }
 
 
-- (void)alertController
+- (void)alertControllerEmail
 {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"This e-mail address has already been registered in the database, or it does not exist..."
                                                                              message:nil
@@ -175,6 +159,24 @@
                                                       handler:^(UIAlertAction * _Nonnull action) {
                                                           
                                                       }];
+    
+    [alertController addAction:action];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+
+- (void)alertControllerTextFieldNil
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Please fill in all text fields..."
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK"
+                                                     style:UIAlertActionStyleCancel
+                                                   handler:^(UIAlertAction * _Nonnull action) {
+                                                       
+                                                   }];
     
     [alertController addAction:action];
     

@@ -7,6 +7,8 @@
 //
 
 #import "TSEditProfileViewController.h"
+#import "TSFireUser.h"
+#import "TSRetriveFriendsFBDatabase.h"
 
 @import Firebase;
 @import FirebaseDatabase;
@@ -15,10 +17,10 @@
 
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 @property (strong, nonatomic) FIRUser *user;
+@property (strong, nonatomic) TSFireUser *fireUser;
+@property (strong, nonatomic) NSMutableArray *friends;
 
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
-@property (weak, nonatomic) IBOutlet UITextField *emailTextField;
-@property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *professionTextField;
 @property (weak, nonatomic) IBOutlet UITextField *commingFromTextField;
 @property (weak, nonatomic) IBOutlet UITextField *coingToTextField;
@@ -29,7 +31,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *aboutTextField;
 @property (weak, nonatomic) IBOutlet UITextField *backgroundTextField;
 @property (weak, nonatomic) IBOutlet UITextField *interestTextField;
-@property (weak, nonatomic) IBOutlet UIButton *avatarButton;
 
 - (IBAction)actionUpdate:(id)sender;
 
@@ -43,6 +44,7 @@
     
     self.ref = [[FIRDatabase database] reference];
     self.user = [FIRAuth auth].currentUser;
+    
 }
 
 - (IBAction)actionBackPressed:(id)sender
@@ -52,23 +54,215 @@
 
 - (IBAction)actionUpdate:(id)sender
 {
-    NSDictionary *userData = @{@"name":self.nameTextField.text,
-                               @"email":self.emailTextField.text,
-                               @"password":self.passwordTextField.text,
-                               @"profession":self.professionTextField.text,
-                               @"commingFrom":self.commingFromTextField.text,
-                               @"coingTo":self.coingToTextField.text,
-                               @"currentArrea":self.currentArreaTextField.text,
-                               @"launguage":self.launguageTextField.text,
-                               @"age":self.ageTextField.text,
-                               @"mission":self.missionTextField.text,
-                               @"about":self.aboutTextField.text,
-                               @"background":self.backgroundTextField.text,
-                               @"nterest":self.interestTextField.text,
-                               @"avatar":self.avatarButton.imageView.image};
     
+    [self saveDataToDataBase];
     
-    [[[[self.ref child:@"users"] child:self.user.uid] child:@"username"] setValue:userData];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+
+- (void)saveDataToDataBase
+{
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(queue, ^{
+        
+        [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+            
+            self.fireUser = [TSFireUser initWithSnapshot:snapshot];
+            self.friends = [TSRetriveFriendsFBDatabase retriveFriendsDatabase:snapshot];
+            
+            NSDictionary *userData = nil;
+            
+            
+            NSString *name = nil;
+            NSString *profession = nil;
+            NSString *commingFrom = nil;
+            NSString *coingTo = nil;
+            NSString *city = nil;
+            NSString *launguage = nil;
+            NSString *age = nil;
+            NSString *mission = nil;
+            NSString *about = nil;
+            NSString *background = nil;
+            NSString *interest = nil;
+            
+            
+            if ([self.nameTextField.text isEqualToString:@""]) {
+                
+                name = self.fireUser.displayName;
+                
+            } else {
+                
+                name = self.nameTextField.text;
+            }
+            
+            
+            
+            if ([self.professionTextField.text isEqualToString:@""]) {
+                
+                profession = self.fireUser.profession;
+                
+            } else {
+                
+                profession = self.professionTextField.text;
+            }
+            
+            
+            
+            if ([self.commingFromTextField.text isEqualToString:@""]) {
+                
+                commingFrom = self.fireUser.commingFrom;
+                
+            } else {
+                commingFrom = self.commingFromTextField.text;
+            }
+            
+            
+            
+            if ([self.coingToTextField.text isEqualToString:@""]) {
+                
+                coingTo = self.fireUser.coingTo;
+                
+            } else {
+                
+                coingTo = self.coingToTextField.text;
+            }
+            
+            
+            
+            if ([self.currentArreaTextField.text isEqualToString:@""]) {
+                
+                city = self.fireUser.currentArrea;
+                
+            } else {
+                
+                city = self.currentArreaTextField.text;
+            }
+            
+            
+            
+            if ([self.launguageTextField.text isEqualToString:@""]) {
+                
+                launguage = self.fireUser.launguage;
+                
+            } else {
+                
+                launguage = self.launguageTextField.text;
+            }
+            
+            
+            
+            if ([self.ageTextField.text isEqualToString:@""]) {
+                
+                age = self.fireUser.age;
+                
+            } else {
+                
+                age = self.ageTextField.text;
+            }
+            
+            
+            
+            if ([self.missionTextField.text isEqualToString:@""]) {
+                
+                mission = self.fireUser.mission;
+                
+            } else {
+                
+                mission = self.missionTextField.text;
+            }
+            
+            
+            
+            if ([self.aboutTextField.text isEqualToString:@""]) {
+                
+                about = self.fireUser.about;
+                
+            } else {
+                
+                about = self.aboutTextField.text;
+            }
+            
+            
+            
+            if ([self.backgroundTextField.text isEqualToString:@""]) {
+                
+                background = self.fireUser.background;
+                
+            } else {
+                background = self.backgroundTextField.text;
+            }
+            
+            
+            
+            if ([self.interestTextField.text isEqualToString:@""]) {
+                
+                interest = self.fireUser.interest;
+                
+            } else {
+                
+                interest = self.interestTextField.text;
+            }
+            
+            
+            userData = @{@"displayName":name,
+                         @"email":self.fireUser.email,
+                         @"photoURL":self.fireUser.photoURL,
+                         @"userID":self.fireUser.uid,
+                         @"profession":profession,
+                         @"commingFrom":commingFrom,
+                         @"coingTo":coingTo,
+                         @"city":city,
+                         @"launguage":launguage,
+                         @"age":age,
+                         @"mission":mission,
+                         @"about":about,
+                         @"background":background,
+                         @"interest":interest};
+            
+            
+            [[[[self.ref child:@"users"] child:self.user.uid] child:@"username"] setValue:userData];
+            
+            
+            for (int i = 0; i < self.friends.count; i++) {
+                
+                NSString *key = [NSString stringWithFormat:@"key%d", i];
+                NSDictionary *pair = [self.friends objectAtIndex:i];
+                NSString *IDFromYourFriendsList = [pair objectForKey:@"fireUserID"];
+                [[[[[self.ref child:@"users"] child:IDFromYourFriendsList] child:@"friends"] child:key] setValue:userData];
+            }
+        }];
+        
+    });
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
+}
+
+
+- (void)keyboardDidShow:(NSNotification *)notification
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view setFrame:CGRectMake(0, -110, self.view.bounds.size.width, 568)];
+    }];
+    
+}
+
+
+- (void)keyboardDidHide:(NSNotification *)notification
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, 568)];
+    }];
+    
 }
 
 @end

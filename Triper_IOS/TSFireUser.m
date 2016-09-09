@@ -27,11 +27,32 @@
         FIRDataSnapshot *userName = fireUser.value[@"displayName"];
         FIRDataSnapshot *userEmail = fireUser.value[@"email"];
         FIRDataSnapshot *userPhoto = fireUser.value[@"photoURL"];
+        FIRDataSnapshot *userProfession = fireUser.value[@"profession"];
+        FIRDataSnapshot *userCommingFrom = fireUser.value[@"commingFrom"];
+        FIRDataSnapshot *userCoingTo = fireUser.value[@"coingTo"];
+        FIRDataSnapshot *userCurrentArrea = fireUser.value[@"city"];
+        FIRDataSnapshot *userLaunguage = fireUser.value[@"launguage"];
+        FIRDataSnapshot *userAge = fireUser.value[@"age"];
+        FIRDataSnapshot *userMission = fireUser.value[@"mission"];
+        FIRDataSnapshot *userAbout = fireUser.value[@"about"];
+        FIRDataSnapshot *userBackground = fireUser.value[@"background"];
+        FIRDataSnapshot *userInterest = fireUser.value[@"interest"];
+        
         
         user.uid = (NSString *)userIdent;
         user.displayName = (NSString *)userName;
         user.email = (NSString *)userEmail;
         user.photoURL = (NSString *)userPhoto;
+        user.profession = (NSString *)userProfession;
+        user.commingFrom = (NSString *)userCommingFrom;
+        user.coingTo = (NSString *)userCoingTo;
+        user.currentArrea = (NSString *)userCurrentArrea;
+        user.launguage = (NSString *)userLaunguage;
+        user.age = (NSString *)userAge;
+        user.mission = (NSString *)userMission;
+        user.about = (NSString *)userAbout;
+        user.background = (NSString *)userBackground;
+        user.interest = (NSString *)userInterest;
     }
 
     return user;

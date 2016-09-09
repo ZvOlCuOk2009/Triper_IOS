@@ -181,7 +181,10 @@
     
     NSLog(@"ID %@", ID);
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"noticeOnTheMethodCall" object:ID];
+    if (![ID isEqualToString:@""]) {
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"noticeOnTheMethodCall" object:ID];
+    }
     
     NSLog(@"section ID %ld", indexPath.section);
     

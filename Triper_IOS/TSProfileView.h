@@ -24,8 +24,9 @@
 @property (weak, nonatomic) IBOutlet UITextView *contentTextView;
 @property (weak, nonatomic) IBOutlet UIView *likeView;
 
-- (IBAction)getEmailAction:(UIButton *)sender;
 - (IBAction)mainButtonsAction:(UIButton *)sender;
-+ (instancetype)profileView;
+- (IBAction)getEmailAction:(UIButton *)sender;
+
++ (instancetype)profileView:(NSDictionary *)content;
 
 @end

@@ -23,6 +23,7 @@ static NSInteger counter = 0;
 @property (weak, nonatomic) TSProfileView *profileView;
 @property (strong, nonatomic) ZLSwipeableView *swipeableView;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
+@property (strong, nonatomic) NSMutableArray *friends;
 
 @end
 
@@ -82,18 +83,64 @@ static NSInteger counter = 0;
 //        return nil;
 //    }
     
-    self.profileView = [TSProfileView profileView];
-    
-    NSInteger max = [self.friends count];
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:counter inSection:0];
     NSDictionary *indexCard = [self.friends objectAtIndex:indexPath.row];
+    
+    
+    NSString *mission = [indexCard objectForKey:@"mission"];
+    NSString *about = [indexCard objectForKey:@"about"];
+    NSString *background = [indexCard objectForKey:@"background"];
+    NSString *interest = [indexCard objectForKey:@"interest"];
+    
+    if (mission == nil) {
+        mission = @"";
+    }
+    
+    if (about == nil) {
+        about = @"";
+    }
+    
+    if (background == nil) {
+        background = @"";
+    }
+    
+    if (interest == nil) {
+        interest = @"";
+    }
+    
+    NSDictionary *content = @{@"mission":mission,
+                              @"about":about,
+                              @"background":background,
+                              @"interest":interest};
+    
+    self.profileView = [TSProfileView profileView:content];
+    
+    
+    NSInteger max = [self.friends count];
+    
+    
     NSString *nameFriend = [indexCard objectForKey:@"items"];
     NSString *photoURL = [indexCard objectForKey:@"photoURL"];
+    NSString *userID = [indexCard objectForKey:@"fireUserID"];
+    NSString *profession = [indexCard objectForKey:@"profession"];
+    NSString *commingFrom = [indexCard objectForKey:@"commingFrom"];
+    NSString *coingTo = [indexCard objectForKey:@"coingTo"];
+    NSString *currentArrea = [indexCard objectForKey:@"currentArrea"];
+    NSString *launguage = [indexCard objectForKey:@"launguage"];
+    NSString *age = [indexCard objectForKey:@"age"];
+
+    
     NSURL *url = [NSURL URLWithString:photoURL];
     
     self.profileView.nameLabel.text = nameFriend;
-    self.profileView.miniNameLabel.text = nameFriend;
+    self.profileView.professionLabel.text = profession;
+    self.profileView.comingFromLabel.text = commingFrom;
+    self.profileView.coingToLabel.text = coingTo;
+    self.profileView.currentArreaLabel.text = currentArrea;
+    self.profileView.miniNameLabel.text = userID;
+    self.profileView.launguageLabel.text = launguage;
+    self.profileView.ageLabel.text = age;
     
     if (url && url.scheme && url.host) {
         
