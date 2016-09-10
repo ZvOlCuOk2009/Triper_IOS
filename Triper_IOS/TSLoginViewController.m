@@ -13,6 +13,7 @@
 #import "TSFireUser.h"
 #import "TSParsingManager.h"
 #import "TSSaveFriendsFBDatabase.h"
+#import "TSLoginView.h"
 
 #import <GoogleSignIn/GoogleSignIn.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
@@ -37,6 +38,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+//    TSLoginView *loginView = [TSLoginView loginView];
+//    
+//    [self.view addSubview:loginView];
     
     self.loginButton = [[FBSDKLoginButton alloc] init];
     self.loginButton.hidden = YES;
@@ -160,7 +165,7 @@
         
         if (![self.fireUser.profession isEqualToString:@""]) {
             
-            profession = @".";
+            profession = @"";
             
         } else {
             
@@ -172,7 +177,7 @@
         if (![self.fireUser.commingFrom isEqualToString:@""]) {
             
             
-            commingFrom = @".";
+            commingFrom = @"";
             
         } else {
             
@@ -183,7 +188,7 @@
         
         if (![self.fireUser.coingTo isEqualToString:@""]) {
             
-            coingTo = @".";
+            coingTo = @"";
             
         } else {
             
@@ -194,7 +199,7 @@
         
         if (![self.fireUser.currentArrea isEqualToString:@""]) {
             
-            city = @".";
+            city = @"";
             
         } else {
             
@@ -205,7 +210,7 @@
         
         if (![self.fireUser.launguage isEqualToString:@""]) {
             
-            launguage = @".";
+            launguage = @"";
             
         } else {
             
@@ -216,7 +221,7 @@
         
         if (![self.fireUser.age isEqualToString:@""]) {
             
-            age = @".";
+            age = @"";
             
         } else {
             
@@ -227,7 +232,7 @@
         
         if (![self.fireUser.mission isEqualToString:@""]) {
             
-            mission = @".";
+            mission = @"";
             
         } else {
             
@@ -239,7 +244,7 @@
         
         if (![self.fireUser.about isEqualToString:@""]) {
             
-            about = @".";
+            about = @"";
             
         } else {
             
@@ -250,7 +255,7 @@
         
         if (![self.fireUser.background isEqualToString:@""]) {
             
-            background = @".";
+            background = @"";
             
         } else {
             
@@ -261,7 +266,7 @@
         
         if (![self.fireUser.interest isEqualToString:@""]) {
             
-            interest = @".";
+            interest = @"";
             
         } else {
             

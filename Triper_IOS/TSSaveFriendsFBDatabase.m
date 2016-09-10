@@ -68,14 +68,22 @@
             NSString *idFireUser = nil;
             NSString *photoURL = nil;
             
-            if (IDs.count > 0 && photoURLs.count > 0) {
+            if (IDs.count > 0) {
                 
                 idFireUser = [IDs objectAtIndex:i];
-                photoURL = [photoURLs objectAtIndex:i];
                 
             } else {
                 
                 idFireUser = @"";
+            }
+            
+            
+            if (photoURLs.count > 0) {
+                
+                photoURL = [photoURLs objectAtIndex:i];
+                
+            } else {
+                
                 photoURL = @"";
             }
             
@@ -87,6 +95,7 @@
             
             NSString *key = [NSString stringWithFormat:@"key%d", i];
             [userFriends setValue:newPairs forKey:key];
+            
         }
         
         [[[[ref child:@"users"] child:user.uid] child:@"friends"] setValue:userFriends];

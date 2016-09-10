@@ -11,6 +11,7 @@
 #import "TSRetriveFriendsFBDatabase.h"
 #import "TSFireUser.h"
 #import "TSTabBarController.h"
+#import "TSRetriveFriendsFBDatabase.h"
 
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
@@ -26,8 +27,8 @@ static NSInteger tag = 0;
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) CLLocationManager *locationManager;
-@property (strong, nonatomic) NSDictionary *friends;
-@property (strong, nonatomic) NSArray *cityes;
+@property (strong, nonatomic) NSMutableArray *friends;
+@property (strong, nonatomic) NSMutableArray *cityes;
 @property (strong, nonatomic) NSMutableArray *IDs;
 @property (strong, nonatomic) NSMutableArray *avatars;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
@@ -53,10 +54,38 @@ static NSInteger tag = 0;
 
     self.mapView.delegate = self;
     
-    self.friends = [NSDictionary dictionary];
+    self.friends = [NSMutableArray array];
     self.IDs = [NSMutableArray array];
     self.avatars = [NSMutableArray array];
-    self.cityes = @[@"Париж", @"Киев", @"London"];
+    self.cityes = [NSMutableArray array];
+    
+    
+    self.ref = [[FIRDatabase database] reference];
+    
+    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        self.friends = [TSRetriveFriendsFBDatabase retriveFriendsDatabase:snapshot];
+        
+        for (int i = 0; i < self.friends.count; i++) {
+            
+            
+            NSDictionary *pair = [self.friends objectAtIndex:i];
+            NSString *city = [pair objectForKey:@"city"];
+            
+            if (![city isEqualToString:@""]) {
+                
+                NSString *avatarURL = [pair objectForKey:@"photoURL"];
+                NSString *ID = [pair objectForKey:@"fireUserID"];
+                
+                NSDictionary *friend = @{@"city":city,
+                                         @"avatarURL":avatarURL,
+                                         @"ID":ID};
+                [self.cityes addObject:friend];
+                
+            }
+        }
+    }];
+    
     
     if (self.cityes != nil) {
         
@@ -79,25 +108,25 @@ static NSInteger tag = 0;
         }
     }
     
-    self.ref = [[FIRDatabase database] reference];
     
-    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        
-        FIRUser *currentID = [FIRAuth auth].currentUser;
-        NSString *key = [NSString stringWithFormat:@"users/%@/friends", currentID.uid];
-        FIRDataSnapshot *dataFriends = [snapshot childSnapshotForPath:key];
-        
-        for (int i = 0; i < dataFriends.childrenCount; i++) {
-            NSString *key = [NSString stringWithFormat:@"key%d", i];
-            NSDictionary *pair = dataFriends.value[key];
-            NSString *avatarURL = [pair objectForKey:@"photoURL"];
-            NSString *ID = [pair objectForKey:@"fireUserID"];
-            [self.avatars addObject:avatarURL];
-            [self.IDs addObject:ID];
-        }
-        
-    }];
-    
+//    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+//        
+//        FIRUser *currentID = [FIRAuth auth].currentUser;
+//        NSString *key = [NSString stringWithFormat:@"users/%@/friends", currentID.uid];
+//        FIRDataSnapshot *dataFriends = [snapshot childSnapshotForPath:key];
+//        
+//        for (int i = 0; i < dataFriends.childrenCount; i++) {
+//            
+//            NSString *key = [NSString stringWithFormat:@"key%d", i];
+//            NSDictionary *pair = dataFriends.value[key];
+//            NSString *avatarURL = [pair objectForKey:@"photoURL"];
+//            NSString *ID = [pair objectForKey:@"fireUserID"];
+//            [self.avatars addObject:avatarURL];
+//            [self.IDs addObject:ID];
+//        }
+//        
+//    }];
+//    
     self.counterMap = 0;
 }
 
@@ -138,8 +167,13 @@ static NSInteger tag = 0;
         
         UIImageView *imgView = nil;
         
-        if (tag < self.avatars.count) {
-            NSURL *urlImage = [NSURL URLWithString:[self.avatars objectAtIndex:tag]];
+        if (tag < self.cityes.count) {
+            
+            NSDictionary *pair = [self.cityes objectAtIndex:tag];
+            
+            NSString *avatarURL = [pair objectForKey:@"photoURL"];
+            
+            NSURL *urlImage = [NSURL URLWithString:avatarURL];
             NSData *dataUrl = [NSData dataWithContentsOfURL:urlImage];
             UIImage *image = [UIImage imageWithData:dataUrl];
             imgView = [[UIImageView alloc] initWithImage:image];
@@ -172,6 +206,7 @@ static NSInteger tag = 0;
     if (self.counterMap == 0) {
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
             [self centerMapOnLocation];
         });
         ++self.counterMap;
@@ -187,7 +222,8 @@ static NSInteger tag = 0;
     TSTabBarController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TSTabBarController"];
     [self presentViewController:controller animated:YES completion:nil];
     controller.selectedIndex = 3;
-    NSString *userID = [self.IDs objectAtIndex:button.tag];
+    NSDictionary *pair = [self.friends objectAtIndex:button.tag];
+    NSString *userID = [pair objectForKey:@"fireUserID"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"noticeOnTheMethodCall" object:userID];
     
     NSLog(@"SENDER %ld", button.tag);

@@ -251,7 +251,7 @@
 - (void)keyboardDidShow:(NSNotification *)notification
 {
     [UIView animateWithDuration:0.3 animations:^{
-        [self.view setFrame:CGRectMake(0, -110, self.view.bounds.size.width, 568)];
+        [self.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, 330)];
     }];
     
 }

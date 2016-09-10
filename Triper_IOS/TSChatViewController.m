@@ -57,8 +57,32 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    
     self.ref = [[FIRDatabase database] reference];
-    [self requestToServerFacebookListFriends];
+    
+    
+    [[TSServerManager sharedManager] requestUserFriendsTheServerFacebook:^(NSArray *friends)
+     {
+         self.friends = [TSParsingManager parsingFriendsFacebook:friends];
+         [self.tableView reloadData];
+         self.arrayFriends = [NSMutableArray arrayWithArray:self.friends];
+     }];
+    
+    
+    
+    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        NSString *key = [NSString stringWithFormat:@"users/%@/friends", self.user.uid];
+        FIRDataSnapshot *friendSnapshot = [snapshot childSnapshotForPath:key];
+        
+        for (int i = 0; i < friendSnapshot.childrenCount; i++) {
+            NSString *key = [NSString stringWithFormat:@"key%d", i];
+            FIRDataSnapshot *pair = [friendSnapshot childSnapshotForPath:key];
+            FIRDataSnapshot *ID = pair.value[@"fireUserID"];
+            [self.friendsIDs addObject:ID];
+        }
+    }];
+    
     
     self.imageFriends = [NSMutableArray array];
     self.friendsIDs = [NSMutableArray array];
@@ -75,31 +99,6 @@
     
 }
 
-
-- (void)requestToServerFacebookListFriends
-{
-    
-    [[TSServerManager sharedManager] requestUserFriendsTheServerFacebook:^(NSArray *friends)
-    {
-        self.friends = [TSParsingManager parsingFriendsFacebook:friends];
-        [self.tableView reloadData];
-        self.arrayFriends = [NSMutableArray arrayWithArray:self.friends];
-    }];
-    
-    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        
-        NSString *key = [NSString stringWithFormat:@"users/%@/friends", self.user.uid];
-        FIRDataSnapshot *friendSnapshot = [snapshot childSnapshotForPath:key];
-        
-        for (int i = 0; i < friendSnapshot.childrenCount; i++) {
-            NSString *key = [NSString stringWithFormat:@"key%d", i];
-            FIRDataSnapshot *pair = [friendSnapshot childSnapshotForPath:key];
-            FIRDataSnapshot *ID = pair.value[@"fireUserID"];
-            [self.friendsIDs addObject:ID];
-        }
-    }];
-    
-}
 
 
 - (void)didReceiveMemoryWarning {
@@ -220,7 +219,13 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.friends.count;
+    if (!self.friends) {
+        
+        return 0;
+    } else {
+        return self.friends.count;
+    }
+    
 }
 
 

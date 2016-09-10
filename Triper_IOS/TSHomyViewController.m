@@ -53,7 +53,6 @@
             } else {
                 self.avatarImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:
                                                                      [NSURL URLWithString:fireUser.photoURL]]];
-
             }
             
         } else {

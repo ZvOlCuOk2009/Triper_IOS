@@ -61,30 +61,7 @@
     self.messages = [NSMutableArray array];
     
     
-    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-
-        self.friends = [TSRetriveFriendsFBDatabase retriveFriendsDatabase:snapshot];
-        self.fireUser = [TSFireUser initWithSnapshot:snapshot];
-        
-        NSURL *url = [NSURL URLWithString:self.fireUser.photoURL];
-        NSData *dataImage = [NSData dataWithContentsOfURL:url];
-        self.userImage = [UIImage imageWithData:dataImage];
-        
-        if (!self.interlocutor) {
-            NSDictionary *temporaryDict = [self.friends objectAtIndex:0];
-            NSString * temporaryID = [temporaryDict objectForKey:@"fireUserID"];
-            self.interlocutor = temporaryID;
-        }
-        
-        [self getImageInterlocutor:self.friends];
-        
-        if (!self.interlocutor || !self.user.uid) {
-            
-            self.messageRefUser = [[[self.ref child:self.user.uid] child:@"chat"] child:self.interlocutor];
-            self.messageRefInterlocutor = [[[self.ref child:self.interlocutor] child:@"chat"] child:self.user.uid];
-        }
-        
-    }];
+    [self configureTheCurrentChat];
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(transferToInterlocutor:) name:@"noticeOnTheMethodCall" object:nil];
@@ -121,6 +98,8 @@
     }
     
     
+    self.view.frame = CGRectMake(0, 30, self.view.frame.size.width, self.view.frame.size.height);
+    
     TSView *grayRect = [[TSView alloc] initWithView:self.view];
     [self.view addSubview:grayRect];
     
@@ -130,19 +109,56 @@
 }
 
 
+- (void)configureTheCurrentChat
+{
+    
+    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        self.friends = [TSRetriveFriendsFBDatabase retriveFriendsDatabase:snapshot];
+        self.fireUser = [TSFireUser initWithSnapshot:snapshot];
+        
+        NSURL *url = [NSURL URLWithString:self.fireUser.photoURL];
+        NSData *dataImage = [NSData dataWithContentsOfURL:url];
+        self.userImage = [UIImage imageWithData:dataImage];
+        
+        
+        if (!self.interlocutor) {
+            
+            if (self.friends > 0) {
+                
+                NSDictionary *temporaryDict = [self.friends objectAtIndex:0];
+                NSString * temporaryID = [temporaryDict objectForKey:@"fireUserID"];
+                self.interlocutor = temporaryID;
+            }
+            
+        }
+        
+        [self getImageInterlocutor:self.friends];
+        
+        
+        self.messageRefUser = [[[self.ref child:self.user.uid] child:@"chat"] child:self.interlocutor];
+        self.messageRefInterlocutor = [[[self.ref child:self.interlocutor] child:@"chat"] child:self.user.uid];
+        
+    }];
+    
+}
+
+
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
     
+    [super viewWillAppear:animated];
+    self.collectionView.contentInset = UIEdgeInsetsMake(40, 0, 40, 0);
+
 }
 
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    
     [super viewDidAppear:animated];
     [self observeMessages];
-    self.collectionView.contentInset = UIEdgeInsetsMake(40, 0, 40, 0);
-    
+
 }
 
 
@@ -155,8 +171,10 @@
 - (void)getImageInterlocutor:(NSMutableArray *)friends
 {
     for (NSDictionary *data in friends) {
+        
         NSString *ID = [data objectForKey:@"fireUserID"];
         if ([ID isEqualToString:self.interlocutor]) {
+            
             NSString *urlString = [data objectForKey:@"photoURL"];
             NSURL *url = [NSURL URLWithString:urlString];
             NSData *dataImage = [NSData dataWithContentsOfURL:url];
@@ -216,6 +234,7 @@
     JSQMessage *message = self.messages[indexPath.item];
     
     if ([message.senderId isEqualToString:self.senderId]) {
+        
         cell.textView.textColor = [UIColor whiteColor];
     } else {
         cell.textView.textColor = [UIColor blackColor];
@@ -295,6 +314,8 @@
     
     [JSQSystemSoundPlayer jsq_playMessageSentSound];
     
+    self.collectionView.contentInset = UIEdgeInsetsMake(40, 0, 40, 0);
+    
     JSQMessagesComposerTextView *textView = self.inputToolbar.contentView.textView;
     textView.text = @"";
 }
@@ -302,22 +323,16 @@
 
 - (void)observeMessages
 {
- 
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+    
+    FIRDatabaseQuery *messagesQuery = [self.messageRefUser queryLimitedToLast:20];
+    [messagesQuery observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            FIRDatabaseQuery *messagesQuery = [self.messageRefUser queryLimitedToLast:20];
-            [messagesQuery observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-                
-                NSString *ID = snapshot.value[@"senderId"];
-                NSString *text = snapshot.value[@"text"];
-                
-                [self addMessage:ID text:text];
-                [self finishReceivingMessageAnimated:YES];
-            }];
-        });
-    });
+        NSString *ID = snapshot.value[@"senderId"];
+        NSString *text = snapshot.value[@"text"];
+        
+        [self addMessage:ID text:text];
+        [self finishReceivingMessageAnimated:YES];
+    }];
     
 }
 

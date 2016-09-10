@@ -84,6 +84,9 @@ static NSInteger counter = 0;
 //    }
     
     
+    
+    
+    
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:counter inSection:0];
     NSDictionary *indexCard = [self.friends objectAtIndex:indexPath.row];
     
@@ -121,7 +124,7 @@ static NSInteger counter = 0;
     
     
     NSString *nameFriend = [indexCard objectForKey:@"items"];
-    NSString *photoURL = [indexCard objectForKey:@"photoURL"];
+    __block NSString *photoURL = [indexCard objectForKey:@"photoURL"];
     NSString *userID = [indexCard objectForKey:@"fireUserID"];
     NSString *profession = [indexCard objectForKey:@"profession"];
     NSString *commingFrom = [indexCard objectForKey:@"commingFrom"];
@@ -133,6 +136,7 @@ static NSInteger counter = 0;
     
     NSURL *url = [NSURL URLWithString:photoURL];
     
+                
     self.profileView.nameLabel.text = nameFriend;
     self.profileView.professionLabel.text = profession;
     self.profileView.comingFromLabel.text = commingFrom;
@@ -157,6 +161,8 @@ static NSInteger counter = 0;
         UIImage *convertImage = [UIImage imageWithData:data];
         self.profileView.avatarImageView.image = convertImage;
     }
+
+    
     
     ++counter;
     
