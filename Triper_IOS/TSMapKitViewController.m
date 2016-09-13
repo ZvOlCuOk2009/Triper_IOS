@@ -109,24 +109,6 @@ static NSInteger tag = 0;
     }
     
     
-//    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-//        
-//        FIRUser *currentID = [FIRAuth auth].currentUser;
-//        NSString *key = [NSString stringWithFormat:@"users/%@/friends", currentID.uid];
-//        FIRDataSnapshot *dataFriends = [snapshot childSnapshotForPath:key];
-//        
-//        for (int i = 0; i < dataFriends.childrenCount; i++) {
-//            
-//            NSString *key = [NSString stringWithFormat:@"key%d", i];
-//            NSDictionary *pair = dataFriends.value[key];
-//            NSString *avatarURL = [pair objectForKey:@"photoURL"];
-//            NSString *ID = [pair objectForKey:@"fireUserID"];
-//            [self.avatars addObject:avatarURL];
-//            [self.IDs addObject:ID];
-//        }
-//        
-//    }];
-//    
     self.counterMap = 0;
 }
 

@@ -6,6 +6,11 @@
 //  Copyright © 2016 Tsvigun Alexandr. All rights reserved.
 //
 
+#define IS_IPHONE_4 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)480) < DBL_EPSILON)
+#define IS_IPHONE_5 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)568) < DBL_EPSILON)
+#define IS_IPHONE_6 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)667) < DBL_EPSILON)
+#define IS_IPHONE_6_PLUS (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)736) < DBL_EPSILON)
+
 #import "TSLoginViewController.h"
 #import "TSServerManager.h"
 #import "TSTabBarController.h"
@@ -13,7 +18,6 @@
 #import "TSFireUser.h"
 #import "TSParsingManager.h"
 #import "TSSaveFriendsFBDatabase.h"
-#import "TSLoginView.h"
 
 #import <GoogleSignIn/GoogleSignIn.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
@@ -31,6 +35,32 @@
 @property (strong, nonatomic) TSFireUser *fireUser;
 @property (strong, nonatomic) NSArray *userFriends;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintButtonTop;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthConstraintButtonLink;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraintButtonLink;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *xConstraintButtonlink;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *yConstraintButtonlink;
+
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthConstraintButtonFB;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraintButtonFB;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *xConstraintButtonFB;
+
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthConstraintButtonGplus;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraintButtonGplus;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *yConstraintButtonGplus;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *xConstraintButtonGplus;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraintUsereNameImView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraintPasswordImView;
+
+
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *yConstraintUsereNameImView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *yConstraintPasswordImView;
+
 @end
 
 @implementation TSLoginViewController
@@ -39,9 +69,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-//    TSLoginView *loginView = [TSLoginView loginView];
-//    
-//    [self.view addSubview:loginView];
     
     self.loginButton = [[FBSDKLoginButton alloc] init];
     self.loginButton.hidden = YES;
@@ -57,7 +84,10 @@
     
 //    NSString *linkedinInKey = @"776i4jzlob18oz";
 //    NSString *linkedinInSecret = @"D9CWpr620WbmIZEl";
+    
+    [self layout];
 }
+
 
 
 #pragma mark - Autorization Facebook
@@ -460,6 +490,44 @@
                                   } errorBlock:^(NSError *error) {
                                         NSLog(@"%s %@","error called! ", [error description]);
                                     }];
+}
+
+
+
+- (void)layout
+{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        if (IS_IPHONE_4) {
+            
+        } else if (IS_IPHONE_5) {
+            
+        } else if (IS_IPHONE_6) {
+            
+        } else if (IS_IPHONE_6_PLUS) {
+            
+            self.xConstraintButtonlink.constant = 220;
+            self.yConstraintButtonlink.constant = -100;
+            self.widthConstraintButtonLink.constant = 71;
+            self.heightConstraintButtonLink.constant = 71;
+            
+            self.xConstraintButtonFB.constant = 30;
+            self.constraintButtonTop.constant = 2;
+            self.widthConstraintButtonFB.constant = 71;
+            self.heightConstraintButtonFB.constant = 71;
+            
+            self.xConstraintButtonlink.constant = -118;
+            self.yConstraintButtonGplus.constant = -100;
+            self.widthConstraintButtonGplus.constant = 71;
+            self.heightConstraintButtonGplus.constant = 71;
+            
+            self.yConstraintUsereNameImView.constant = 54;
+            self.yConstraintPasswordImView.constant = 16;
+            
+            self.heightConstraintUsereNameImView.constant = 57;
+            self.heightConstraintPasswordImView.constant = 57;
+        }
+    }
 }
 
 

@@ -1,0 +1,2 @@
+/Users/Book/Desktop/Home Work/Triper_IOS/Pods/GoogleSignIn/Resources/GoogleSignIn.bundle
+/Users/Book/Desktop/Home Work/Triper_IOS/Pods/JSQMessagesViewController/JSQMessagesViewController/Assets/JSQMessagesAssets.bundle

@@ -6,6 +6,11 @@
 //  Copyright © 2016 Tsvigun Alexandr. All rights reserved.
 //
 
+#define IS_IPHONE_4 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)480) < DBL_EPSILON)
+#define IS_IPHONE_5 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)568) < DBL_EPSILON)
+#define IS_IPHONE_6 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)667) < DBL_EPSILON)
+#define IS_IPHONE_6_PLUS (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)736) < DBL_EPSILON)
+
 #import "TSEditProfileViewController.h"
 #import "TSFireUser.h"
 #import "TSRetriveFriendsFBDatabase.h"
@@ -20,7 +25,6 @@
 @property (strong, nonatomic) TSFireUser *fireUser;
 @property (strong, nonatomic) NSMutableArray *friends;
 
-@property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *professionTextField;
 @property (weak, nonatomic) IBOutlet UITextField *commingFromTextField;
 @property (weak, nonatomic) IBOutlet UITextField *coingToTextField;
@@ -31,6 +35,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *aboutTextField;
 @property (weak, nonatomic) IBOutlet UITextField *backgroundTextField;
 @property (weak, nonatomic) IBOutlet UITextField *interestTextField;
+
+@property (strong, nonatomic) IBOutletCollection (NSLayoutConstraint) NSArray *xValueCollection;
+
 
 - (IBAction)actionUpdate:(id)sender;
 
@@ -45,6 +52,8 @@
     self.ref = [[FIRDatabase database] reference];
     self.user = [FIRAuth auth].currentUser;
     
+    
+    [self layout];
 }
 
 - (IBAction)actionBackPressed:(id)sender
@@ -75,7 +84,6 @@
             NSDictionary *userData = nil;
             
             
-            NSString *name = nil;
             NSString *profession = nil;
             NSString *commingFrom = nil;
             NSString *coingTo = nil;
@@ -86,16 +94,6 @@
             NSString *about = nil;
             NSString *background = nil;
             NSString *interest = nil;
-            
-            
-            if ([self.nameTextField.text isEqualToString:@""]) {
-                
-                name = self.fireUser.displayName;
-                
-            } else {
-                
-                name = self.nameTextField.text;
-            }
             
             
             
@@ -206,7 +204,7 @@
             }
             
             
-            userData = @{@"displayName":name,
+            userData = @{@"displayName":self.fireUser.displayName,
                          @"email":self.fireUser.email,
                          @"photoURL":self.fireUser.photoURL,
                          @"userID":self.fireUser.uid,
@@ -248,6 +246,24 @@
 }
 
 
+- (void)layout
+{
+        
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        if (IS_IPHONE_4) {
+            
+        } else if (IS_IPHONE_5) {
+            
+        } else if (IS_IPHONE_6) {
+                        
+        } else if (IS_IPHONE_6_PLUS) {
+            
+        }
+    }
+}
+
+
 - (void)keyboardDidShow:(NSNotification *)notification
 {
     [UIView animateWithDuration:0.3 animations:^{
@@ -259,9 +275,28 @@
 
 - (void)keyboardDidHide:(NSNotification *)notification
 {
-    [UIView animateWithDuration:0.3 animations:^{
-        [self.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, 568)];
-    }];
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        if (IS_IPHONE_4) {
+            
+        } else if (IS_IPHONE_5) {
+            
+            [UIView animateWithDuration:0.3 animations:^{
+                [self.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, 568)];
+            }];
+            
+        } else if (IS_IPHONE_6) {
+            
+            [UIView animateWithDuration:0.3 animations:^{
+                [self.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, 736)];
+            }];
+            
+        } else if (IS_IPHONE_6_PLUS) {
+            
+        }
+    }
+    
+    
     
 }
 

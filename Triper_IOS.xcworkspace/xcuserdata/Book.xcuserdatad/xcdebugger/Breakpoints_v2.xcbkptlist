@@ -136,13 +136,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Triper_IOS/TSIntermediateViewController.m"
-            timestampString = "494905205.90404"
+            timestampString = "495393813.01682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "5">
+            startingLineNumber = "47"
+            endingLineNumber = "47">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

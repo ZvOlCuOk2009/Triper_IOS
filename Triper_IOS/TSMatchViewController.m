@@ -23,7 +23,6 @@ static NSInteger counter = 0;
 @property (weak, nonatomic) TSProfileView *profileView;
 @property (strong, nonatomic) ZLSwipeableView *swipeableView;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
-@property (strong, nonatomic) NSMutableArray *friends;
 
 @end
 
@@ -33,13 +32,14 @@ static NSInteger counter = 0;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.ref = [[FIRDatabase database] reference];
-    
-    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        
-        self.friends = [TSRetriveFriendsFBDatabase retriveFriendsDatabase:snapshot];
-    }];
-    
+//    self.ref = [[FIRDatabase database] reference];
+//    
+//    [self.ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+//        
+//        self.friends = [TSRetriveFriendsFBDatabase retriveFriendsDatabase:snapshot];
+//    }];
+//    
+
     CGRect frame = CGRectMake(0, - 20, self.view.bounds.size.width, self.view.bounds.size.height);
 
     self.swipeableView = [[ZLSwipeableView alloc] initWithFrame:self.view.frame];
@@ -54,7 +54,6 @@ static NSInteger counter = 0;
     
     [self.swipeableView discardAllViews];
     [self.swipeableView loadViewsIfNeeded];
-    
 }
 
 
@@ -69,107 +68,110 @@ static NSInteger counter = 0;
 
 - (UIView *)nextViewForSwipeableView:(ZLSwipeableView *)swipeableView
 {
-//    if  (!self.friends.count)
-//    {
-//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Here you will see your friends..."
-//                                                                                 message:@""
-//                                                                          preferredStyle:UIAlertControllerStyleAlert];
-//        UIAlertAction *action  = [UIAlertAction actionWithTitle:@"Ok"
-//                                                          style:UIAlertActionStyleCancel
-//                                                        handler:^(UIAlertAction * _Nonnull action) { }];
-//        [alertController addAction:action];
-//        [self presentViewController:alertController animated:YES completion:nil];
-//        
-//        return nil;
-//    }
-    
-    
-    
-    
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:counter inSection:0];
-    NSDictionary *indexCard = [self.friends objectAtIndex:indexPath.row];
     
+//    if (self.friends) {
     
-    NSString *mission = [indexCard objectForKey:@"mission"];
-    NSString *about = [indexCard objectForKey:@"about"];
-    NSString *background = [indexCard objectForKey:@"background"];
-    NSString *interest = [indexCard objectForKey:@"interest"];
-    
-    if (mission == nil) {
-        mission = @"";
-    }
-    
-    if (about == nil) {
-        about = @"";
-    }
-    
-    if (background == nil) {
-        background = @"";
-    }
-    
-    if (interest == nil) {
-        interest = @"";
-    }
-    
-    NSDictionary *content = @{@"mission":mission,
-                              @"about":about,
-                              @"background":background,
-                              @"interest":interest};
-    
-    self.profileView = [TSProfileView profileView:content];
-    
-    
-    NSInteger max = [self.friends count];
-    
-    
-    NSString *nameFriend = [indexCard objectForKey:@"items"];
-    __block NSString *photoURL = [indexCard objectForKey:@"photoURL"];
-    NSString *userID = [indexCard objectForKey:@"fireUserID"];
-    NSString *profession = [indexCard objectForKey:@"profession"];
-    NSString *commingFrom = [indexCard objectForKey:@"commingFrom"];
-    NSString *coingTo = [indexCard objectForKey:@"coingTo"];
-    NSString *currentArrea = [indexCard objectForKey:@"currentArrea"];
-    NSString *launguage = [indexCard objectForKey:@"launguage"];
-    NSString *age = [indexCard objectForKey:@"age"];
-
-    
-    NSURL *url = [NSURL URLWithString:photoURL];
-    
-                
-    self.profileView.nameLabel.text = nameFriend;
-    self.profileView.professionLabel.text = profession;
-    self.profileView.comingFromLabel.text = commingFrom;
-    self.profileView.coingToLabel.text = coingTo;
-    self.profileView.currentArreaLabel.text = currentArrea;
-    self.profileView.miniNameLabel.text = userID;
-    self.profileView.launguageLabel.text = launguage;
-    self.profileView.ageLabel.text = age;
-    
-    if (url && url.scheme && url.host) {
+        NSDictionary *indexCard = [self.friends objectAtIndex:indexPath.row];
         
-        NSData *dataImage = [NSData dataWithContentsOfURL:url];
-        self.profileView.avatarImageView.image = [UIImage imageWithData:dataImage];
         
-    } else {
+        NSString *mission = [indexCard objectForKey:@"mission"];
+        NSString *about = [indexCard objectForKey:@"about"];
+        NSString *background = [indexCard objectForKey:@"background"];
+        NSString *interest = [indexCard objectForKey:@"interest"];
         
-        if (!photoURL) {
-            photoURL = @"";
+        if (mission == nil) {
+            mission = @"";
         }
         
-        NSData *data = [[NSData alloc]initWithBase64EncodedString:photoURL options:NSDataBase64DecodingIgnoreUnknownCharacters];
-        UIImage *convertImage = [UIImage imageWithData:data];
-        self.profileView.avatarImageView.image = convertImage;
-    }
+        if (about == nil) {
+            about = @"";
+        }
+        
+        if (background == nil) {
+            background = @"";
+        }
+        
+        if (interest == nil) {
+            interest = @"";
+        }
+        
+        NSDictionary *content = @{@"mission":mission,
+                                  @"about":about,
+                                  @"background":background,
+                                  @"interest":interest};
+        
+        self.profileView = [TSProfileView profileView:content];
+        
+        
+        NSInteger max = [self.friends count];
+        
+        
+        NSString *nameFriend = [indexCard objectForKey:@"items"];
+        __block NSString *photoURL = [indexCard objectForKey:@"photoURL"];
+        NSString *userID = [indexCard objectForKey:@"fireUserID"];
+        NSString *profession = [indexCard objectForKey:@"profession"];
+        NSString *commingFrom = [indexCard objectForKey:@"commingFrom"];
+        NSString *coingTo = [indexCard objectForKey:@"coingTo"];
+        NSString *currentArrea = [indexCard objectForKey:@"currentArrea"];
+        NSString *launguage = [indexCard objectForKey:@"launguage"];
+        NSString *age = [indexCard objectForKey:@"age"];
+        
+        
+        NSURL *url = [NSURL URLWithString:photoURL];
+        
+        
+        self.profileView.nameLabel.text = nameFriend;
+        self.profileView.professionLabel.text = profession;
+        self.profileView.comingFromLabel.text = commingFrom;
+        self.profileView.coingToLabel.text = coingTo;
+        self.profileView.currentArreaLabel.text = currentArrea;
+        self.profileView.miniNameLabel.text = userID;
+        self.profileView.launguageLabel.text = launguage;
+        self.profileView.ageLabel.text = age;
+        
+        if (url && url.scheme && url.host) {
+            
+            NSData *dataImage = [NSData dataWithContentsOfURL:url];
+            self.profileView.avatarImageView.image = [UIImage imageWithData:dataImage];
+            
+        } else {
+            
+            if (!photoURL) {
+                photoURL = @"";
+            }
+            
+            NSData *data = [[NSData alloc]initWithBase64EncodedString:photoURL options:NSDataBase64DecodingIgnoreUnknownCharacters];
+            UIImage *convertImage = [UIImage imageWithData:data];
+            self.profileView.avatarImageView.image = convertImage;
+        }
+        
+        
+        ++counter;
+        
+        if (counter == max) {
+            counter = 0;
+        }
+//    }
+//    else {
+//        
+//        if  (!self.friends.count)
+//        {
+//            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Here you will see your friends have installed ""Triper""..."
+//                                                                                     message:@""
+//                                                                              preferredStyle:UIAlertControllerStyleAlert];
+//            UIAlertAction *action  = [UIAlertAction actionWithTitle:@"Ok"
+//                                                              style:UIAlertActionStyleCancel
+//                                                            handler:^(UIAlertAction * _Nonnull action) { }];
+//            [alertController addAction:action];
+//            [self presentViewController:alertController animated:YES completion:nil];
+//            
+//            return nil;
+//        }
+//
+//    }
 
-    
-    
-    ++counter;
-    
-    if (counter == max) {
-        counter = 0;
-    }
-    
     return self.profileView;
 }
 

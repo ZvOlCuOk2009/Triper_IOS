@@ -124,20 +124,24 @@
         
         if (!self.interlocutor) {
             
-            if (self.friends > 0) {
+            if (self.friends.count > 0) {
                 
                 NSDictionary *temporaryDict = [self.friends objectAtIndex:0];
                 NSString * temporaryID = [temporaryDict objectForKey:@"fireUserID"];
                 self.interlocutor = temporaryID;
+            } else {
+                self.interlocutor = @"";
             }
             
         }
         
         [self getImageInterlocutor:self.friends];
         
-        
-        self.messageRefUser = [[[self.ref child:self.user.uid] child:@"chat"] child:self.interlocutor];
-        self.messageRefInterlocutor = [[[self.ref child:self.interlocutor] child:@"chat"] child:self.user.uid];
+        if (![self.interlocutor isEqualToString:@""]) {
+            
+            self.messageRefUser = [[[self.ref child:self.user.uid] child:@"chat"] child:self.interlocutor];
+            self.messageRefInterlocutor = [[[self.ref child:self.interlocutor] child:@"chat"] child:self.user.uid];
+        }
         
     }];
     

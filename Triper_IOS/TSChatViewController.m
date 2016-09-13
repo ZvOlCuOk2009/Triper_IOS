@@ -66,6 +66,23 @@
          self.friends = [TSParsingManager parsingFriendsFacebook:friends];
          [self.tableView reloadData];
          self.arrayFriends = [NSMutableArray arrayWithArray:self.friends];
+         
+         if (self.friends.count == 0) {
+             
+             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Here you will see your friends have installed ""Triper"" on its device..."
+                                                                                      message:nil
+                                                                               preferredStyle:UIAlertControllerStyleAlert];
+             
+             UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK"
+                                                              style:UIAlertActionStyleDefault
+                                                            handler:^(UIAlertAction * _Nonnull action) {
+                                                                
+                                                            }];
+             
+             [alertController addAction:action];
+             
+             [self presentViewController:alertController animated:YES completion:nil];
+         }
      }];
     
     
@@ -96,7 +113,7 @@
     searchBar.delegate = self;
     
     self.tableView.contentInset = UIEdgeInsetsMake(36, 0, 46, 0);
-    
+ 
 }
 
 
@@ -185,7 +202,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"noticeOnTheMethodCall" object:ID];
     }
     
-    NSLog(@"section ID %ld", indexPath.section);
+    NSLog(@"section ID %d", indexPath.section);
     
 }
 
@@ -219,11 +236,13 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (!self.friends) {
+    if (self.friends) {
+        
+        return self.friends.count;
+        
+    } else {
         
         return 0;
-    } else {
-        return self.friends.count;
     }
     
 }
@@ -302,7 +321,7 @@
         } else if (IS_IPHONE_6) {
             button.frame = CGRectMake(323.0f, 46.0f, 26.0f, 26.0f);
         } else if (IS_IPHONE_6_PLUS) {
-            button.frame = CGRectMake(323.0f, 46.0f, 26.0f, 26.0f);
+            button.frame = CGRectMake(357.0f, 51.0f, 29.0f, 29.0f);
         }
     }
     
@@ -363,7 +382,7 @@
         } else if (IS_IPHONE_6) {
             height = 118;
         } else if (IS_IPHONE_6_PLUS) {
-            height = 118;
+            height = 130;
         }
     }
     return height;
@@ -385,7 +404,7 @@
         } else if (IS_IPHONE_6) {
             height = 79;
         } else if (IS_IPHONE_6_PLUS) {
-            height = 79;
+            height = 87;
         }
     }
     return height;

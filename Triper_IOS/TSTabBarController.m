@@ -7,8 +7,14 @@
 //
 
 #import "TSTabBarController.h"
+#import "TSRetriveFriendsFBDatabase.h"
+
+@import Firebase;
+@import FirebaseDatabase;
 
 @interface TSTabBarController ()
+
+@property (strong, nonatomic) FIRDatabaseReference *ref;
 
 @end
 
@@ -24,13 +30,9 @@
         vc.title = nil;
 
     }];
+   
 }
 
-
-- (void)callActionButton
-{
-    
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

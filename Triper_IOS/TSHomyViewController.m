@@ -6,6 +6,11 @@
 //  Copyright © 2016 Tsvigun Alexandr. All rights reserved.
 //
 
+#define IS_IPHONE_4 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)480) < DBL_EPSILON)
+#define IS_IPHONE_5 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)568) < DBL_EPSILON)
+#define IS_IPHONE_6 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)667) < DBL_EPSILON)
+#define IS_IPHONE_6_PLUS (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)736) < DBL_EPSILON)
+
 #import "TSHomyViewController.h"
 #import "TSServerManager.h"
 #import "TSUser.h"
@@ -25,6 +30,16 @@
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 @property (strong, nonatomic) TSUser *user;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraintImageView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraintInviteButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraintButtonEdit;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthConstraintButtonEdit;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraintButtonOut;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthConstraintButtonOut;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topButtonEdit;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topButtonOut;
+
 
 @end
 
@@ -62,12 +77,45 @@
             self.avatarImageView.image = convertImage;
         }
     }];
-
+    
+    [self layout];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.    
+}
+
+
+- (void)layout
+{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        if (IS_IPHONE_4) {
+            self.heightConstraintImageView.constant = 180;
+            self.heightConstraintInviteButton.constant = 34;
+        } else if (IS_IPHONE_5) {
+            self.heightConstraintInviteButton.constant = 40;
+        } else if (IS_IPHONE_6) {
+            self.heightConstraintImageView.constant = 235;
+            self.heightConstraintInviteButton.constant = 47;
+            self.heightConstraintButtonEdit.constant = 29;
+            self.widthConstraintButtonEdit.constant = 29;
+            self.heightConstraintButtonOut.constant = 29;
+            self.widthConstraintButtonOut.constant = 29;
+            self.topButtonEdit.constant = 15;
+            self.topButtonOut.constant = 15;
+        } else if (IS_IPHONE_6_PLUS) {
+            self.heightConstraintImageView.constant = 266;
+            self.heightConstraintInviteButton.constant = 50;
+            self.heightConstraintButtonEdit.constant = 32;
+            self.widthConstraintButtonEdit.constant = 32;
+            self.heightConstraintButtonOut.constant = 32;
+            self.widthConstraintButtonOut.constant = 32;
+            self.topButtonEdit.constant = 20;
+            self.topButtonOut.constant = 20;
+        }
+    }
 }
 
 

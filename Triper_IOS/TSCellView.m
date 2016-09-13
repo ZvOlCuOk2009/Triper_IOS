@@ -71,9 +71,9 @@
             
         } else if (IS_IPHONE_6_PLUS) {
             
-            UINib *nib = [UINib nibWithNibName:@"TSCellView6" bundle:nil];
+            UINib *nib = [UINib nibWithNibName:@"TSCellView6Plus" bundle:nil];
             view = [nib instantiateWithOwner:self options:nil][0];
-            view.frame = CGRectMake(0, 0, 375, 118);
+            view.frame = CGRectMake(0, 0, 414, 130);
         }
     }
     

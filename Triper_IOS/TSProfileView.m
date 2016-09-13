@@ -118,9 +118,9 @@ static NSDictionary *reportedContent;
     {
         if (IS_IPHONE_4) {
             
-            UINib *nib = [UINib nibWithNibName:@"TSProfileView" bundle:nil];
+            UINib *nib = [UINib nibWithNibName:@"TSProfileView4" bundle:nil];
             view = [nib instantiateWithOwner:self options:nil][0];
-            view.frame = CGRectMake(8, 20, 304, 482);
+            view.frame = CGRectMake(8, 20, 304, 394);
             
         } else if (IS_IPHONE_5) {
             
@@ -136,9 +136,9 @@ static NSDictionary *reportedContent;
             
         } else if (IS_IPHONE_6_PLUS) {
             
-            UINib *nib = [UINib nibWithNibName:@"TSProfileView6" bundle:nil];
+            UINib *nib = [UINib nibWithNibName:@"TSProfileView6Plus" bundle:nil];
             view = [nib instantiateWithOwner:self options:nil][0];
-            view.frame = CGRectMake(11, 25, 356, 567);
+            view.frame = CGRectMake(11, 34, 393, 624);
         }
     }
     

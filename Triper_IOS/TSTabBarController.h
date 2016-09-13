@@ -10,6 +10,6 @@
 
 @interface TSTabBarController : UITabBarController
 
-- (void)callActionButton;
+@property (strong, nonatomic) NSMutableArray *friends;
 
 @end

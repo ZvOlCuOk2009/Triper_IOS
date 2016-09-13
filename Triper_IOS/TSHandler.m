@@ -26,9 +26,9 @@
     {
         if (IS_IPHONE_4) {
             
-            yValue = 298;
+            yValue = 244;
             weihgt = 24;
-            height = 8;
+            height = 7;
             
             if (tag == 1) {
                 xValue = 22;
@@ -75,16 +75,16 @@
             
         } else if (IS_IPHONE_6_PLUS) {
             
-            yValue = 350;
+            yValue = 386;
             
             if (tag == 1) {
                 xValue = 28;
             } else if (tag == 2) {
-                xValue = 111;
+                xValue = 124;
             } else if (tag == 3) {
-                xValue = 210;
+                xValue = 233;
             }else if (tag == 4) {
-                xValue = 309;
+                xValue = 343;
             }
             
             weihgt = 25;
