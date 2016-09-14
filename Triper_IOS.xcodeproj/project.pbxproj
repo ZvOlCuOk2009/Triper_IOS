@@ -17,6 +17,7 @@
 		FD4229981D5F72B700745D38 /* TSProfileContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4229971D5F72B700745D38 /* TSProfileContainerViewController.m */; };
 		FD4BF6DC1D43719300504327 /* TSMatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4BF6DB1D43719300504327 /* TSMatchViewController.m */; };
 		FD4BF6DF1D43794E00504327 /* TSUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4BF6DE1D43794E00504327 /* TSUserViewController.m */; };
+		FD5006121D89493A00EB1301 /* TSLoginView6.xib in Resources */ = {isa = PBXBuildFile; fileRef = FD5006111D89493A00EB1301 /* TSLoginView6.xib */; };
 		FD5FFF5E1D67AE0000188E29 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD5FFF5D1D67AE0000188E29 /* StoreKit.framework */; };
 		FD5FFF601D67AE1200188E29 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD5FFF5F1D67AE1200188E29 /* AddressBookUI.framework */; };
 		FD5FFF621D67AE2000188E29 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD5FFF611D67AE2000188E29 /* SystemConfiguration.framework */; };
@@ -101,6 +102,7 @@
 		FD4BF6DB1D43719300504327 /* TSMatchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSMatchViewController.m; sourceTree = "<group>"; };
 		FD4BF6DD1D43794E00504327 /* TSUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSUserViewController.h; sourceTree = "<group>"; };
 		FD4BF6DE1D43794E00504327 /* TSUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSUserViewController.m; sourceTree = "<group>"; };
+		FD5006111D89493A00EB1301 /* TSLoginView6.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TSLoginView6.xib; sourceTree = "<group>"; };
 		FD5FFF5D1D67AE0000188E29 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		FD5FFF5F1D67AE1200188E29 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		FD5FFF611D67AE2000188E29 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -399,6 +401,7 @@
 				FDD4BFF41D44FBF000076803 /* TSCellView.xib */,
 				FDDC03CE1D7901460049B907 /* TSCellView6.xib */,
 				FDD58BF31D8849FC00618FC4 /* TSCellView6Plus.xib */,
+				FD5006111D89493A00EB1301 /* TSLoginView6.xib */,
 			);
 			name = Xibs;
 			sourceTree = "<group>";
@@ -589,6 +592,7 @@
 				FDBFA5061D1C23020074D92D /* LaunchScreen.storyboard in Resources */,
 				FDD4BFF51D44FBF100076803 /* TSCellView.xib in Resources */,
 				FDA2DE871D8229360036CE35 /* TSProfileView6Plus.xib in Resources */,
+				FD5006121D89493A00EB1301 /* TSLoginView6.xib in Resources */,
 				FDF83A0A1D391CC200FA5955 /* TSProfileView.xib in Resources */,
 				FDD58BF41D8849FD00618FC4 /* TSCellView6Plus.xib in Resources */,
 				FDCBDA831D3E674200F07849 /* GoogleService-Info.plist in Resources */,

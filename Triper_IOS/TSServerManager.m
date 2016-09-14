@@ -7,7 +7,6 @@
 //
 
 #import "TSServerManager.h"
-#import "AFNetworking.h"
 #import "TSUserViewController.h"
 
 #import <GoogleSignIn/GoogleSignIn.h>
@@ -16,8 +15,6 @@
 @import FirebaseAuth;
 
 @interface TSServerManager ()
-
-@property (strong, nonatomic) AFHTTPSessionManager *sessionManager;
 
 @end
 
@@ -41,7 +38,7 @@
 {
     self = [super init];
     if (self) {
-        self.sessionManager = [[AFHTTPSessionManager alloc] init];
+
     }
     return self;
 }
@@ -145,31 +142,5 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"token"];
 }
 
-
-#pragma mark - AFNetworking
-
-
-- (void)authorizationOfNewUser:(NSString *)userID
-                     userLogin:(NSString *)userLogin
-                     onSuccess:(void(^)(NSArray *token)) success
-{
-    NSDictionary *parameters = @{@"response_type":@"https://www.linkedin.com/developer/apps",
-                                 @"client_id":@4561613,
-                                 @"redirect_uri":@"https://www.linkedin.com/developer/apps/4561613/mobile"};
-    
-    [self.sessionManager GET:@"https://www.linkedin.com/oauth/v2/authorization"
-                   parameters:parameters
-                     progress:nil
-                      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                          NSMutableArray *objectArray = [NSMutableArray arrayWithArray:responseObject];
-                          if (success) {
-                              success(objectArray);
-                          }
-                      }
-                      failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                          NSLog(@"Error - %@", error.localizedDescription);
-                      }
-     ];
-}
 
 @end

@@ -202,7 +202,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"noticeOnTheMethodCall" object:ID];
     }
     
-    NSLog(@"section ID %d", indexPath.section);
+    NSLog(@"section ID %ld", indexPath.section);
     
 }
 
