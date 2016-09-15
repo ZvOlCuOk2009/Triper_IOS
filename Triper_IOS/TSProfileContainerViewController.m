@@ -42,9 +42,9 @@
             NSString *interest = fireUser.interest;
             
             content = @{@"mission":mission,
-                                      @"about":about,
-                                      @"background":background,
-                                      @"interest":interest};
+                          @"about":about,
+                     @"background":background,
+                       @"interest":interest};
         }
         
         TSProfileView *profileView = [TSProfileView profileView:content];

@@ -8,7 +8,6 @@
 
 #import "TSUserViewController.h"
 #import "TSServerManager.h"
-#import "TSUser.h"
 #import "TSProfileView.h"
 #import "TSFireUser.h"
 #import "TSParsingManager.h"

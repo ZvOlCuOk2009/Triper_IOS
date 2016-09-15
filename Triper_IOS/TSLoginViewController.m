@@ -6,15 +6,9 @@
 //  Copyright © 2016 Tsvigun Alexandr. All rights reserved.
 //
 
-#define IS_IPHONE_4 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)480) < DBL_EPSILON)
-#define IS_IPHONE_5 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)568) < DBL_EPSILON)
-#define IS_IPHONE_6 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)667) < DBL_EPSILON)
-#define IS_IPHONE_6_PLUS (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)736) < DBL_EPSILON)
-
 #import "TSLoginViewController.h"
 #import "TSServerManager.h"
 #import "TSTabBarController.h"
-#import "TSUser.h"
 #import "TSFireUser.h"
 #import "TSParsingManager.h"
 #import "TSSaveFriendsFBDatabase.h"
@@ -22,10 +16,13 @@
 #import <GoogleSignIn/GoogleSignIn.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <linkedin-sdk/LISDK.h>
+#import <SystemConfiguration/SystemConfiguration.h>
+
 
 @import Firebase;
 @import FirebaseAuth;
 @import FirebaseDatabase;
+
 
 @interface TSLoginViewController () <FBSDKLoginButtonDelegate, GIDSignInUIDelegate>
 
@@ -34,11 +31,6 @@
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 @property (strong, nonatomic) TSFireUser *fireUser;
 @property (strong, nonatomic) NSArray *userFriends;
-
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *linkButtonConstraintHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *fbButtonConstraintHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *sPlusButtonConstraintHeight;
 
 @end
 
@@ -63,11 +55,6 @@
     
 //    NSString *linkedinInKey = @"776i4jzlob18oz";
 //    NSString *linkedinInSecret = @"D9CWpr620WbmIZEl";
-    
-    
-    self.linkButtonConstraintHeight.constant = 55;
-    self.fbButtonConstraintHeight.constant = 55;
-    self.sPlusButtonConstraintHeight.constant = 55;
     
 }
 
@@ -121,13 +108,14 @@
                                       [self saveUserToFirebase:user];
                                       [self openTheTabBarController];
                                   }];
-        NSLog(@"User log In");
+    
     
     if (![FBSDKAccessToken currentAccessToken])
     {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
     
+    NSLog(@"User log In");
 }
 
 
@@ -474,23 +462,6 @@
                                     }];
 }
 
-
-
-- (void)layout
-{
-    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-    {
-        if (IS_IPHONE_4) {
-            
-        } else if (IS_IPHONE_5) {
-
-        } else if (IS_IPHONE_6) {
-
-        } else if (IS_IPHONE_6_PLUS) {
-            
-        }
-    }
-}
 
 
 @end

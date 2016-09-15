@@ -11,19 +11,5 @@
 
 @implementation TSMenuTableViewCell
 
-- (IBAction)actionPhoneButton:(UIButton *)sender
-{
-//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel:+38-067-775-6449"]];
-}
-
-- (IBAction)actionChatButton:(UIButton *)sender
-{
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel:+38-067-775-6449"]];
-}
-
-- (IBAction)actionSkypeButton:(UIButton *)sender
-{
-
-}
 
 @end

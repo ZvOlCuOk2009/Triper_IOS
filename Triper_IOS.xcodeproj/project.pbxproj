@@ -7,13 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F1B2EFFC2D91B863E9323D52 /* libPods-Triper_IOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 805FA23E8F8C7F4C33D18610 /* libPods-Triper_IOS.a */; };
+		F1B2EFFC2D91B863E9323D52 /* libPods-Triper_IOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 805FA23E8F8C7F4C33D18610 /* libPods-Triper_IOS.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		FD05E8C81D2727F000C74141 /* TSCustomImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = FD05E8C71D2727F000C74141 /* TSCustomImageView.m */; };
 		FD0635C61D2FCCE9005D39EE /* TSHomyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD0635C51D2FCCE9005D39EE /* TSHomyViewController.m */; };
 		FD0635C91D2FE78F005D39EE /* TSTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD0635C81D2FE78F005D39EE /* TSTabBarController.m */; };
 		FD0635CB1D2FEE5F005D39EE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD0635CA1D2FEE5E005D39EE /* MapKit.framework */; };
 		FD0635CE1D2FF009005D39EE /* TSMapKitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD0635CD1D2FF009005D39EE /* TSMapKitViewController.m */; };
-		FD1334AB1D2811E70074F5E9 /* TSUser.m in Sources */ = {isa = PBXBuildFile; fileRef = FD1334AA1D2811E70074F5E9 /* TSUser.m */; };
 		FD4229981D5F72B700745D38 /* TSProfileContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4229971D5F72B700745D38 /* TSProfileContainerViewController.m */; };
 		FD4BF6DC1D43719300504327 /* TSMatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4BF6DB1D43719300504327 /* TSMatchViewController.m */; };
 		FD4BF6DF1D43794E00504327 /* TSUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4BF6DE1D43794E00504327 /* TSUserViewController.m */; };
@@ -23,7 +22,6 @@
 		FD5FFF621D67AE2000188E29 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD5FFF611D67AE2000188E29 /* SystemConfiguration.framework */; };
 		FD68657D1D5BAD9300FBFD79 /* libAPAddressBook.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD68657C1D5BAD9300FBFD79 /* libAPAddressBook.a */; };
 		FD6C405F1D687A6E004F434C /* linkedin-sdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD6C405E1D687A6E004F434C /* linkedin-sdk.framework */; };
-		FD6C40611D687ED7004F434C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FD6C40601D687ED7004F434C /* Default-568h@2x.png */; };
 		FD6C40651D68A4C0004F434C /* TSRegisrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD6C40641D68A4C0004F434C /* TSRegisrationViewController.m */; };
 		FD6EC5B41D64BCD6003A3C50 /* TSFireUser.m in Sources */ = {isa = PBXBuildFile; fileRef = FD6EC5B31D64BCD6003A3C50 /* TSFireUser.m */; };
 		FD8ACCDC1D7067CB00788CD6 /* TSSaveFriendsFBDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8ACCDB1D7067CA00788CD6 /* TSSaveFriendsFBDatabase.m */; };
@@ -33,6 +31,7 @@
 		FD8F51D31D5D03A600D5E0E8 /* TSSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8F51D21D5D03A600D5E0E8 /* TSSearchBar.m */; };
 		FD9E79A41D36D7B5003E402A /* TSProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = FD9E79A31D36D7B5003E402A /* TSProfileView.m */; };
 		FDA2DE871D8229360036CE35 /* TSProfileView6Plus.xib in Resources */ = {isa = PBXBuildFile; fileRef = FDA2DE861D8229360036CE35 /* TSProfileView6Plus.xib */; };
+		FDBBAB2C1D8B217C00625A50 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDBBAB2B1D8B217C00625A50 /* Quickblox.framework */; };
 		FDBFA4F51D1C23020074D92D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4F41D1C23020074D92D /* main.m */; };
 		FDBFA4F81D1C23020074D92D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4F71D1C23020074D92D /* AppDelegate.m */; };
 		FDBFA4FB1D1C23020074D92D /* TSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBFA4FA1D1C23020074D92D /* TSLoginViewController.m */; };
@@ -95,8 +94,6 @@
 		FD0635CA1D2FEE5E005D39EE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		FD0635CC1D2FF009005D39EE /* TSMapKitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSMapKitViewController.h; sourceTree = "<group>"; };
 		FD0635CD1D2FF009005D39EE /* TSMapKitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSMapKitViewController.m; sourceTree = "<group>"; };
-		FD1334A91D2811E70074F5E9 /* TSUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSUser.h; sourceTree = "<group>"; };
-		FD1334AA1D2811E70074F5E9 /* TSUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSUser.m; sourceTree = "<group>"; };
 		FD4229961D5F72B700745D38 /* TSProfileContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSProfileContainerViewController.h; sourceTree = "<group>"; };
 		FD4229971D5F72B700745D38 /* TSProfileContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSProfileContainerViewController.m; sourceTree = "<group>"; };
 		FD4BF6DB1D43719300504327 /* TSMatchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSMatchViewController.m; sourceTree = "<group>"; };
@@ -108,7 +105,6 @@
 		FD5FFF611D67AE2000188E29 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		FD68657C1D5BAD9300FBFD79 /* libAPAddressBook.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAPAddressBook.a; path = "../../../Library/Developer/Xcode/DerivedData/Triper_IOS-ffksmvhawhzkvchintbosoebiozy/Build/Products/Debug-iphonesimulator/APAddressBook/libAPAddressBook.a"; sourceTree = "<group>"; };
 		FD6C405E1D687A6E004F434C /* linkedin-sdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "linkedin-sdk.framework"; sourceTree = "<group>"; };
-		FD6C40601D687ED7004F434C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		FD6C40631D68A4C0004F434C /* TSRegisrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSRegisrationViewController.h; sourceTree = "<group>"; };
 		FD6C40641D68A4C0004F434C /* TSRegisrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSRegisrationViewController.m; sourceTree = "<group>"; };
 		FD6EC5B21D64BCD6003A3C50 /* TSFireUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSFireUser.h; sourceTree = "<group>"; };
@@ -125,6 +121,8 @@
 		FD9E79A21D36D7B5003E402A /* TSProfileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSProfileView.h; sourceTree = "<group>"; };
 		FD9E79A31D36D7B5003E402A /* TSProfileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSProfileView.m; sourceTree = "<group>"; };
 		FDA2DE861D8229360036CE35 /* TSProfileView6Plus.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TSProfileView6Plus.xib; sourceTree = "<group>"; };
+		FDBBAB2B1D8B217C00625A50 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quickblox.framework; sourceTree = "<group>"; };
+		FDBBAB321D8B303500625A50 /* TSPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TSPrefixHeader.pch; sourceTree = "<group>"; };
 		FDBFA4F01D1C23010074D92D /* Triper_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Triper_IOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDBFA4F41D1C23020074D92D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FDBFA4F61D1C23020074D92D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -166,7 +164,6 @@
 		FDEF97E51D5E66F400D34ACF /* TSSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSSearch.m; sourceTree = "<group>"; };
 		FDEF97EA1D5E7A4700D34ACF /* TSParsingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSParsingManager.h; sourceTree = "<group>"; };
 		FDEF97EB1D5E7A4700D34ACF /* TSParsingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSParsingManager.m; sourceTree = "<group>"; };
-		FDF1852C1D302E4600EE3391 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quickblox.framework; sourceTree = "<group>"; };
 		FDF1852E1D30309300EE3391 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		FDF185301D30380C00EE3391 /* TSChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSChatViewController.h; sourceTree = "<group>"; };
 		FDF185311D30380C00EE3391 /* TSChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSChatViewController.m; sourceTree = "<group>"; };
@@ -183,6 +180,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD5FFF621D67AE2000188E29 /* SystemConfiguration.framework in Frameworks */,
+				FDBBAB2C1D8B217C00625A50 /* Quickblox.framework in Frameworks */,
 				FD5FFF601D67AE1200188E29 /* AddressBookUI.framework in Frameworks */,
 				FD5FFF5E1D67AE0000188E29 /* StoreKit.framework in Frameworks */,
 				FD8F51CD1D5C537800D5E0E8 /* Contacts.framework in Frameworks */,
@@ -219,9 +217,9 @@
 				FD5FFF5D1D67AE0000188E29 /* StoreKit.framework */,
 				FD8F51CC1D5C537800D5E0E8 /* Contacts.framework */,
 				FD68657C1D5BAD9300FBFD79 /* libAPAddressBook.a */,
+				FDBBAB2B1D8B217C00625A50 /* Quickblox.framework */,
 				FDF1852E1D30309300EE3391 /* CFNetwork.framework */,
 				FD0635CA1D2FEE5E005D39EE /* MapKit.framework */,
-				FDF1852C1D302E4600EE3391 /* Quickblox.framework */,
 				805FA23E8F8C7F4C33D18610 /* libPods-Triper_IOS.a */,
 			);
 			name = Frameworks;
@@ -250,8 +248,6 @@
 			children = (
 				FD6EC5B21D64BCD6003A3C50 /* TSFireUser.h */,
 				FD6EC5B31D64BCD6003A3C50 /* TSFireUser.m */,
-				FD1334A91D2811E70074F5E9 /* TSUser.h */,
-				FD1334AA1D2811E70074F5E9 /* TSUser.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -306,7 +302,6 @@
 		FDBFA4E71D1C23010074D92D = {
 			isa = PBXGroup;
 			children = (
-				FD6C40601D687ED7004F434C /* Default-568h@2x.png */,
 				FDBFA4F21D1C23020074D92D /* Triper_IOS */,
 				FDBFA50F1D1C23030074D92D /* Triper_IOSTests */,
 				FDBFA51A1D1C23030074D92D /* Triper_IOSUITests */,
@@ -344,6 +339,7 @@
 				FDBFA5071D1C23020074D92D /* Info.plist */,
 				FDCBDA821D3E674200F07849 /* GoogleService-Info.plist */,
 				FDBFA4FF1D1C23020074D92D /* Triper_IOS.xcdatamodeld */,
+				FDBBAB321D8B303500625A50 /* TSPrefixHeader.pch */,
 				FD6C405E1D687A6E004F434C /* linkedin-sdk.framework */,
 				FDBFA4F31D1C23020074D92D /* Supporting Files */,
 			);
@@ -600,7 +596,6 @@
 				FDDC03CF1D7901460049B907 /* TSCellView6.xib in Resources */,
 				FDDC03CD1D78ED010049B907 /* TSProfileView6.xib in Resources */,
 				FDBFA5031D1C23020074D92D /* Assets.xcassets in Resources */,
-				FD6C40611D687ED7004F434C /* Default-568h@2x.png in Resources */,
 				FDBFA4FE1D1C23020074D92D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -685,7 +680,6 @@
 				FD6C40651D68A4C0004F434C /* TSRegisrationViewController.m in Sources */,
 				FD8ACCDC1D7067CB00788CD6 /* TSSaveFriendsFBDatabase.m in Sources */,
 				FDF38CBB1D1C7AED005D081F /* TSServerManager.m in Sources */,
-				FD1334AB1D2811E70074F5E9 /* TSUser.m in Sources */,
 				FD8F15C51D25A1F6004F953B /* TSMenuTableViewCell.m in Sources */,
 				FD05E8C81D2727F000C74141 /* TSCustomImageView.m in Sources */,
 				FD0635CE1D2FF009005D39EE /* TSMapKitViewController.m in Sources */,

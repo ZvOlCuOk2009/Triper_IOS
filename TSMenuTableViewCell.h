@@ -17,8 +17,4 @@
 @property (weak, nonatomic) IBOutlet UIButton *skypeButton;
 @property (weak, nonatomic) IBOutlet UIView *orangeRectangle;
 
-- (IBAction)actionPhoneButton:(UIButton *)sender;
-- (IBAction)actionChatButton:(UIButton *)sender;
-- (IBAction)actionSkypeButton:(UIButton *)sender;
-
 @end

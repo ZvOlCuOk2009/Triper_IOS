@@ -6,14 +6,6 @@
 //  Copyright © 2016 Tsvigun Alexandr. All rights reserved.
 //
 
-#define RGB(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue: b/255.0 alpha:1.0]
-#define ORANGE_COLOR RGB(255, 110, 50)
-
-#define IS_IPHONE_4 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)480) < DBL_EPSILON)
-#define IS_IPHONE_5 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)568) < DBL_EPSILON)
-#define IS_IPHONE_6 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)667) < DBL_EPSILON)
-#define IS_IPHONE_6_PLUS (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)736) < DBL_EPSILON)
-
 #import "TSMessagerViewController.h"
 #import "TSSearchBar.h"
 #import "TSView.h"
@@ -22,6 +14,7 @@
 #import "TSParsingUserName.h"
 #import "TSFireUser.h"
 #import "TSRetriveFriendsFBDatabase.h"
+#import "TSPrefixHeader.pch"
 
 @import Firebase;
 @import FirebaseDatabase;

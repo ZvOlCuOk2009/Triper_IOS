@@ -6,15 +6,6 @@
 //  Copyright © 2016 Tsvigun Alexandr. All rights reserved.
 //
 
-#define RGB(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue: b/255.0 alpha:1.0]
-#define WHITE_COLOR RGB(175, 175, 175)
-#define GRAY_COLOR RGB(65, 70, 80)
-
-#define IS_IPHONE_4 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)480) < DBL_EPSILON)
-#define IS_IPHONE_5 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)568) < DBL_EPSILON)
-#define IS_IPHONE_6 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)667) < DBL_EPSILON)
-#define IS_IPHONE_6_PLUS (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)736) < DBL_EPSILON)
-
 #import "TSChatViewController.h"
 #import "TSMenuTableViewCell.h"
 #import "TSCellView.h"
@@ -29,6 +20,8 @@
 #import "TSContainerChatViewController.h"
 #import "TSUserViewController.h"
 #import "TSTabBarController.h"
+#import "TSPrefixHeader.pch"
+
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
@@ -433,17 +426,6 @@
     [self.tableView reloadData];
     
 }
-
-
-// метод отсутствия интернета
-
-
-//- (BOOL)connected
-//{
-//    Reachability *reachability = [Reachability reachabilityForInternetConnection];
-//    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
-//    return networkStatus != NotReachable;
-//}
 
 
 

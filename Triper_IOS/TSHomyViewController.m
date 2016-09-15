@@ -6,16 +6,11 @@
 //  Copyright © 2016 Tsvigun Alexandr. All rights reserved.
 //
 
-#define IS_IPHONE_4 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)480) < DBL_EPSILON)
-#define IS_IPHONE_5 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)568) < DBL_EPSILON)
-#define IS_IPHONE_6 (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)667) < DBL_EPSILON)
-#define IS_IPHONE_6_PLUS (fabs((double)[[UIScreen mainScreen]bounds].size.height - (double)736) < DBL_EPSILON)
-
 #import "TSHomyViewController.h"
 #import "TSServerManager.h"
-#import "TSUser.h"
 #import "TSLoginViewController.h"
 #import "TSFireUser.h"
+#import "TSPrefixHeader.pch"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
@@ -29,7 +24,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *outButton;
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
-@property (strong, nonatomic) TSUser *user;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraintImageView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraintInviteButton;

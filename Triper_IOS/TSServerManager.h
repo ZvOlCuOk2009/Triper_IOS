@@ -10,18 +10,15 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
-#import "TSUser.h"
 
 @interface TSServerManager : NSObject <FBSDKAppInviteDialogDelegate>
 
 + (TSServerManager *)sharedManager;
-- (void)requestUserDataFromTheServerFacebook:(void(^)(TSUser *user))success;
+//- (void)requestUserDataFromTheServerFacebook:(void(^)(TSUser *user))success;
 - (void)inviteUserFriendsTheServerFacebook:(UIViewController *)controller;
 - (void)requestUserFriendsTheServerFacebook:(void(^)(NSArray *friends)) success;
 - (FBSDKProfilePictureView *)requestUserImageFromTheServerFacebook:(UIImageView *)currentImageView ID:(NSString *)ID;
 - (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didCompleteWithResults:(NSDictionary *)results;
-- (void)authorizationOfNewUser:(NSString *)userID userLogin:(NSString *)userLogin
-                     onSuccess:(void(^)(NSArray *token)) success;
 - (void)logOutUser;
 
 @end

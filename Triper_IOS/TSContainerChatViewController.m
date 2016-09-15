@@ -6,13 +6,10 @@
 //  Copyright © 2016 Tsvigun Alexandr. All rights reserved.
 //
 
-#define RGB(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue: b/255.0 alpha:1.0]
-#define WHITE_COLOR RGB(175, 175, 175)
-#define GRAY_COLOR RGB(65, 70, 80)
-
 #import "TSContainerChatViewController.h"
 #import "TSServerManager.h"
 #import "TSChatViewController.h"
+#import "TSPrefixHeader.pch"
 
 @interface TSContainerChatViewController ()
 
